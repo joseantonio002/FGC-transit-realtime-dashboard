@@ -17,3 +17,24 @@ Since I haven't done an API in some time, first thing I'm going to do is review 
 3. Find a data source that updates regularly and I can retrieve
 4. Development
 
+05/02/2026
+
+Security concerns for my API:
+
+1. Publish the API in HTTPS not HTTP
+2. CORS
+3. Rate Limiting
+4. Prevent SQL Injection, validate parameters
+5. Make sure to not push passwords, DB conection keys...
+
+Possible hosts:
+
+- Shared hosting
+- VPS (managed and unmanaged)
+- Platform as a Service / PaaS
+- Cloud Virtual Machines / IaaS
+- Dedicated Server
+
+For my case I would prob need shared hosting, unmanaged VPS or try host in github and use
+the free tiers in Render, Railway, or Fly.io. They have free plans that "sleep" when not in use.
+Tomorrow I will check and decide on one of them
