@@ -38,3 +38,9 @@ Possible hosts:
 For my case I would prob need shared hosting, unmanaged VPS or try host in github and use
 the free tiers in Render, Railway, or Fly.io. They have free plans that "sleep" when not in use.
 Tomorrow I will check and decide on one of them
+
+
+06/02/2026
+
+Its between [hetzner](https://www.hetzner.com/cloud/), [ionos](https://www.ionos.es/servidores/vps) and [contabo](https://contabo.com/es/vps/?utm_source=google&utm_medium=cpc&utm_campaign=brand-europe-es-eur&utm_term=generic&utm_content=contabo&gad_source=1&gad_campaignid=22529964914&gbraid=0AAAAAD_Qy-cdMpRvXJEJR0SDbQ835B9pu&gclid=CjwKCAiAv5bMBhAIEiwAqP9GuCMPRzA0dNFWWV5_LPaZbfzY6a-5XA9Iu3cRu7lk-DWj2WMO0Li5whoC7ZQQAvD_BwE).
+I also have to check how to get the SSL certificate for free
