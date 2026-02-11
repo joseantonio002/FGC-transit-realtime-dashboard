@@ -44,3 +44,20 @@ Tomorrow I will check and decide on one of them
 
 Its between [hetzner](https://www.hetzner.com/cloud/), [ionos](https://www.ionos.es/servidores/vps) and [contabo](https://contabo.com/es/vps/?utm_source=google&utm_medium=cpc&utm_campaign=brand-europe-es-eur&utm_term=generic&utm_content=contabo&gad_source=1&gad_campaignid=22529964914&gbraid=0AAAAAD_Qy-cdMpRvXJEJR0SDbQ835B9pu&gclid=CjwKCAiAv5bMBhAIEiwAqP9GuCMPRzA0dNFWWV5_LPaZbfzY6a-5XA9Iu3cRu7lk-DWj2WMO0Li5whoC7ZQQAvD_BwE).
 I also have to check how to get the SSL certificate for free
+
+10/02/2026
+
+I will probably choose hetzner and use it for other things like trying openclaw.
+So know that I know the basics, I'm going to start the develpment in my local environment for now to get this thing going and leave the cloud for later
+
+First thing is to find some data to work with, lets explore...
+
+11/02/2026
+
+Thinking about either: 
+
+- GTFS data (I have to decide schedule or realtime)
+- Wheather and planes opendata
+
+Final idea, after spending the whole afternoon checking posible data sources and thinking what I could show, I decided to use GTFS schedule data from [TITSA](https://nap.transportes.gob.es/Files/Detail/1130) and visualize routes in the map and the delay for each stop, in the last few days (using the latest GTFS data) and overall (stored data from previous days).
+
