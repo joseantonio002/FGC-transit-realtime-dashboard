@@ -13,7 +13,7 @@ from google.transit import gtfs_realtime_pb2
 
 METADATA_URL: str = (
   "https://fgc.opendatasoft.com/api/explore/v2.1/catalog/datasets/"
-  "vehicle-positions-gtfs_realtime/records?limit=1"
+  "alerts-gtfs_realtime/records?limit=1"
 )
 COLLECTION_SECONDS: int = 20
 POLL_SECONDS: int = 5
