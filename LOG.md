@@ -83,6 +83,7 @@ Indeed, these are planned trips, not completed trips.
 
 > GTFS Schedule contains information about routes, schedules, fares, and geographic transit details among many other features, and it is presented in simple text files. This straightforward format allows for easy creation and maintenance without relying on complex or proprietary software.
 
-So turns out I was wrong, I have to search some other data source, either GTFS Realtime or a completely different thing.
+So turns out I was wrong, I have to search some other data source, either GTFS Realtime or a completely different thing. GTFS Schedule is, like its name states, for schedules/planned trips, not completed ones. 
+
 
 
