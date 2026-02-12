@@ -61,3 +61,28 @@ Thinking about either:
 
 Final idea, after spending the whole afternoon checking posible data sources and thinking what I could show, I decided to use GTFS schedule data from [TITSA](https://nap.transportes.gob.es/Files/Detail/1130) and visualize routes in the map and the delay for each stop, in the last few days (using the latest GTFS data) and overall (stored data from previous days).
 
+
+12/02/2026
+
+I thought that this [TITSA](https://nap.transportes.gob.es/Files/Detail/1130) dataset contained real data from trips operated, but I'm starting to suspect is just the planned trips, instead of the completed ones. Lets explore ```trips.txt``` with duckdb to see if it contains future trips, in that case I will know for certain are just planned trips not completed ones.
+
+```
+┌──────────┬────────────┬─────────┬────────────────┬──────────┬────────────┬──────────┬────────────────┬────────────┐
+│ route_id │ service_id │ trip_id │ trip_headsign  │ shape_id │ service_id │   date   │ exception_type │ real_date  │
+│  int64   │   int64    │  int64  │    varchar     │  int64   │   int64    │  int64   │     int64      │    date    │
+├──────────┼────────────┼─────────┼────────────────┼──────────┼────────────┼──────────┼────────────────┼────────────┤
+│       13 │          1 │       1 │ LA MATANZA (T) │        1 │          1 │ 20260810 │              1 │ 2026-08-10 │
+│       13 │          1 │       2 │ LA MATANZA (T) │        1 │          1 │ 20260810 │              1 │ 2026-08-10 │
+│       13 │          1 │       3 │ LA MATANZA (T) │        1 │          1 │ 20260810 │              1 │ 2026-08-10 │
+│       13 │          1 │       4 │ LA MATANZA (T) │        1 │          1 │ 20260810 │              1 │ 2026-08-10 │
+│       13 │          1 │       5 │ LA MATANZA (T) │        1 │          1 │ 20260810 │              1 │ 2026-08-10 │
+
+```
+
+Indeed, these are planned trips, not completed trips.
+
+> GTFS Schedule contains information about routes, schedules, fares, and geographic transit details among many other features, and it is presented in simple text files. This straightforward format allows for easy creation and maintenance without relying on complex or proprietary software.
+
+So turns out I was wrong, I have to search some other data source, either GTFS Realtime or a completely different thing.
+
+
