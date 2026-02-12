@@ -327,3 +327,30 @@ alert {
   }
 }
 ```
+
+### Similar project
+
+I realized, maybe there is already a project that takes this data to do something similar, after searching a little I came across with [geotren](https://geotren.fgc.cat/) is made by FGC (the train company that provides the GTFS data) and it shows in real time where the trains are in a map and the stops. My idea would be to do something similar but adding the historic of delays, or some filters.
+
+What this page does is:
+
+- Poll https://geotren.fgc.cat/tracker/trens.geojson every ~4 seconds
+- Render points on Google Maps markers
+- Load static line geometry from GeoJSON files
+- No obvious WebSocket/SSE push in client code
+
+This pages uses a gejson file, maybe I can use it too instead of the GTFS Realtime. Possible [data source](https://datos.gob.es/es/catalogo/a09002970-fgc-posicionamiento-de-los-trenes-_geotren)
+
+To add a [google map](https://developers.google.com/maps/documentation/javascript/add-google-map) to your page, however is not fully free (check this more in detail later).
+
+- Google Maps JavaScript API requires an API key and a billing-enabled Google Cloud project.
+- You usually get a monthly free credit/quota, but after that usage is paid (pricing depends on map loads and APIs used).
+- Even within free quota, you must follow Google Maps Platform Terms (attribution, usage limits, etc.).
+- So you can replicate it technically, but for production you should assume potential cost.
+If you want a lower-cost/open option, use:
+- Leaflet or MapLibre + OpenStreetMap-compatible tiles (or your own tiles),
+- but still check that tile provider’s usage policy (many “free” tiles disallow heavy production traffic).
+If you want, I can suggest the best stack for your expected traffic (small demo vs production).
+
+[GTFS Scheduled](https://dadesobertes.fgc.cat/explore/dataset/gtfs_zip/table/) and [line dimension](https://dadesobertes.fgc.cat/explore/dataset/lineas-red-fgc/table/)
+
