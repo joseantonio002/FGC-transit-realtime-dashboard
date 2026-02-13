@@ -354,3 +354,54 @@ If you want, I can suggest the best stack for your expected traffic (small demo 
 
 [GTFS Scheduled](https://dadesobertes.fgc.cat/explore/dataset/gtfs_zip/table/) and [line dimension](https://dadesobertes.fgc.cat/explore/dataset/lineas-red-fgc/table/)
 
+
+# 13/02/2026
+
+- Whats the difference between the geojson and GTFS data?
+- Can I query the geojson indefinitely
+
+After asking the AI:
+
+- GTFS Static is scheduled data (routes, stops, trips, timetables) in .txt files.
+- GTFS-Realtime is live operational updates (vehicle positions, delays, alerts) in protobuf (.pb) format.
+- GeoJSON is just a geospatial JSON format used to draw things on maps (points/lines/polygons).
+
+So in GeoTren-like systems, they often do:
+- backend ingests GTFS-RT (protobuf),
+- backend transforms it into simpler GeoJSON for the browser,
+- browser polls that GeoJSON and renders markers quickly.
+
+About querying trens.geojson “without restrictions”:
+- Technically it may be publicly reachable with no auth.
+- Legally/operationally, that does not mean unrestricted use.
+- You still must respect:
+  - provider terms/license,
+  - fair-use/rate limits (even if not documented),
+  - attribution/redistribution rules,
+  - no abusive polling/scraping.
+
+In conclusion, im going to use the GTFS-Realtime to build my own GeoJSON or whatever other method I come up with. Lets not use their geojson.
+
+Okay, so I'm going to use GTFS-Realtime, lets check out the GTFS Scheduled data.
+
+Lucky for us, is exactly the same as the GTFS data from TITSA. So we have the planned trips for this year.
+
+[Data definition](https://gtfs.org/documentation/realtime/reference/) for vehicle position, trip updates and service alerts.
+
+So the final idea is:
+
+![prototype](./prototype_img.png)
+
+- web page with:
+  - A map with the trains in real time and the stops (like the one in geotrain) 
+    - If you click in a train it shows you info in real time, historic delay data and number of service alerts from that route
+    - Also 
+    - The same with the stops
+  - Filters for route and stops showing in the map
+    - Filter to select what routes display
+    - Filter that takes you to a stop, if you click it, the map goes to that stop
+  - Historical data about most delayed routes and stops with most delays and average time of that delays. Or other data. But the main point is to show aggregated historical data.
+
+To obtain delay data we need to compare GTFS Scheduled with GTFS Realtime data.
+
+Next day think about the architecture and how we are going to run this.
