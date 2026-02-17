@@ -405,3 +405,31 @@ So the final idea is:
 To obtain delay data we need to compare GTFS Scheduled with GTFS Realtime data.
 
 Next day think about the architecture and how we are going to run this.
+
+# 14/02/2026
+
+![firstv](./firstv.png)
+
+
+Architecture idea (similar to GeoTren, but using GTFS-Realtime as the source):
+
+- A **collector process** polls the GTFS-Realtime feeds every few seconds (protobuf), parses them, and materializes the *latest* state into a `vehicles.geojson` snapshot on disk.
+  - Writing a single snapshot file keeps the realtime path cheap for the map (no DB query per refresh).
+  - The snapshot should be written atomically (write to `*.tmp` and rename) so the API never serves a half-written file.
+- The same collector also stores **historical observations** into a database (initially SQLite).
+  - The frontend loads this historical/aggregate data once on page load (or on demand), instead of re-querying it every few seconds.
+  - This reduces read/write contention and avoids “DB as a realtime cache”.
+  - If using SQLite, enable **WAL mode** so reads can proceed while the collector is writing.
+- The backend exposes two endpoints:
+  - `GET /api/vehicles.geojson` -> serves the latest snapshot for realtime map updates.
+  - `GET /api/stats` (or similar) -> serves historical/aggregate data from the database.
+
+Frontend hosting: serve the static UI with GitHub Pages, and host the collector + API on a VPS (CORS + HTTPS required). That keeps the frontend deployment simple while the backend can run continuously.
+
+# Concepts I've been learning with this project 
+
+- cosas de backend, API's
+- GTFS Scheduled and GTFS Realtime format and ingest ways
+- Protobuf
+- HTTP Polling, short polling, long polling
+- WebSockets, Server-Sent Events (SSE)
