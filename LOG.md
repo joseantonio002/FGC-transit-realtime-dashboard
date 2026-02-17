@@ -426,9 +426,108 @@ Architecture idea (similar to GeoTren, but using GTFS-Realtime as the source):
 
 Frontend hosting: serve the static UI with GitHub Pages, and host the collector + API on a VPS (CORS + HTTPS required). That keeps the frontend deployment simple while the backend can run continuously.
 
+# 17/02/2026
+
+We have the architecture, we can start developing the plan I have in mind is:
+
+1. Start developing the collector locally, first really understand how the data looks and how I'm going to process and transform it. Then code it and test. This is the main part.
+2. Once I have that, buy the VPS and try it there
+3. Make the frontend and API.
+
+## Starting STEP 1
+
+The following protocol buffer data types are used to describe feed elements:
+
+message: Complex type\
+enum: List of fixed values
+
+This is the structure of GTFS Realtime:
+
+```
+FeedMessage
+  FeedHeader
+    Incrementality
+
+  FeedEntity
+    TripUpdate
+      TripDescriptor
+        ScheduleRelationship
+      VehicleDescriptor
+        WheelchairAccessible
+      StopTimeUpdate
+        StopTimeEvent
+        ScheduleRelationship
+        StopTimeProperties
+      TripProperties
+
+    VehiclePosition
+      TripDescriptor
+        ScheduleRelationship
+        ModifiedTripSelector
+      VehicleDescriptor
+        WheelchairAccessible
+      Position
+      VehicleStopStatus
+      CongestionLevel
+      OccupancyStatus
+      CarriageDetails
+
+    Alert
+      TimeRange
+      EntitySelector
+        TripDescriptor
+          ScheduleRelationship
+      Cause
+      Effect
+      TranslatedString
+        Translation
+      SeverityLevel
+
+    Shape
+
+    Stop
+      WheelchairBoarding
+
+    TripModifications
+      Modification
+        ReplacementStop
+
+```
+
+As we can see, we have six types of feed entities, in this case we only care about FeedEntity, VehiclePosition and Alert because these are the ones that are provided to us.
+
+1) *message* [vehicle position](https://gtfs.org/documentation/realtime/reference/#message-vehicleposition):
+
+```
+id: "0"
+vehicle {
+  trip {
+    trip_id: "6c4bdaeb02747640fd55c10d40|6a2dc5e50b"
+    schedule_relationship: SCHEDULED
+  }
+  position {
+    latitude: 41.5613556
+    longitude: 2.0175519
+  }
+  current_status: IN_TRANSIT_TO
+  timestamp: 1770913924
+  stop_id: "VP"
+  vehicle {
+    id: "1f2cc5fd0075"
+  }
+  occupancy_status: FEW_SEATS_AVAILABLE
+}
+```
+
+
+
+
+
+
+
 # Concepts I've been learning with this project 
 
-- cosas de backend, API's
+- cosas de backend, API's, seguridad API's
 - GTFS Scheduled and GTFS Realtime format and ingest ways
 - Protobuf
 - HTTP Polling, short polling, long polling
