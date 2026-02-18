@@ -426,7 +426,7 @@ Architecture idea (similar to GeoTren, but using GTFS-Realtime as the source):
 
 Frontend hosting: serve the static UI with GitHub Pages, and host the collector + API on a VPS (CORS + HTTPS required). That keeps the frontend deployment simple while the backend can run continuously.
 
-# 17/02/2026
+# 17/02/2026 - 18/02/2026
 
 We have the architecture, we can start developing the plan I have in mind is:
 
@@ -496,31 +496,345 @@ FeedMessage
 
 As we can see, we have six types of feed entities, in this case we only care about FeedEntity, VehiclePosition and Alert because these are the ones that are provided to us.
 
-1) *message* [vehicle position](https://gtfs.org/documentation/realtime/reference/#message-vehicleposition):
+After learning about the realtime data, the final idea is this:
+
+1) To create the Geoson we only need the last data we retrieve
+2) For historical data, create the following table:
 
 ```
-id: "0"
-vehicle {
-  trip {
-    trip_id: "6c4bdaeb02747640fd55c10d40|6a2dc5e50b"
-    schedule_relationship: SCHEDULED
-  }
-  position {
-    latitude: 41.5613556
-    longitude: 2.0175519
-  }
-  current_status: IN_TRANSIT_TO
-  timestamp: 1770913924
-  stop_id: "VP"
-  vehicle {
-    id: "1f2cc5fd0075"
-  }
-  occupancy_status: FEW_SEATS_AVAILABLE
-}
+┌─────────┬──────────┬─────────┬───────────────┬─────────────────────┬───────────────────┬─────────────────┬─────────────────────┬───────────────────┬──────────────────┬─────────────┬─────────────────────┐
+│ trip_id │ route_id │ stop_id │ stop_sequence │   arrival_planned   │    arrival_real   │ arrival_delay   │  departure_planned  │   departure_real  │ departure_delay  │ data_source │   event_timestamp   │
+│  varchar  │  varchar   │  varchar  │     int64     │      timestamp      │     timestamp     │     int64       │      timestamp      │     timestamp     │      int64       │   varchar   │      timestamp      │
+├─────────┼──────────┼─────────┼───────────────┼─────────────────────┼───────────────────┼─────────────────┼─────────────────────┼───────────────────┼──────────────────┼─────────────┼─────────────────────┤
+
 ```
 
+Here we store every time we detect an arrival and departure using trips updates and vehicle position. We could also have only three columns for the two times and delay, and add a column movement_type that takes value departure and arrival.
+
+**VehiclePosition = “Where is the vehicle right now and what stop is it associated with.”**
+
+It typically updates **very frequently** (every 1–30 seconds, depends on agency).
+
+What it holds (in practice):
+
+* `position.lat/lon`: current GPS
+* `timestamp`: when that GPS/status was measured (Unix UTC)
+* `trip.trip_id`: what trip the system thinks it’s serving (sometimes missing or wrong)
+* `stop_id` + `current_status`: where it is relative to *a stop*
+
+  * `IN_TRANSIT_TO`: traveling to `stop_id` (the next stop)
+  * `INCOMING_AT`: very close, about to arrive at `stop_id`
+  * `STOPPED_AT`: currently stopped at `stop_id`
+
+**Important limitation:** VehiclePosition usually **does not give you actual arrival/departure times**. It gives you a state snapshot. If you try to infer stop times from it, you’re building your own event detector (state transitions + heuristics).
+
+### Can you derive “actual arrival/departure” from VehiclePosition?
+
+Yes, but it’s approximate:
+
+* **arrival_time_actual(stop)** ≈ first time you observe `current_status = STOPPED_AT` for that `stop_id`
+* **departure_time_actual(stop)** ≈ first time after that where status changes to `IN_TRANSIT_TO` (and stop_id becomes next stop) or STOPPED_AT disappears
+
+But this is noisy because:
+
+* updates may skip states (you might never see `INCOMING_AT`)
+* sampling frequency affects precision
+* `stop_id` may be “next stop” not “current stop” depending on agency interpretation if `current_stop_sequence` is missing
+* vehicles can dwell, reverse, lose GPS, etc.
+
+So: **VehiclePosition is best for maps and “where is it now.”** Not ideal as your primary punctuality truth.
+
+---
+
+**TripUpdate = “For this trip, here are arrival/departure times (predicted and sometimes actual) for stops.”**
+
+It usually updates **less frequently than VehiclePosition**, but it’s the right feed for stop timing.
+
+### Are these “actual” or “predicted”?
+
+GTFS-RT allows both, but many agencies **do not explicitly label actual vs predicted**. The usual behavior is:
+
+* For stops in the future: `time` is a prediction
+* For a stop that just happened: `time` may become “actual” (sometimes uncertainty becomes 0, but not always provided)
+* Some feeds keep updating past stops; others drop past stops quickly
+
+So for analytics you treat TripUpdate times as **best available estimate**, and if you need strict “actual arrival,” you’ll only be certain if the feed provider clearly makes them measured values (rarely explicit).
+
+---
+
+### Use **TripUpdate** as main comparison to `stop_times.txt`.
+
+Because `stop_times` is stop-level schedule, and TripUpdate is stop-level RT timing.
+
+Your join keys should be:
+
+* `trip_id` (static) ↔ `TripUpdate.trip.trip_id` (RT)
+* `stop_id` ↔ `StopTimeUpdate.stop_id` (and/or `stop_sequence` if loops exist)
+* service day alignment:
+
+  * static stop_times are “service-day times” like `25:10:00`
+  * RT gives absolute epoch times, so you must map planned times onto a real date/time range for the same service day.
+
+### When to use VehiclePosition
+
+Use it as **supporting data** when:
+
+* TripUpdate is missing or sparse
+* you need “current stop / next stop now”
+* you want a fallback estimator of actual arrivals/departures via status transitions
+
+---
+
+Static `stop_times.txt` uses **HH:MM:SS relative to the service day**, and can exceed 24h (e.g., `25:30:00`).
+
+To compare with RT epoch, you need:
+
+1. determine the **service date** (e.g., from TripUpdate `start_date = 20260212`, or from your own “service day” logic)
+2. determine the agency timezone (from `agency.agency_timezone`)
+3. compute:
+
+   * `planned_arrival_epoch = epoch(service_date at 00:00 in agency_tz) + seconds(arrival_time)`
+   * same for departure
+
+Then:
+
+* `arrival_delay_sec = realtime_arrival_epoch - planned_arrival_epoch`
+* `departure_delay_sec = realtime_departure_epoch - planned_departure_epoch`
+
+If you skip timezone, you’ll get systematic offsets.
+
+---
+
+For stop punctuality:
+
+* **Primary**: TripUpdate `StopTimeUpdate.arrival.time` and `.departure.time`
+* **Secondary / fallback** (approx): VehiclePosition transitions
+
+  * arrival event: first `STOPPED_AT` observed for stop
+  * departure event: transition from `STOPPED_AT` to `IN_TRANSIT_TO` (or next stop)
+
+If you do both, you can also **validate quality**:
+
+* if TripUpdate says depart at 08:01:10 but VehiclePosition never shows STOPPED_AT near that stop, your RT feed may be predictive-only or stop_id semantics differ.
+
+---
 
 
+3) Show current alerts somehow
+
+
+4) Edge cases to keep into account:
+
+There’s no single universal behavior — GTFS-RT feeds are produced by agency-specific systems, and in edge cases they do whatever their ops software can represent. But there are *common patterns* you should design for.
+
+Below are the weird cases you’ll actually see, and what to do in your collector so you don’t corrupt your delay table.
+
+## What can happen to a trip/vehicle during incidents
+
+### 1) VehiclePosition stops updating (most common)
+
+**What you see**
+
+* The trip/vehicle disappears from VehiclePosition entirely, or
+* It keeps appearing but `timestamp` stops advancing (stale), or
+* It keeps appearing with the *same coordinates* for a long time
+
+**Why**
+
+* GPS/device offline, radio dead zone, backend outage, vehicle swapped, etc.
+
+**Collector rule**
+
+* Treat VehiclePosition as **stale** if `now - vehicle.timestamp > X` (pick X like 120–300s depending on update frequency).
+* Don’t infer “stopped at stop” just because coordinates don’t move; require status/stop_id logic and freshness.
+
+---
+
+### 2) TripUpdate continues but VehiclePosition disappears
+
+**What you see**
+
+* No vehicle markers, but TripUpdate still publishes stop predictions.
+
+**Why**
+
+* Predictions are generated from schedule + last known delay or control center, while GPS feed is down.
+
+**Collector rule**
+
+* Keep ingesting TripUpdates; mark source as `trip_update`.
+* Track `TripUpdate.timestamp` freshness separately from vehicle freshness.
+
+---
+
+### 3) TripUpdate disappears but VehiclePosition continues
+
+**What you see**
+
+* Vehicle still moving on map; no stop_time_updates for that trip anymore.
+
+**Why**
+
+* Agency only provides vehicle location, not predictions, or prediction module fails.
+
+**Collector rule**
+
+* Don’t “fill in” stop arrival/departure times from VehiclePosition unless you explicitly choose inference mode.
+* If you do inference mode, tag it (`realtime_source = inferred_vehicle`).
+
+---
+
+### 4) Trip is canceled: may disappear OR be explicitly marked
+
+**Two patterns**
+
+1. **Proper cancel:** TripUpdate appears with `trip.schedule_relationship = CANCELED` (best case)
+2. **Silent cancel:** TripUpdate disappears (and maybe vehicle disappears too)
+
+**Collector rule**
+
+* If you see CANCELED/DELETED, write a “trip canceled” record (separate table), and stop expecting stop events.
+* If it disappears: don’t assume canceled; treat as “unknown / missing feed” unless you have an alert saying so.
+
+---
+
+### 5) Detours / stop skipping
+
+**What you see**
+
+* Alerts about detour / stop closure
+* TripUpdate includes stop_time_update with `schedule_relationship = SKIPPED` for some stops
+* Vehicle may pass near but never STOPPED_AT
+
+**Collector rule**
+
+* If a stop is SKIPPED, don’t compute delay for it (or store a status like `skipped = true`).
+* Don’t treat “missing stop update” as “vehicle didn’t stop” automatically; it might just be the producer not sending it.
+
+---
+
+### 6) Vehicle is stuck due to accident / road blocked
+
+**What you see**
+
+* VehiclePosition shows same area; timestamps still advance
+* TripUpdate delays grow, sometimes wildly
+* Or TripUpdate becomes NO_DATA beyond a certain stop
+
+**Collector rule**
+
+* Your system should be fine as long as you:
+
+  * keep freshness checks
+  * allow large delays (don’t cap them too low)
+  * don’t freak out if delay goes from +300 to +1800 seconds
+
+---
+
+### 7) “Teleporting” vehicles / time jumps
+
+**What you see**
+
+* Lat/lon jumps far away in one update
+* TripUpdate times jump backward/forward
+* stop_id jumps unexpectedly
+
+**Why**
+
+* Device reset, wrong vehicle id reuse, backend bug, block switching, map matching errors.
+
+**Collector rule**
+
+* Sanity checks:
+
+  * If distance jump > N km in < M seconds, flag as suspect.
+  * If vehicle.timestamp goes backwards, treat as reset.
+* Keep raw records anyway, but don’t generate “final stop events” from obviously broken sequences.
+
+---
+
+### 8) Trip_id / stop_id mismatches (you already saw this)
+
+**What you see**
+
+* VehiclePosition.trip.trip_id ≠ TripUpdate.trip.trip_id for the same physical bus
+* Alerts reference trip_id that doesn’t match either
+
+**Collector rule**
+
+* Build an internal **trip_instance_key** and mapping layer:
+
+  * best key when available: `(route_id, direction_id, start_date, start_time)`
+  * otherwise: use `vehicle.id` + time windows + route inference
+* Never assume RT trip_id equals static GTFS trip_id.
+
+---
+
+### 9) Multiple updates for the same stop (predictions rolling)
+
+**What you see**
+
+* TripUpdate for stop SP2 arrival time changes every fetch: 13:23:50 → 13:24:10 → 13:24:05 …
+* Then after it happens, it may stabilize or disappear.
+
+**Collector rule**
+
+* Decide what you store:
+
+  * **Option A (recommended for your “delay table”):** store only the **final observed** arrival/departure for each stop event (needs state machine).
+  * **Option B:** store all revisions in a history table, and later derive “final”.
+
+If you don’t do this, you’ll pollute your delay dataset with multiple rows per stop.
+
+---
+
+## The “right” mental model for your collector
+
+### Treat each feed as a stream of snapshots
+
+* FULL_DATASET feeds overwrite previous “current state.”
+* Entities can vanish at any time.
+
+So your collector should be **idempotent + stateful**:
+
+* Store raw snapshots (bronze)
+* Build a “current state” table per entity (silver)
+* Emit stop-events (gold) only when you’re confident a stop has occurred or a final time is known.
+
+---
+
+## Practical rules to implement (so you don’t get wrecked by edge cases)
+
+### Freshness
+
+* `vehicle_fresh = now - vehicle.timestamp <= 180s`
+* `tripupdate_fresh = now - tripupdate.timestamp <= 300s` (or based on observed cadence)
+
+### De-duplication
+
+* Hash payload or use `(entity_id, feedheader.timestamp)` to avoid storing duplicates if you poll fast.
+
+### Stop event finalization (simple, robust)
+
+For each `(trip_instance_key, stop_id)`:
+
+* Keep the latest predicted times from TripUpdate.
+* Mark as “final” when either:
+
+  * the stop becomes “past” (realtime time < now - grace), or
+  * the vehicle has moved to a later stop (based on stop_sequence), or
+  * you no longer receive updates for that stop after seeing it near-now.
+
+Always store:
+
+* `realtime_source = trip_update`
+* `confidence = high/medium/low` (optional but helpful)
+
+### Don’t infer from VehiclePosition unless you must
+
+If you do inference, clearly tag it and keep it separate in analysis.
+
+---
 
 
 
