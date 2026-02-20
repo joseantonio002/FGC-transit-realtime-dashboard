@@ -1,18 +1,16 @@
-"""Measure average update time for GTFS-RT trip updates."""
+"""Measure average update time for GTFS-RT vehicle positions."""
 
 from __future__ import annotations
 
 import time
 from datetime import datetime, timezone
-from typing import Any
 
 import requests
+from google.protobuf.message import DecodeError
+from google.transit import gtfs_realtime_pb2
 
-METADATA_URL: str = (
-  "https://fgc.opendatasoft.com/api/explore/v2.1/catalog/datasets/"
-  "trip-updates-gtfs_realtime/records?limit=1"
-)
-SOURCE_NAME: str = "trip_updates"
+FEED_URL: str = "https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/vehicle-positions-gtfs_realtime/files/d286964db2d107ecdb1344bf02f7b27b"
+SOURCE_NAME: str = "vehicle_positions"
 TEST_DURATION_SECONDS: int = 20 * 60
 POLL_SECONDS: int = 5
 
@@ -22,21 +20,19 @@ def utc_now_iso() -> str:
   return datetime.now(timezone.utc).isoformat()
 
 
-def fetch_current_file_id(session: requests.Session) -> str:
-  """Fetch the current OpenDataSoft file id for the configured source."""
-  response: requests.Response = session.get(METADATA_URL, timeout=15)
+def fetch_feed_header_timestamp(session: requests.Session) -> int:
+  """Download GTFS-RT protobuf and return header timestamp."""
+  response: requests.Response = session.get(FEED_URL, timeout=30)
   response.raise_for_status()
-  payload: dict[str, Any] = response.json()
-  results: list[dict[str, Any]] = payload["results"]
-  file_data: dict[str, Any] = results[0]["file"]
-  file_id: str = str(file_data["id"])
-  return file_id
+  feed: gtfs_realtime_pb2.FeedMessage = gtfs_realtime_pb2.FeedMessage()
+  feed.ParseFromString(response.content)
+  return int(feed.header.timestamp)
 
 
 def run_update_time_test(duration_seconds: int, poll_seconds: int) -> None:
-  """Poll source metadata and print average time between new file ids."""
+  """Poll source feed and print average time between new header timestamps."""
   started_at: float = time.monotonic()
-  seen_file_ids: set[str] = set()
+  seen_header_timestamps: set[int] = set()
   update_intervals_seconds: list[float] = []
   last_update_at: float | None = None
 
@@ -48,23 +44,28 @@ def run_update_time_test(duration_seconds: int, poll_seconds: int) -> None:
   with requests.Session() as session:
     while time.monotonic() - started_at < duration_seconds:
       try:
-        file_id: str = fetch_current_file_id(session)
+        header_timestamp: int = fetch_feed_header_timestamp(session)
 
-        if file_id in seen_file_ids:
-          print(f"[{utc_now_iso()}] Same file_id {file_id}, no update")
+        if header_timestamp in seen_header_timestamps:
+          print(
+            f"[{utc_now_iso()}] Same header.timestamp {header_timestamp}, no update"
+          )
           time.sleep(poll_seconds)
           continue
 
         now_monotonic: float = time.monotonic()
-        seen_file_ids.add(file_id)
+        seen_header_timestamps.add(header_timestamp)
 
         if last_update_at is None:
-          print(f"[{utc_now_iso()}] First update detected with file_id={file_id}")
+          print(
+            f"[{utc_now_iso()}] First update detected with "
+            f"header.timestamp={header_timestamp}"
+          )
         else:
           interval_seconds: float = now_monotonic - last_update_at
           update_intervals_seconds.append(interval_seconds)
           print(
-            f"[{utc_now_iso()}] New file_id={file_id}. "
+            f"[{utc_now_iso()}] New header.timestamp={header_timestamp}. "
             f"Interval since previous update: {interval_seconds:.2f}s"
           )
 
@@ -72,13 +73,13 @@ def run_update_time_test(duration_seconds: int, poll_seconds: int) -> None:
 
       except requests.RequestException as error:
         print(f"[{utc_now_iso()}] HTTP error: {error}")
-      except (KeyError, IndexError, TypeError, ValueError) as error:
+      except (DecodeError, ValueError) as error:
         print(f"[{utc_now_iso()}] Parse error: {error}")
 
       time.sleep(poll_seconds)
 
   print(f"\n[{utc_now_iso()}] Test finished for {SOURCE_NAME}")
-  print(f"Unique file ids seen: {len(seen_file_ids)}")
+  print(f"Unique header timestamps seen: {len(seen_header_timestamps)}")
 
   if update_intervals_seconds:
     average_seconds: float = sum(update_intervals_seconds) / len(update_intervals_seconds)
@@ -89,7 +90,7 @@ def run_update_time_test(duration_seconds: int, poll_seconds: int) -> None:
 
 
 def main() -> None:
-  """Execute the 20-minute polling test for trip updates."""
+  """Execute the 20-minute polling test for vehicle positions."""
   run_update_time_test(TEST_DURATION_SECONDS, POLL_SECONDS)
 
 

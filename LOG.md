@@ -426,7 +426,7 @@ Architecture idea (similar to GeoTren, but using GTFS-Realtime as the source):
 
 Frontend hosting: serve the static UI with GitHub Pages, and host the collector + API on a VPS (CORS + HTTPS required). That keeps the frontend deployment simple while the backend can run continuously.
 
-# 17/02/2026 - 18/02/2026
+# 17-18-19-20/02/2026
 
 We have the architecture, we can start developing the plan I have in mind is:
 
@@ -500,21 +500,16 @@ After learning about the realtime data, the final idea is this:
 
 ### 1) To create the Geoson we only need the last data we retrieve
 
-Turns out the pb file is always the same, to check updates we need to check the header timestamp from the protobuff
-
-
 
 ### 2) For historical data, create the following table:
 
 ```
-┌─────────┬──────────┬─────────┬───────────────┬─────────────────────┬───────────────────┬─────────────────┬─────────────────────┬───────────────────┬──────────────────┬─────────────┬─────────────────────┐
-│ trip_id │ route_id │ stop_id │ stop_sequence │   arrival_planned   │    arrival_real   │ arrival_delay   │  departure_planned  │   departure_real  │ departure_delay  │ data_source │   event_timestamp   │
-│  varchar  │  varchar   │  varchar  │     int64     │      timestamp      │     timestamp     │     int64       │      timestamp      │     timestamp     │      int64       │   varchar   │      timestamp      │
-├─────────┼──────────┼─────────┼───────────────┼─────────────────────┼───────────────────┼─────────────────┼─────────────────────┼───────────────────┼──────────────────┼─────────────┼─────────────────────┤
+┌─────────┬──────────┬─────────┬───────────────┬─────────────────────┬───────────────────┬─────────────────┬─────────────────────┐
+│ trip_id │ route_id │ stop_id │ stop_sequence │   arrival_planned   │    arrival_real   │ arrival_delay   │   event_timestamp   │
+│  varchar  │  varchar   │  varchar  │     int64     │      timestamp      │     timestamp     │     int64       │      timestamp      │
+├─────────┼──────────┼─────────┼───────────────┼─────────────────────┼───────────────────┼─────────────────┼─────────────────────┤
 
 ```
-
-Here we store every time we detect an arrival and departure using trips updates and vehicle position. We could also have only three columns for the two times and delay, and add a column movement_type that takes value departure and arrival.
 
 **VehiclePosition = “Where is the vehicle right now and what stop is it associated with.”**
 
@@ -591,12 +586,11 @@ To compare with RT epoch:
 Then:
 
 * `arrival_delay_sec = realtime_arrival_epoch - planned_arrival_epoch`
-* `departure_delay_sec = realtime_departure_epoch - planned_departure_epoch`
 
 ### 3) Show current alerts somehow
 
 
-### 4) Edge cases to keep into account:
+### 4) Edge cases to keep into account: IMPORTANT, ALL INFORMATION BELOW IS NOT FINAL/CONFIRMED, LETS DO EXPERIMENTS TO SEE HOW THE DATA BEHAVES AND THEN COME BACK TO THIS AND DEFINE COLLECTOR RULES DEFINITELY 
 
 There’s no single universal behavior — GTFS-RT feeds are produced by agency-specific systems, and in edge cases they do whatever their ops software can represent. But there are *common patterns*.
 
@@ -711,6 +705,45 @@ Always store:
 If you do inference, clearly tag it and keep it separate in analysis.
 
 ---
+
+# 20/02/2026 Experiments to really understand the data
+
+Before we continue with edge cases and such, let's do an experiment to see how often the data updates and if the joins are right, so we have the bases to start developing the collection algorithm
+
+First of all, turns out the pb url from the API is always the same, to check updates we need to check the header timestamp from the protobuff. So the real realtime data sources would be:
+
+- [vehicle positions](https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/vehicle-positions-gtfs_realtime/files/d286964db2d107ecdb1344bf02f7b27b)
+- [trip updates](https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/trip-updates-gtfs_realtime/files/735985017f62fd33b2fe46e31ce53829)
+- [service alerts](https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/alerts-gtfs_realtime/files/02f92ddc6d2712788903e54468542936)
+
+First experiment, check how often this data sources update.
+
+```
+[2026-02-20T18:33:54.213777+00:00] Test finished for vehicle_positions
+Unique header timestamps seen: 11
+Average update time: 109.71s
+Update intervals counted: 10
+
+
+[2026-02-20T18:34:18.631229+00:00] Test finished for service_alerts
+Unique header timestamps seen: 12
+Average update time: 107.70s
+Update intervals counted: 11
+
+
+[2026-02-20T18:34:46.840042+00:00] Test finished for trip_updates
+Unique header timestamps seen: 12
+Average update time: 105.38s
+Update intervals counted: 11
+```
+
+Conclusion, all data sources get updated more or less at the same time (usually with +-5 seconds difference from one another), and get updated every 105~110 seconds.
+
+Now, how does vehicle position and trip updates update with respect of each other. Do stops stop appearing in trip updates once the trip leaves the stop, or maybe they stay for a little while and then dissapear? In the second case how long does it take for a stop to dissapear? 
+
+
+
+
 
 
 # Concepts I've been learning with this project 
