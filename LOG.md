@@ -741,10 +741,9 @@ Conclusion, all data sources get updated more or less at the same time (usually 
 
 Now, how does vehicle position and trip updates update with respect of each other. Do stops stop appearing in trip updates once the trip leaves the stop, or maybe they stay for a little while and then dissapear? In the second case how long does it take for a stop to dissapear? 
 
+# 22/02/2026 Lingering test
 
-
-
-
+Programming lingering test 
 
 # Concepts I've been learning with this project 
 
