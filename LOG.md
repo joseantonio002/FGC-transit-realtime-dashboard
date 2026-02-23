@@ -749,6 +749,94 @@ My first idea was calculating the time it took to the stops to dissapear, but is
 
 The problem I've run into, how do we know if the two sources (trips and vehicles) are sincronized (data refers to the same moment in time). One detail that could be useful, trips timestamp is ~60 seconds ahead of vehicles timestamp if syncronized.
 
+After experimenting with the data, I came to this conclusions:
+
+- Data is not really real-time, it has a delay of around two minutes (for vehicles)
+- As soon as the vehicle arrives at the stop, the prediction times in trips for that stop are deleted
+- The only way to now if trips and vehicles are synced is by comparing the header timestamp
+- Even if they are synced, they could not be updated properly. For example, prediction times in trip dissapearing before the vehicle changes state to STOPPED_AT
+- It's likely the system won't show all stops properly, even skipping entire stops
+- There can be trips with no vehicles, in my experience this only happens in two cases, when the trip is about ~5 or so of leaving and when the trip ends, the final stop stays longer in trips
+- Real Example of trip predicions beign deleted before its supossed to + skipping stops (last one) + trip with no vehicle:
+```
+((.venv) ) jose@pc:~/scalable-data-pipeline/GTFS-Realtime/tests$ python my_test.py
+gtfs_realtime_version: "1.0"
+timestamp: 1771882503
+
+id: "S|20260223|6c4bdae302747640fd55c10d40|6c2dc5e60b"
+trip_update {
+  trip {
+    trip_id: "6c4bdae302747640fd55c10d40|6c2dc5e60b"
+    start_date: "20260223"
+  }
+  stop_time_update {
+    arrival {
+      time: 1771882464
+    }
+    departure {
+      time: 1771882494
+    }
+    stop_id: "EP1"
+  }
+  stop_time_update {
+    arrival {
+      time: 1771882564
+    }
+    departure {
+      time: 1771882564
+    }
+    stop_id: "TB1"
+  }
+  timestamp: 1771882464
+}
+
+--------------------
+id: "8"
+vehicle {
+  trip {
+    trip_id: "6c4bdae302747640fd55c10d40|6c2dc5e60b"
+    schedule_relationship: SCHEDULED
+  }
+  position {
+    latitude: 41.4036064
+    longitude: 2.14261818
+  }
+  current_status: IN_TRANSIT_TO
+  timestamp: 1771882444
+  stop_id: "EP"
+  vehicle {
+    id: "1f2cc3fd0270"
+  }
+  occupancy_status: FEW_SEATS_AVAILABLE
+}
+
+--------------------
+((.venv) ) jose@pc:~/scalable-data-pipeline/GTFS-Realtime/tests$ python my_test.py
+gtfs_realtime_version: "1.0"
+timestamp: 1771882623
+
+id: "S|20260223|6c4bdae302747640fd55c10d40|6c2dc5e60b"
+trip_update {
+  trip {
+    trip_id: "6c4bdae302747640fd55c10d40|6c2dc5e60b"
+    start_date: "20260223"
+  }
+  stop_time_update {
+    arrival {
+      time: 1771882553
+    }
+    departure {
+      time: 1771882553
+    }
+    stop_id: "TB1"
+  }
+  timestamp: 1771882553
+}
+
+--------------------
+--------------------
+```
+
 # Concepts I've been learning with this project 
 
 - cosas de backend, API's, seguridad API's

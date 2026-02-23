@@ -1,6 +1,6 @@
 import requests
 from google.transit import gtfs_realtime_pb2
-from time import sleep
+import time
 import asyncio
 
 TRIP_UPDATES_FEED_URL: str = "https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/trip-updates-gtfs_realtime/files/735985017f62fd33b2fe46e31ce53829"
@@ -28,7 +28,7 @@ def obtain_last_snapshots(
     feed, c_t = get_current_snapshot(s, TRIP_UPDATES_FEED_URL)
     if c_t <= trips_last_timestamp:
       print("Not updated yet")
-      sleep(5)
+      time.sleep(5)
       continue
     else:
       print(f"Updated, prev: {trips_last_timestamp}, current: {c_t}")
@@ -55,17 +55,43 @@ def main():
       else:
         # Logic here
         pass
-      sleep(120) 
+      time.sleep(120) 
   
 
 def t():
   with requests.Session() as s:
     ft, tt = get_current_snapshot(s, TRIP_UPDATES_FEED_URL)
+    t_ids = set()
+    v_ids = set()
     print(ft.header)
+    for trip in ft.entity:
+      #print(trip.trip_update.trip.trip_id.strip())
+      t_ids.add(trip.trip_update.trip.trip_id.strip())
+      # convert each stop_time_update.arrival.time to human readable format
+      #for stop_time_update in trip.trip_update.stop_time_update:
+        #print(time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(stop_time_update.arrival.time)))
+
+      if trip.trip_update.trip.trip_id.strip() == "6c4bdae302747640fd55c10d40|6c2dc5e60b":
+        print(trip)
+
+
     print("-"*20)
     vt, tv = get_current_snapshot(s, VEHICLE_POSITIONS_FEED_URL)
-    print(vt.header)
+    #print(vt.header)
+    for vh in vt.entity:
+      v_ids.add(vh.vehicle.trip.trip_id.strip())
+      #print(vh)
+      #print(time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(vh.vehicle.timestamp)))
+      if vh.vehicle.trip.trip_id.strip() == "6c4bdae302747640fd55c10d40|6c2dc5e60b":
+        print(vh)
+    #print(v_ids)
     print("-"*20)
+    #print(v_ids.difference(t_ids))
+    #print(t_ids.difference(v_ids))
+    #dif = t_ids.difference(v_ids)
+    #for trip in ft.entity:
+      #if trip.trip_update.trip.trip_id.strip() in dif:
+        #print(trip)
 
 if __name__ == "__main__":
   #main()
