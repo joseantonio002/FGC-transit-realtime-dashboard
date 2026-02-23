@@ -58,5 +58,15 @@ def main():
       sleep(120) 
   
 
+def t():
+  with requests.Session() as s:
+    ft, tt = get_current_snapshot(s, TRIP_UPDATES_FEED_URL)
+    print(ft.header)
+    print("-"*20)
+    vt, tv = get_current_snapshot(s, VEHICLE_POSITIONS_FEED_URL)
+    print(vt.header)
+    print("-"*20)
+
 if __name__ == "__main__":
-  main()
+  #main()
+  t()

@@ -747,6 +747,8 @@ Programming lingering test
 
 My first idea was calculating the time it took to the stops to dissapear, but is easier to interpret and more useful in out case to calculte how many snapshots does it take for the stop to dissapear.
 
+The problem I've run into, how do we know if the two sources (trips and vehicles) are sincronized (data refers to the same moment in time). One detail that could be useful, trips timestamp is ~60 seconds ahead of vehicles timestamp if syncronized.
+
 # Concepts I've been learning with this project 
 
 - cosas de backend, API's, seguridad API's
