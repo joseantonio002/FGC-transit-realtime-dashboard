@@ -737,13 +737,15 @@ Average update time: 105.38s
 Update intervals counted: 11
 ```
 
-Conclusion, all data sources get updated more or less at the same time (usually with +-5 seconds difference from one another), and get updated every 105~110 seconds.
+Conclusion, all data sources get updated more or less at the same time (usually with +-5 seconds difference from one another), and get updated every 100~115 seconds.
 
 Now, how does vehicle position and trip updates update with respect of each other. Do stops stop appearing in trip updates once the trip leaves the stop, or maybe they stay for a little while and then dissapear? In the second case how long does it take for a stop to dissapear? 
 
-# 22/02/2026 Lingering test
+# 22-23/02/2026 Lingering test
 
 Programming lingering test 
+
+My first idea was calculating the time it took to the stops to dissapear, but is easier to interpret and more useful in out case to calculte how many snapshots does it take for the stop to dissapear.
 
 # Concepts I've been learning with this project 
 
