@@ -642,67 +642,7 @@ There’s no single universal behavior — GTFS-RT feeds are produced by agency-
 
 **Collector rule**
 
-* For our case, we do not care. We store the historical data up until is not canceled, or if the trip was never made the data won't appear in the realtime.
-
----
-
-##### 4) Detours / stop skipping
-
-**What you see**
-
-* Alerts about detour / stop closure
-* TripUpdate includes stop_time_update with `schedule_relationship = SKIPPED` for some stops
-* Vehicle may pass near but never STOPPED_AT
-
-**Collector rule**
-
-* If a stop is SKIPPED, don’t compute delay for it.
-* Don’t treat “missing stop update” as “vehicle didn’t stop” automatically; it might just be the producer not sending it.
-
----
-
-### The “right” mental model for your collector
-
-### Treat each feed as a stream of snapshots
-
-* FULL_DATASET feeds overwrite previous “current state.”
-> FULL_DATASET: this feed update will overwrite all preceding realtime information for the feed. Thus this update is expected to provide a full snapshot of all known realtime information.
-* Entities can vanish at any time.
-
-So your collector should be **idempotent + stateful**:
-
-* Store raw snapshots (bronze)
-* Build a “current state” table per entity (silver)
-* Emit stop-events (gold) only when you’re confident a stop has occurred or a final time is known.
-
----
-
-## Practical rules to implement (so you don’t get wrecked by edge cases)
-
-### Freshness
-
-* `vehicle_fresh = now - vehicle.timestamp <= 180s`
-* `tripupdate_fresh = now - tripupdate.timestamp <= 300s` (or based on observed cadence)
-
-### Stop event finalization (simple, robust)
-
-For each `(trip_instance_key, stop_id)`:
-
-* Keep the latest predicted times from TripUpdate.
-* Mark as “final” when either:
-
-  * the stop becomes “past” (realtime time < now - grace), or
-  * the vehicle has moved to a later stop (based on stop_sequence), or
-  * you no longer receive updates for that stop after seeing it near-now.
-
-Always store:
-
-* `realtime_source = trip_update`
-* `confidence = high/medium/low` (optional but helpful)
-
-### Don’t infer from VehiclePosition unless you must
-
-If you do inference, clearly tag it and keep it separate in analysis.
+* For our case, we do not care. We store the historical data up until is not canceled, or if the trip was never made the data won't appear in the realtime.z
 
 ---
 
@@ -752,11 +692,12 @@ The problem I've run into, how do we know if the two sources (trips and vehicles
 After experimenting with the data, I came to this conclusions:
 
 - Data is not really real-time, it has a delay of around two minutes (for vehicles)
-- As soon as the vehicle arrives at the stop, the prediction times in trips for that stop are deleted
+- Normally, as soon as the vehicle arrives at the stop, the prediction times in trips for that stop are deleted. But sometimes the prediction stays
 - The only way to now if trips and vehicles are synced is by comparing the header timestamp
 - Even if they are synced, they could not be updated properly. For example, prediction times in trip dissapearing before the vehicle changes state to STOPPED_AT
 - It's likely the system won't show all stops properly, even skipping entire stops
 - There can be trips with no vehicles, in my experience this only happens in two cases, when the trip is about ~5 or so of leaving and when the trip ends, the final stop stays longer in trips
+- INCOMING_AT state never shows up
 - Real Example of trip predicions beign deleted before its supossed to + skipping stops (last one) + trip with no vehicle:
 ```
 ((.venv) ) jose@pc:~/scalable-data-pipeline/GTFS-Realtime/tests$ python my_test.py
@@ -836,6 +777,18 @@ trip_update {
 --------------------
 --------------------
 ```
+
+Does timestamps in trip predictions change as the trip is beign done?
+Because if they doesnt, we dont really need to check vehicles for delays.
+
+After following a trip and storing its trace in [trace](./GTFS-Realtime/tests/trace.txt) we can see that timestamps DO change as the trip advances. This means that, to compare planned vs real times we should use the last timestamp available in trips.
+
+And now thinking about it, even though timestamps change, we don't need to compare it with vehicles, we can just check, when a stop dissapears, we use the previous snapshot as the real arrival/departure time.
+
+
+# 24/02/2026 
+
+
 
 # Concepts I've been learning with this project 
 
