@@ -786,7 +786,22 @@ After following a trip and storing its trace in [trace](./GTFS-Realtime/tests/tr
 And now thinking about it, even though timestamps change, we don't need to compare it with vehicles, we can just check, when a stop dissapears, we use the previous snapshot as the real arrival/departure time.
 
 
-# 24/02/2026 
+# 24/02/2026 Start programming the collector
+
+Remember, we already have the architecture (#14/02/2026) and plan (#17-18-19-20/02/2026). Now, with all this information, we can finally start programming the data collector
+
+If we remember the architecture, the collector does two things:
+
+1. Create the geojson (or other format, depending on how I choose to show the map)
+2. Populate historic delays table
+
+**IMPORTANT**: GTFS-Scheduled also updates daily, so once a day we need to download it to have the latest data. Real update frequency/times are not known. So I think it is a good idea to make a script that every 2-3 hours or so downloads the data and checks if it has been updated. If it is stores the new data and keeps a record of the time. Hopefully after some days we can find a pattern and query exactly when we now the data is updated.
+
+Before implementing any logic related to either of those two points, we need to build a robust system that polls the synced snapshots from both sources and is resilient to errors
+
+
+
+
 
 
 
