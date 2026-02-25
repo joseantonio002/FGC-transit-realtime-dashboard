@@ -795,14 +795,18 @@ If we remember the architecture, the collector does two things:
 1. Create the geojson (or other format, depending on how I choose to show the map)
 2. Populate historic delays table
 
-**IMPORTANT**: GTFS-Scheduled also updates daily, so once a day we need to download it to have the latest data. Real update frequency/times are not known. So I think it is a good idea to make a script that every 2-3 hours or so downloads the data and checks if it has been updated. If it is stores the new data and keeps a record of the time. Hopefully after some days we can find a pattern and query exactly when we now the data is updated.
+**IMPORTANT**: GTFS-Scheduled also updates daily, so once a day we need to download it to have the latest data. Real update frequency/times are not known. So I think it is a good idea to make a script that every 2-3 hours or so downloads the data and checks if it has been updated. If it is stores the new data and keeps a record of the time. Hopefully after some days we can find a pattern and query exactly when we now the data is updated. Also ¿Maybe there are times with no realtime data? ¿What happens then?
 
 Before implementing any logic related to either of those two points, we need to build a robust system that polls the synced snapshots from both sources and is resilient to errors
 
+# 25/02/2026
 
+So the idea is a fault-tolerant idempotent polling collector with retry backoff and dedupe for repeated states:
 
-
-
+- Every 100 seconds, get the current snapshots from trips and vehicles
+- In case of http error, exponential backoff until fixed
+- If any of the sources is not updated, retry every 5 seconds for 50 seconds
+- If any of the sorces does not update after the 50 seconds retry, dedupe (skip processing and wait another 100 seconds) and log to errors table.
 
 
 # Concepts I've been learning with this project 
@@ -812,3 +816,5 @@ Before implementing any logic related to either of those two points, we need to 
 - Protobuf
 - HTTP Polling, short polling, long polling
 - WebSockets, Server-Sent Events (SSE)
+- Idempotent
+- Retry Backoff
