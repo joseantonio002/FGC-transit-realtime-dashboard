@@ -27,10 +27,18 @@ def get_current_snapshot(
   feed.ParseFromString(r.content)   
   return feed, feed.header.timestamp
 
+def retry_fetching(s: requests.Session, URL: str, retries_left: int, lts: int):
+
+  for i in range(0, retries_left):
+    f, ts = get_current_snapshot(s, URL)
+
+
+  return retries_left 
+
 def obtain_last_snapshots(
   s: requests.Session,
-  vh_current_ts: int,
-  trips_current_ts: int 
+  vh_previous_ts: int,
+  trips_previous_ts: int 
 ) -> tuple[gtfs_realtime_pb2.FeedMessage, gtfs_realtime_pb2.FeedMessage]:
   
   try:
@@ -39,14 +47,18 @@ def obtain_last_snapshots(
     print("Error fetching vehicles feed")
     raise e
 
+  # Pillar errores de conexión
+  if vh_timestamp <= vh_previous_ts:
+    retry_fetching(s, VEHICLE_POSITIONS_FEED_URL, NUMBER_RETRIES, vh_previous_ts)
+    # Si usa todos los retries y no se ha actualizado, skip execution, wait 100 seconds
 
-  
   try:
     trips_feed, trips_timestmap = get_current_snapshot(s, TRIP_UPDATES_FEED_URL)
   except Exception as e:
     print("Error fetching trips feed")
     raise e
 
+  # Lo mismo de retry_fetching
 
   return vh_feed, vh_timestamp, trips_feed, trips_timestmap
 
