@@ -808,6 +808,27 @@ So the idea is a fault-tolerant idempotent polling collector with retry backoff 
 - If any of the sources is not updated, retry every 5 seconds for 50 seconds
 - If any of the sorces does not update after the 50 seconds retry, dedupe (skip processing and wait another 100 seconds) and log to errors table.
 
+# 27/02/2026
+
+[Exception Handling Of Python Requests Module](https://www.geeksforgeeks.org/python/exception-handling-of-python-requests-module/)
+
+```
+url = "https://www.gle.com/"
+
+try:
+    r = requests.get(url, timeout=1, verify=True)
+    r.raise_for_status()
+except requests.exceptions.HTTPError as errh:
+    print("HTTP Error")
+    print(errh.args[0])
+except requests.exceptions.ReadTimeout as errrt:
+    print("Time out")
+except requests.exceptions.ConnectionError as conerr:
+    print("Connection error")
+except requests.exceptions.RequestException as errex:
+    print("Exception request")
+```
+
 
 # Concepts I've been learning with this project 
 
