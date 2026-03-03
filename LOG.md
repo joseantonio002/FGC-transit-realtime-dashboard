@@ -339,19 +339,6 @@ What this page does is:
 - Load static line geometry from GeoJSON files
 - No obvious WebSocket/SSE push in client code
 
-This pages uses a gejson file, maybe I can use it too instead of the GTFS Realtime. Possible [data source](https://datos.gob.es/es/catalogo/a09002970-fgc-posicionamiento-de-los-trenes-_geotren)
-
-To add a [google map](https://developers.google.com/maps/documentation/javascript/add-google-map) to your page, however is not fully free (check this more in detail later).
-
-- Google Maps JavaScript API requires an API key and a billing-enabled Google Cloud project.
-- You usually get a monthly free credit/quota, but after that usage is paid (pricing depends on map loads and APIs used).
-- Even within free quota, you must follow Google Maps Platform Terms (attribution, usage limits, etc.).
-- So you can replicate it technically, but for production you should assume potential cost.
-If you want a lower-cost/open option, use:
-- Leaflet or MapLibre + OpenStreetMap-compatible tiles (or your own tiles),
-- but still check that tile provider’s usage policy (many “free” tiles disallow heavy production traffic).
-If you want, I can suggest the best stack for your expected traffic (small demo vs production).
-
 [GTFS Scheduled](https://dadesobertes.fgc.cat/explore/dataset/gtfs_zip/table/) and [line dimension](https://dadesobertes.fgc.cat/explore/dataset/lineas-red-fgc/table/)
 
 
@@ -834,6 +821,200 @@ New behaviour, If vehicles can be updated but trips dont, execute logic keeping 
 
 Done the structure of the collector, start the logic for creating the geojosn
 
+# 04/03/2026
+
+GeoJSON Format:
+
+GeoJSON is a JSON format for encoding geographic data structures.
+It’s plain JSON with a specific structure.
+
+At the top level, a GeoJSON object must contain a "type" field. The most common types are:
+
+- Point
+- LineString
+- Polygon
+- MultiPoint
+- MultiLineString
+- MultiPolygon
+- GeometryCollection
+- Feature
+- FeatureCollection
+
+Coordinates are: [longitude, latitude]
+
+A Feature wraps a geometry with properties.
+
+```
+Point:
+{
+  "type": "Point",
+  "coordinates": [-3.7038, 40.4168]
+}
+
+Feature:
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-3.7038, 40.4168]
+  },
+  "properties": {
+    "name": "Madrid",
+    "population": 3223000
+  }
+}
+
+Feature collection:
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.7038, 40.4168]
+      },
+      "properties": {
+        "name": "Madrid"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.1734, 41.3851]
+      },
+      "properties": {
+        "name": "Barcelona"
+      }
+    }
+  ]
+}
+```
+
+geotren geojson is a FeatureCollection of points with a set of properties:
+
+```
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.096418387166096,
+          41.562606899904665
+        ]
+      },
+      "properties": {
+        "id": "6c4bdae302747640fd55c10d40|682dc5e001",
+        "lin": "S2",
+        "nc": "682dc5e001",
+        "dir": "A",
+        "origen": "PC",
+        "desti": "PN",
+        "properes_parades": [
+          {
+            "parada": "PN"
+          }
+        ],
+        "estacionat_a": "NO",
+        "en_hora": true,
+        "material": "112.00",
+        "tipus_unitat": "112",
+        "ut": "1f2cc5fd0271",
+        "ocupacio": {
+          "linia": "bv",
+          "estacio": "CT",
+          "estacio_codi": "CT",
+          "factor": null,
+          "dt": "2026-03-04 00:11:26.934639+01:00",
+          "m1": {
+            "tipus_cotxe": "m1",
+            "persones": 4,
+            "massa": null,
+            "percent": 5,
+            "tram": "1"
+          },
+          "mi": {
+            "tipus_cotxe": "mi",
+            "persones": 4,
+            "massa": null,
+            "percent": 5,
+            "tram": "1"
+          },
+          "ri": {
+            "tipus_cotxe": "ri",
+            "persones": 4,
+            "massa": null,
+            "percent": 5,
+            "tram": "1"
+          },
+          "m2": {
+            "tipus_cotxe": "m2",
+            "persones": 4,
+            "massa": null,
+            "percent": 5,
+            "tram": "1"
+          }
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.033020965041496,
+          41.52936016375969
+        ]
+      },
+      "properties": {
+        "id": "6c4bdae302747640fd55c10d40|6a2dc2e307",
+        "lin": "S1",
+        "nc": "6a2dc2e307",
+        "dir": "A",
+        "origen": "PC",
+        "desti": "NA",
+        "properes_parades": [
+          {
+            "parada": "TR"
+          },
+          {
+            "parada": "VP"
+          },
+          {
+            "parada": "EN"
+          },
+          {
+            "parada": "NA"
+          }
+        ],
+        "estacionat_a": null,
+        "en_hora": true,
+        "material": "113.00",
+        "tipus_unitat": "113",
+        "ut": "1f2cc4fd0273",
+        "ocupacio": null
+      }
+    },
+    ...
+  ]
+}
+```
+
+Geotren uses google maps API
+
+To add a [google map](https://developers.google.com/maps/documentation/javascript/add-google-map) to your page, however is not fully free (check details).
+
+- Google Maps JavaScript API requires an API key and a billing-enabled Google Cloud project.
+- You usually get a monthly free credit/quota, but after that usage is paid (pricing depends on map loads and APIs used).
+- Even within free quota, you must follow Google Maps Platform Terms (attribution, usage limits, etc.).
+- So you can replicate it technically, but for production you should assume potential cost.
+If you want a lower-cost/open option, use:
+- Leaflet or MapLibre + OpenStreetMap-compatible tiles (or your own tiles),
+- but still check that tile provider’s usage policy (many “free” tiles disallow heavy production traffic).
 
 
 # Concepts I've been learning with this project 
