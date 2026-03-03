@@ -832,6 +832,8 @@ except requests.exceptions.RequestException as errex:
 
 New behaviour, If vehicles can be updated but trips dont, execute logic keeping into account that trips is not updated (we can still update positions in the geojson)
 
+Done the structure of the collector, start the logic for creating the geojosn
+
 
 
 # Concepts I've been learning with this project 
