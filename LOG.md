@@ -828,6 +828,10 @@ except requests.exceptions.ConnectionError as conerr:
 except requests.exceptions.RequestException as errex:
     print("Exception request")
 ```
+# 03/03/2026
+
+New behaviour, If vehicles can be updated but trips dont, execute logic keeping into account that trips is not updated (we can still update positions in the geojson)
+
 
 
 # Concepts I've been learning with this project 
