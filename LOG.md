@@ -1011,10 +1011,15 @@ To add a [google map](https://developers.google.com/maps/documentation/javascrip
 - Google Maps JavaScript API requires an API key and a billing-enabled Google Cloud project.
 - You usually get a monthly free credit/quota, but after that usage is paid (pricing depends on map loads and APIs used).
 - Even within free quota, you must follow Google Maps Platform Terms (attribution, usage limits, etc.).
-- So you can replicate it technically, but for production you should assume potential cost.
-If you want a lower-cost/open option, use:
-- Leaflet or MapLibre + OpenStreetMap-compatible tiles (or your own tiles),
-- but still check that tile provider’s usage policy (many “free” tiles disallow heavy production traffic).
+
+I'm going to use Leaflet + OpenStreetMap because its the most common open source approach.
+
+Since this is a really simple project that is barely going to have users, I'm going to keep it simple and avoid over-engineering by putting all the project in one docker container.
+
+So the action plan is:
+1) Move the depelopment to docker
+2) Finish the architecture details (orchestration? monitoring? fault-tolerant?)
+3) Code all of it
 
 
 # Concepts I've been learning with this project 
