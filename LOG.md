@@ -1014,12 +1014,21 @@ To add a [google map](https://developers.google.com/maps/documentation/javascrip
 
 I'm going to use Leaflet + OpenStreetMap because its the most common open source approach.
 
-Since this is a really simple project that is barely going to have users, I'm going to keep it simple and avoid over-engineering by putting all the project in one docker container.
+Since this is a really simple project with very lightweight computations that is barely going to have users, I'm going to keep it simple and avoid over-engineering by doing a single-container app.
 
 So the action plan is:
 1) Move the depelopment to docker
 2) Finish the architecture details (orchestration? monitoring? fault-tolerant?)
 3) Code all of it
+
+# 05/03/2026
+
+Studying docker theory
+
+# 06/03/2026
+
+Moving the development to docker
+
 
 
 # Concepts I've been learning with this project 
@@ -1031,3 +1040,4 @@ So the action plan is:
 - WebSockets, Server-Sent Events (SSE)
 - Idempotent
 - Retry Backoff
+- Developing with docker
