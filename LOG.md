@@ -1041,3 +1041,9 @@ Moving the development to docker
 - Idempotent
 - Retry Backoff
 - Developing with docker
+- Monorepo, microservices architectures, microservices desing patterns
+
+
+# Possible improvements
+
+- DevOps during development: CI/CD, Testing
