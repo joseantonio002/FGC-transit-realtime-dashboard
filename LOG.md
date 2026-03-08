@@ -1031,11 +1031,51 @@ Moving the development to docker
 
 # 08/03/2026
 
-For now, I'm going to assume that if the snapshots updates, all entities inside the snapshot also update.
+For now, I'm going to assume that if the snapshots updates, all entities inside the snapshot also update. Also ignore alerts for now.
 
 Okay so using Leaflet + OpenStreetMap, I only need the coordinates and a text with information. So I can just use the same format that geotren uses for the geojson.
 
-Also try to find a way of limiting the calls to openmap
+Also try to find a way of limiting the calls to openmap. But that for later, now focus on how to convert the gtfs to JSON (I realized it doesnt have to be geojson, just JSON in good for my use case because I dont need GIS compatibility).
+
+So the idea to show the trains and stops markers is a JSON with all the markers information. For trains I want to show:
+- Line
+- Origin
+- Destination
+- Next stop
+- Occupancy status
+- Schedule state
+
+So a JSON like this for each train:
+```
+{
+route_short_name
+origin
+destination
+next stop
+occupancy status
+}
+```
+
+And for every stop:
+- Trains that started their travel, how long until they get to the stop
+
+```
+{
+stop_name
+[
+  {
+    route_short_name
+    destination
+    time_until_arrival
+
+  }
+
+
+]
+}
+```
+
+
 
 
 # Concepts I've been learning with this project 
