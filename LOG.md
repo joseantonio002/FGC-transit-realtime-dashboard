@@ -513,7 +513,7 @@ What it holds (in practice):
   * `INCOMING_AT`: very close, about to arrive at `stop_id`
   * `STOPPED_AT`: currently stopped at `stop_id`
 
-**Important limitation:** VehiclePosition usually **does not give you actual arrival/departure times**. It gives you a state snapshot. If you try to infer stop times from it, you’re building your own event detector (state transitions + heuristics).
+**Important limitation:** VehiclePosition usually **does not give you actual arrival/departure times**. It gives you a state snapshot.
 
 #### Can you derive “actual arrival/departure” from VehiclePosition?
 
@@ -1029,6 +1029,9 @@ Studying docker theory
 
 Moving the development to docker
 
+# 08/03/2026
+
+For now, I'm going to assume that if the snapshots updates, all entities inside the snapshot also update.
 
 
 # Concepts I've been learning with this project 

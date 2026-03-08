@@ -1,16 +1,15 @@
 import requests
 from google.transit import gtfs_realtime_pb2
 import time
-import asyncio
 
 TRIP_UPDATES_FEED_URL: str = "https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/trip-updates-gtfs_realtime/files/735985017f62fd33b2fe46e31ce53829"
 VEHICLE_POSITIONS_FEED_URL: str = "https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/vehicle-positions-gtfs_realtime/files/d286964db2d107ecdb1344bf02f7b27b"
 POLL_SECONDS: int = 10
 TIMEOUT: int = 3
 
-NUMBER_RETRIES: int = 3
+NUMBER_RETRIES: int = 10
 RETRY_DELAY_SECONDS: int = 5 # 5 * 10 = 50 seconds 
-SLEEP_TIME: int = 15 
+SLEEP_TIME: int = 100 
 
 def new_session():
     s = requests.Session()
@@ -110,7 +109,6 @@ def obtain_last_snapshots(
 def backoff(backoff_counter):
   print(f"Exponential backoff activated {backoff_counter} times in a row, sleeping for 2^{backoff_counter} seconds")
   time.sleep(2 ** backoff_counter)
-
 
 def main():
   s = new_session()
