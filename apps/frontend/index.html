@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+    <script>
+    const map = L.map('map').setView([41.3851, 2.1734], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 15,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const vehicleMarker = L.marker([41.3851, 2.1734]).addTo(map);
+
+    const route = [
+        [41.3851, 2.1734],
+        [41.3862, 2.1750],
+        [41.3873, 2.1768],
+        [41.3884, 2.1782],
+        [41.3895, 2.1800]
+    ];
+
+    let i = 0;
+
+    setInterval(() => {
+        vehicleMarker.setLatLng(route[i]);
+        vehicleMarker.bindPopup(`Vehicle position ${i + 1}`);
+        i = (i + 1) % route.length;
+    }, 2000);
+    </script>
+</body>
+</html>

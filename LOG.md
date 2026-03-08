@@ -1033,6 +1033,10 @@ Moving the development to docker
 
 For now, I'm going to assume that if the snapshots updates, all entities inside the snapshot also update.
 
+Okay so using Leaflet + OpenStreetMap, I only need the coordinates and a text with information. So I can just use the same format that geotren uses for the geojson.
+
+Also try to find a way of limiting the calls to openmap
+
 
 # Concepts I've been learning with this project 
 

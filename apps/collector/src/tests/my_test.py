@@ -71,7 +71,7 @@ def t():
       #for stop_time_update in trip.trip_update.stop_time_update:
         #print(time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(stop_time_update.arrival.time)))
 
-      if trip.trip_update.trip.trip_id.strip() == "6c4bdae31f373644a650c6|682dc6e60a":
+      if trip.trip_update.trip.trip_id.strip() == "625cdae61f726b11bb5d|602dc0e105":
         print(trip)
 
 
@@ -82,7 +82,7 @@ def t():
       v_ids.add(vh.vehicle.trip.trip_id.strip())
       #print(vh)
       #print(time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(vh.vehicle.timestamp)))
-      if vh.vehicle.trip.trip_id.strip() == "6c4bdae31f373644a650c6|682dc6e60a":
+      if vh.vehicle.trip.trip_id.strip() == "625cdae61f726b11bb5d|602dc0e105":
         print(vh)
     #print(v_ids)
     print("-"*20)
