@@ -1057,6 +1057,19 @@ Schedule state
 }
 ```
 
+Some preparations beforehand:
+
+Basically load all GTFS-Scheduled data we need every X hours in case anything updates (in memory for fast joins). We can do this after the collector execution when is sleeping waiting for the next snapshot.
+
+
+To obtain this JSON, for every vehicle position:
+
+1. Every time we detect a new vehicle position (using trip_id) we use trip_id to join with GTFS-Scheduled stop_times.txt to obtain origin and destination stops, store it and use it every time we create the JSON, delete information when the trip ends.
+2. Use GTFS-Scheduled trips.txt to obtain route_short_name joining by trip_id, again this is only done once and stored until the trip ends
+3. next stop is the stop_id field and occupancy status occupancy_status in vehicles position
+4. Schedule state
+
+
 And for every stop:
 - Trains that started their travel, how long until they get to the stop
 
