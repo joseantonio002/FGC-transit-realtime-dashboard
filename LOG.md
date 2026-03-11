@@ -1053,6 +1053,7 @@ origin
 destination
 next stop
 occupancy status
+Schedule state
 }
 ```
 
@@ -1061,20 +1062,30 @@ And for every stop:
 
 ```
 {
-stop_name
+stop_id
 [
   {
     route_short_name
     destination
     time_until_arrival
-
+  },
+  {
+    route_short_name
+    destination
+    time_until_arrival
   }
-
-
+  ...
 ]
 }
 ```
 
+From GTFS-Scheduled I need:
+
+- stops: just once, to load all stops coordinates and names
+- trips: to obtain the route name using trip id
+- stop_times: to compare for delays
+
+# 11/03/ 2026
 
 
 
