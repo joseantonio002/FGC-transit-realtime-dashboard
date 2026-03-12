@@ -1037,7 +1037,18 @@ Okay so using Leaflet + OpenStreetMap, I only need the coordinates and a text wi
 
 Also try to find a way of limiting the calls to openmap. But that for later, now focus on how to convert the gtfs to JSON (I realized it doesnt have to be geojson, just JSON in good for my use case because I dont need GIS compatibility).
 
-So the idea to show the trains and stops markers is a JSON with all the markers information. For trains I want to show:
+So the idea to show the trains and stops markers is a JSON with all the markers information. 
+
+- Some preparations beforehand:
+
+Basically load all GTFS-Scheduled data we need (stop_times, trips, stops) every X hours in case anything updates (in memory for fast joins). We can do this after the collector execution when is sleeping waiting for the next snapshot.
+
+Also every snapshot join trips and vehicles feed by trip id, so each vehicle has the arrival information.
+
+
+
+
+For trains I want to show:
 - Line
 - Origin
 - Destination
@@ -1059,13 +1070,7 @@ Position
 }
 ```
 
-Some preparations beforehand:
-
-Basically load all GTFS-Scheduled data we need every X hours in case anything updates (in memory for fast joins). We can do this after the collector execution when is sleeping waiting for the next snapshot.
-
-Also every snapshot join trips and vehicles feed by trip id, so each vehicle has the arrival information.
-
-To obtain this JSON, for every vehicle position:
+To obtain vehicles JSON, for every vehicle position:
 
 1. Every time we detect a new vehicle position (using trip_id) we use trip_id to join with GTFS-Scheduled stop_times.txt to obtain origin and destination stops, store it and use it every time we create the JSON, delete information when the trip ends.
 2. Use GTFS-Scheduled trips.txt to obtain route_short_name joining by trip_id, again this is only done once and stored until the trip ends
@@ -1074,7 +1079,8 @@ To obtain this JSON, for every vehicle position:
 
 
 And for every stop:
-- Trains that started their travel, how long until they get to the stop
+
+Trains that started their travel, how long until they get to the stop
 
 ```
 {
@@ -1098,16 +1104,15 @@ stop_id
 To obtain this JSON, we need to:
 
 0. route_short_name and destination were previously calculated and stored
-1. For every trip in trips feed, calculate the time until vehicle reaches every stop.
+1. For every trip in trips feed, calculate the time until vehicle reaches every stop, arrival time minus creation timestamp from feed
 
-From GTFS-Scheduled I need:
-
-- stops: just once, to load all stops coordinates and names
-- trips: to obtain the route name using trip id
-- stop_times: to compare for delays
 
 # 11/03/2026
 
+Today:
+First create the GTFS-Scheduled collector script that will be executed once a day or so, inside that script generate a JSON with all the stops coordinates, so it loads the first time the web page is loaded and shows all the stops
+
+Once we have that, create the JSONs for the realtime information
 
 
 # Concepts I've been learning with this project 
