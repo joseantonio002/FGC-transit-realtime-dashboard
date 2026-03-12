@@ -1041,12 +1041,9 @@ So the idea to show the trains and stops markers is a JSON with all the markers 
 
 - Some preparations beforehand:
 
-Basically load all GTFS-Scheduled data we need (stop_times, trips, stops) every X hours in case anything updates (in memory for fast joins). We can do this after the collector execution when is sleeping waiting for the next snapshot.
+Basically load all GTFS-Scheduled data we need (stop_times, trips, routes) every X hours in case anything updates (in memory for fast joins). We can do this after the collector execution when is sleeping waiting for the next snapshot.
 
 Also every snapshot join trips and vehicles feed by trip id, so each vehicle has the arrival information.
-
-
-
 
 For trains I want to show:
 - Line
@@ -1113,6 +1110,8 @@ Today:
 First create the GTFS-Scheduled collector script that will be executed once a day or so, inside that script generate a JSON with all the stops coordinates, so it loads the first time the web page is loaded and shows all the stops
 
 Once we have that, create the JSONs for the realtime information
+
+Possible improvement for load_gtfs_shceduled, for trips only load today's trips
 
 
 # Concepts I've been learning with this project 
