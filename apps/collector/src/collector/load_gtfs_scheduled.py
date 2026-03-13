@@ -83,11 +83,11 @@ def main() -> None:
   trips_by_id: dict[str, dict[str, str]] = load_trips_by_id()
   stop_times_by_trip: dict[str, dict[str, dict[str, str]]] = load_stop_times_by_trip()
 
-  #print(json.dumps(routes_by_id, ensure_ascii=False))
-  #print(json.dumps(trips_by_id, ensure_ascii=False))
-  #print(json.dumps(stop_times_by_trip, ensure_ascii=False))
-  with open("delete_stop_times_by_trip.json", "w", encoding="utf-8") as output_file:
-    json.dump(stop_times_by_trip, output_file, ensure_ascii=False, indent=2)
+  print(json.dumps(routes_by_id, ensure_ascii=False))
+  print(json.dumps(trips_by_id, ensure_ascii=False))
+  print(json.dumps(stop_times_by_trip, ensure_ascii=False))
+  #with open("delete_stop_times_by_trip.json", "w", encoding="utf-8") as output_file:
+    #json.dump(routes_by_id, output_file, ensure_ascii=False, indent=2)
 
 
 if __name__ == "__main__":

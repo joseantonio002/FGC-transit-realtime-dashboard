@@ -1113,6 +1113,10 @@ Once we have that, create the JSONs for the realtime information
 
 Possible improvement for load_gtfs_shceduled, for trips only load today's trips
 
+# 13/03/2026
+
+
+
 
 # Concepts I've been learning with this project 
 
