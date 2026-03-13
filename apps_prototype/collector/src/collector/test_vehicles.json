@@ -5,7 +5,8 @@
       "next_stop": "EN",
       "occupancy_status": "NO_DATA_AVAILABLE",
       "latitude": 41.5700569152832,
-      "longitude": 2.016188144683838
+      "longitude": 2.016188144683838,
+      "position": [41.5700569152832, 2.016188144683838]
     }
   ]
 }

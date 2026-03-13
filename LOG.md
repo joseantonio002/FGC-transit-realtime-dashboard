@@ -1130,6 +1130,10 @@ Step one and two done, just for one vehicle
 
 Besides stops, make gtfs schedule return the shapes of the tracks
 
+Turns out Scheduled stops and shapes show somes routes that are not in geotren
+![otherroutes](./otherroutes.png)
+For now leave them there, delete if necessary later.
+
 # Concepts I've been learning with this project 
 
 - cosas de backend, API's, seguridad API's

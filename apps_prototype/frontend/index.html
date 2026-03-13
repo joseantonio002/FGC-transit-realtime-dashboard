@@ -25,6 +25,7 @@
 </head>
 <body>
   <div id="map"></div>
+  <div id="status" style="position:fixed;top:10px;left:10px;z-index:1000;background:#fff;padding:8px 10px;border:1px solid #ccc;border-radius:6px;font:12px/1.4 sans-serif;display:none;"></div>
 
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -32,31 +33,106 @@
     crossorigin=""
   ></script>
 
-    <script>
-    const map = L.map('map').setView([41.3851, 2.1734], 13);
+  <script>
+    const map = L.map("map").setView([41.3851, 2.1734], 12);
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 15,
-        attribution: '&copy; OpenStreetMap contributors'
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: "&copy; OpenStreetMap contributors"
     }).addTo(map);
 
-    const vehicleMarker = L.marker([41.3851, 2.1734]).addTo(map);
+    const stopsPath = "../collector/src/collector/test_stops.json";
+    const shapesPath = "../collector/src/collector/test_shapes.json";
+    const vehiclesPath = "../collector/src/collector/test_vehicles.json";
+    const statusEl = document.getElementById("status");
 
-    const route = [
-        [41.3851, 2.1734],
-        [41.3862, 2.1750],
-        [41.3873, 2.1768],
-        [41.3884, 2.1782],
-        [41.3895, 2.1800]
-    ];
+    function showStatus(message) {
+      statusEl.textContent = message;
+      statusEl.style.display = "block";
+    }
 
-    let i = 0;
+    function vehiclePopupHtml(vehicle) {
+      const lines = [];
+      for (const [key, value] of Object.entries(vehicle)) {
+        if (key === "position") {
+          continue;
+        }
+        lines.push(`<strong>${key}</strong>: ${value}`);
+      }
+      return lines.join("<br>");
+    }
 
-    setInterval(() => {
-        vehicleMarker.setLatLng(route[i]);
-        vehicleMarker.bindPopup(`Vehicle position ${i + 1}`);
-        i = (i + 1) % route.length;
-    }, 2000);
-    </script>
+    Promise.all([
+      fetch(stopsPath).then((response) => response.json()),
+      fetch(shapesPath).then((response) => response.json()),
+      fetch(vehiclesPath).then((response) => response.json())
+    ])
+      .then(([stopsData, shapesData, vehiclesData]) => {
+        const bounds = L.latLngBounds([]);
+
+        for (const stop of stopsData.stops || []) {
+          const lat = Number(stop.stop_lat);
+          const lon = Number(stop.stop_lon);
+          if (Number.isNaN(lat) || Number.isNaN(lon)) {
+            continue;
+          }
+
+          L.marker([lat, lon])
+            .addTo(map)
+            .bindPopup(stop.stop_name || stop.stop_id || "Stop");
+
+          bounds.extend([lat, lon]);
+        }
+
+        for (const shape of shapesData.shapes || []) {
+          const coordinates = shape.coordinates || [];
+          if (coordinates.length < 2) {
+            continue;
+          }
+
+          L.polyline(coordinates, {
+            color: "#1f6feb",
+            weight: 3,
+            opacity: 0.7
+          }).addTo(map);
+
+          for (const point of coordinates) {
+            bounds.extend(point);
+          }
+        }
+
+        for (const vehicle of vehiclesData.vehicles || []) {
+          const lat = Number(vehicle.latitude);
+          const lon = Number(vehicle.longitude);
+          if (Number.isNaN(lat) || Number.isNaN(lon)) {
+            continue;
+          }
+
+          L.circleMarker([lat, lon], {
+            radius: 8,
+            color: "#b00020",
+            fillColor: "#ff3b30",
+            fillOpacity: 0.95,
+            weight: 2
+          })
+            .addTo(map)
+            .bindPopup(vehiclePopupHtml(vehicle));
+
+          bounds.extend([lat, lon]);
+        }
+
+        if (bounds.isValid()) {
+          map.fitBounds(bounds, { padding: [20, 20] });
+        }
+      })
+      .catch((error) => {
+        console.error("Error loading map data", error);
+        if (window.location.protocol === "file:") {
+          showStatus("JSON files cannot be fetched over file://. Run a local HTTP server to load data.");
+          return;
+        }
+        showStatus("Error loading JSON map data. Check browser console and file paths.");
+      });
+  </script>
 </body>
 </html>
