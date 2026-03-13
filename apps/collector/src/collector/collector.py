@@ -15,13 +15,6 @@ SLEEP_TIME: int = 100
 COUNT_LOAD_GTFS_SCHEDULED_AGAIN: int = 100
 
 
-# https://gtfs.org/documentation/realtime/reference/#enum-occupancystatus
-OCCUPANCY_STATUS: dict = {
-  0: "EMPTY"
-
-}
-
-
 def new_session() -> requests.Session:
   """Create a new HTTP session."""
   s: requests.Session = requests.Session()
@@ -100,6 +93,7 @@ def main() -> None:
       output = {}
       output['route_short_name'] = sh_trips[vehicle_to_process.vehicle.trip.trip_id]['route_id']
       output['next_stop'] = vehicle_to_process.vehicle.stop_id
+      # https://gtfs.org/documentation/realtime/reference/#enum-occupancystatus
       output['occupancy_status'] = gtfs_realtime_pb2.VehiclePosition.OccupancyStatus.Name(vehicle_to_process.vehicle.occupancy_status)
       output['latitude'] = vehicle_to_process.vehicle.position.latitude
       output['longitude'] = vehicle_to_process.vehicle.position.longitude

@@ -1121,6 +1121,12 @@ Lets do a full prototype, only showing stops and vehicles in the map and the inf
 2. Finish programming collector prototype so it returns a json for every vehicle
 3. Progam prototype API and frontend and see if it works using github pages
 
+```
+docker run -v collector_outputs:/usr/src/collector/outputs --mount type=bind,src="$(pwd)"/apps_prototype/collector,dst=/usr/src/collector/collector_src -ti -d gtf
+s-collector
+```
+
+Step one done, just for one vehicle
 
 # Concepts I've been learning with this project 
 

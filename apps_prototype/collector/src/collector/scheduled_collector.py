@@ -53,7 +53,7 @@ def scheduled_collection() -> None:
       file_response.raise_for_status()
       if item["file"]["filename"] == "stops.txt":
         stops_json: dict[str, list[dict[str, Any]]] = stops_to_json(file_response.text)
-        with open("./stops.json", "w", encoding="utf-8") as output_file:
+        with open("../../../outputs/stops.json", "w", encoding="utf-8") as output_file:
           json.dump(stops_json, output_file, ensure_ascii=False, indent=2)
       path: str = SAVE_PATH + "/" + item["file"]["filename"]
       with open(path, "w", encoding="utf-8") as output_file:
