@@ -1,0 +1,170 @@
+{
+  "L6": {
+    "route_short_name": "L6",
+    "route_long_name": "Barcelona Pl. Catalunya - Sarrià",
+    "route_type": "1",
+    "route_url": "http://www.fgc.cat/cat/barcelona-valles.asp?linia=L6",
+    "route_color": "797FBC",
+    "route_text_color": "FFFFFF"
+  },
+  "L7": {
+    "route_short_name": "L7",
+    "route_long_name": "Barcelona Pl. Catalunya - Av Tibidabo",
+    "route_type": "1",
+    "route_url": "http://www.fgc.cat/cat/barcelona-valles.asp?linia=L7",
+    "route_color": "B2600B",
+    "route_text_color": "FFFFFF"
+  },
+  "L8": {
+    "route_short_name": "L8",
+    "route_long_name": "Barcelona Pl. Espanya - Molí Nou",
+    "route_type": "1",
+    "route_url": "http://www.fgc.cat/cat/llobregat-anoia.asp?linia=L8",
+    "route_color": "E274AA",
+    "route_text_color": "FFFFFF"
+  },
+  "R5": {
+    "route_short_name": "R5",
+    "route_long_name": "Barcelona Pl. Espanya - Manresa",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/llobregat-anoia.asp?linia=R5",
+    "route_color": "3dbfc3",
+    "route_text_color": "FFFFFF"
+  },
+  "R6": {
+    "route_short_name": "R6",
+    "route_long_name": "Barcelona Pl. Espanya - Igualada",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/llobregat-anoia.asp?linia=R6",
+    "route_color": "b3b3b3",
+    "route_text_color": "FFFFFF"
+  },
+  "S1": {
+    "route_short_name": "S1",
+    "route_long_name": "Barcelona Pl. Catalunya - Terrassa Nacions Unides",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/barcelona-valles.asp?linia=S1",
+    "route_color": "EF7900",
+    "route_text_color": "FFFFFF"
+  },
+  "S2": {
+    "route_short_name": "S2",
+    "route_long_name": "Barcelona Pl. Catalunya - Sabadell Parc del Nord",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/barcelona-valles.asp?linia=S2",
+    "route_color": "88BB0B",
+    "route_text_color": "FFFFFF"
+  },
+  "S3": {
+    "route_short_name": "S3",
+    "route_long_name": "Barcelona Pl. Espanya - Can Ros",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/llobregat-anoia.asp?linia=S33",
+    "route_color": "4F868E",
+    "route_text_color": "FFFFFF"
+  },
+  "S4": {
+    "route_short_name": "S4",
+    "route_long_name": "Barcelona Pl. Espanya - Olesa de Montserrat",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/llobregat-anoia.asp?linia=S4",
+    "route_color": "A78600",
+    "route_text_color": "FFFFFF"
+  },
+  "S8": {
+    "route_short_name": "S8",
+    "route_long_name": "Barcelona Pl. Espanya - Martorell Enllaç",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/llobregat-anoia.asp?linia=S8",
+    "route_color": "49C0DE",
+    "route_text_color": "FFFFFF"
+  },
+  "R60": {
+    "route_short_name": "R60",
+    "route_long_name": "Barcelona Pl. Espanya - Igualada",
+    "route_type": "2",
+    "route_url": "http://fgc.cat/cat/llobregat-anoia.asp?linia=R60",
+    "route_color": "5b5b5b",
+    "route_text_color": "FFFFFF"
+  },
+  "R50": {
+    "route_short_name": "R50",
+    "route_long_name": "Barcelona Pl. Espanya- Manresa",
+    "route_type": "2",
+    "route_url": "http://fgc.cat/cat/llobregat-anoia.asp?linia=R50",
+    "route_color": "00738a",
+    "route_text_color": "FFFFFF"
+  },
+  "L12": {
+    "route_short_name": "L12",
+    "route_long_name": "Sarrià - Reina Elisenda",
+    "route_type": "1",
+    "route_url": "http://fgc.cat/cat/barcelona-valles.asp?linia=L12",
+    "route_color": "b2aed3",
+    "route_text_color": "FFFFFF"
+  },
+  "S9": {
+    "route_short_name": "S9",
+    "route_long_name": "Barcelona Pl. Espanya - Quatre Camins",
+    "route_type": "2",
+    "route_url": "",
+    "route_color": "DF4661",
+    "route_text_color": "FFFFFF"
+  },
+  "MM": {
+    "route_short_name": "MM",
+    "route_long_name": "Cremallera Montserrat",
+    "route_type": "7",
+    "route_url": "",
+    "route_color": "000000",
+    "route_text_color": "FFFFFF"
+  },
+  "FV": {
+    "route_short_name": "FV",
+    "route_long_name": "Funicular de Vallvidrera",
+    "route_type": "7",
+    "route_url": "http://www.fgc.cat/cat/barcelona-valles.asp",
+    "route_color": "0A57A3",
+    "route_text_color": "FFFFFF"
+  },
+  "R63": {
+    "route_short_name": "R63",
+    "route_long_name": "Barcelona Pl. Espanya - Igualada",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/llobregat-anoia.asp?linia=R6",
+    "route_color": "b3b3b3",
+    "route_text_color": "FFFFFF"
+  },
+  "R53": {
+    "route_short_name": "R53",
+    "route_long_name": "Barcelona Pl. Espanya - Manresa",
+    "route_type": "2",
+    "route_url": "http://www.fgc.cat/cat/llobregat-anoia.asp?linia=R5",
+    "route_color": "3dbfc3",
+    "route_text_color": "FFFFFF"
+  },
+  "RL1": {
+    "route_short_name": "RL1",
+    "route_long_name": "Lleida - La Pobla",
+    "route_type": "2",
+    "route_url": "",
+    "route_color": "FF8000",
+    "route_text_color": "FFFFFF"
+  },
+  "RL2": {
+    "route_short_name": "RL2",
+    "route_long_name": "Lleida - La Pobla",
+    "route_type": "2",
+    "route_url": "",
+    "route_color": "FF8000",
+    "route_text_color": "FFFFFF"
+  },
+  "L1": {
+    "route_short_name": "L1",
+    "route_long_name": "Cremallera de Nuria",
+    "route_type": "7",
+    "route_url": "",
+    "route_color": "000000",
+    "route_text_color": "FFFFFF"
+  }
+}

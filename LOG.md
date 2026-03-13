@@ -1115,7 +1115,11 @@ Possible improvement for load_gtfs_shceduled, for trips only load today's trips
 
 # 13/03/2026
 
+Lets do a full prototype, only showing stops and vehicles in the map and the info I already got from vehicles (everything except schedule status)
 
+1. Create a volume to put output jsons from both collectors
+2. Finish programming collector prototype so it returns a json for every vehicle
+3. Progam prototype API and frontend and see if it works using github pages
 
 
 # Concepts I've been learning with this project 
