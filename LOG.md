@@ -1126,7 +1126,9 @@ docker run -v collector_outputs:/usr/src/collector/outputs --mount type=bind,src
 s-collector
 ```
 
-Step one done, just for one vehicle
+Step one and two done, just for one vehicle
+
+Besides stops, make gtfs schedule return the shapes of the tracks
 
 # Concepts I've been learning with this project 
 
