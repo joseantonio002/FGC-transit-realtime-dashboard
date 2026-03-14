@@ -1134,7 +1134,18 @@ Turns out Scheduled stops and shapes show somes routes that are not in geotren
 ![otherroutes](./otherroutes.png)
 For now leave them there, delete if necessary later.
 
-Only the API left
+Only the API left and final frontend
+
+# 14/03/2026
+
+Since for some reason I cant pull images from docker hub using my home network, I have to create the images by hand
+
+```
+docker run --name gtfs-api-container -p 8000:8000 -v collector_outputs:/collector_outputs gtfs-api
+```
+
+
+
 
 # Concepts I've been learning with this project 
 
