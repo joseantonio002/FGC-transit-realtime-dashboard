@@ -1144,8 +1144,9 @@ Since for some reason I cant pull images from docker hub using my home network, 
 docker run --name gtfs-api-container -p 8000:8000 -v collector_outputs:/collector_outputs gtfs-api
 ```
 
+# 15/03/2026
 
-
+Lets make a frontend and see if it works with github pages
 
 # Concepts I've been learning with this project 
 
