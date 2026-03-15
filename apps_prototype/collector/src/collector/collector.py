@@ -93,8 +93,9 @@ def main() -> None:
       print(vh.entity[0])
     else:
       print(f"Both feeds were updated correctly, processing data and sleeping {SLEEP_TIME} seconds")
-      vehicles_output: dict = vehicles_to_json(vh, sh_trips, sh_routes, sh_stops)
-      with open("../../../outputs/vehicles.json", "w", encoding="utf-8") as output_file:
+      vehicles_output: dict = vehicles_to_json(vh, sh_trips, sh_routes, sh_stops, sh_stop_times, trips)
+      path: str = SAVE_PATH_JSON + "/vehicles.json"
+      with open(path, "w", encoding="utf-8") as output_file:
         json.dump(vehicles_output, output_file, ensure_ascii=False, indent=2)
 
     if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:
