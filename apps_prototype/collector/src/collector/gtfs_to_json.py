@@ -24,11 +24,9 @@ def vehicles_to_json(vehicles_feed: Any, sh_trips: dict[str, dict[str, Any]], sh
     route_short_name: str | None = None
     route_color: str = None
 
-    if trip_id in sh_trips and route_short_name in sh_routes:
+    if trip_id in sh_trips:
       route_short_name = sh_trips[trip_id].get("route_id")
       route_color = sh_routes[route_short_name].get("route_color")
-
-    
 
     vehicle_output: dict[str, Any] = {
       "route_short_name": route_short_name,
