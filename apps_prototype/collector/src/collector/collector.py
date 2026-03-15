@@ -1,7 +1,7 @@
 import time
 import requests
 from load_gtfs_scheduled import load_routes_by_id, load_stop_times_by_trip, load_trips_by_id
-from scheduled_collector import scheduled_collection
+from scheduled_collector import scheduled_collector, SAVE_PATH_JSON
 from get_current_snapshot import obtain_last_snapshots
 from gtfs_to_json import vehicles_to_json
 import json
@@ -40,9 +40,11 @@ def main() -> None:
   vh_current_ts: int = -1
   backoff_counter: int = 0
 
-  scheduled_collection()
+  scheduled_collector()
   gtfs_scheduled_load_again: int = 0
-
+  with open(SAVE_PATH_JSON + '/stops.json', 'r') as stops:
+    sh_stops = json.load(stops)
+  # todo esto ponerlo scheduled_collector
   sh_trips = load_trips_by_id()
   sh_routes = load_routes_by_id()
   sh_stop_times = load_stop_times_by_trip()
@@ -91,13 +93,16 @@ def main() -> None:
       print(vh.entity[0])
     else:
       print(f"Both feeds were updated correctly, processing data and sleeping {SLEEP_TIME} seconds")
-      vehicles_output: dict = vehicles_to_json(vh, sh_trips, sh_routes)
+      vehicles_output: dict = vehicles_to_json(vh, sh_trips, sh_routes, sh_stops)
       with open("../../../outputs/vehicles.json", "w", encoding="utf-8") as output_file:
         json.dump(vehicles_output, output_file, ensure_ascii=False, indent=2)
 
     if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:
       gtfs_scheduled_load_again = 0
-      scheduled_collection()
+      scheduled_collector()
+      with open(SAVE_PATH_JSON + '/stops.json', 'r') as stops:
+        sh_stops = json.load(stops)
+      # todo esto ponerlo scheduled_collector
       sh_trips = load_trips_by_id()
       sh_routes = load_routes_by_id()
       sh_stop_times = load_stop_times_by_trip()
