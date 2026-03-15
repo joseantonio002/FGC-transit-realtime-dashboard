@@ -109,7 +109,7 @@ def scheduled_collection() -> None:
       if item["file"]["filename"] == "shapes.txt":
         shapes_json: dict[str, list[dict[str, Any]]] = shapes_to_json(file_response.text)
         with open("../../../outputs/shapes.json", "w", encoding="utf-8") as output_file:
-          json.dump(shapes_json, output_file, ensure_ascii=False, ident=2)
+          json.dump(shapes_json, output_file, ensure_ascii=False, indent=2)
       path: str = SAVE_PATH + "/" + item["file"]["filename"]
       with open(path, "w", encoding="utf-8") as output_file:
         output_file.write(file_response.text)

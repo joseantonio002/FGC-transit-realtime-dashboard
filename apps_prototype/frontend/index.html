@@ -45,7 +45,7 @@
     const stopsPath = `${apiBaseUrl}/stops`;
     const shapesPath = `${apiBaseUrl}/shapes`;
     const vehiclesPath = `${apiBaseUrl}/vehicles`;
-    const vehiclesRefreshIntervalMs = 50000;
+    const vehiclesRefreshIntervalMs = 30000;
     const statusEl = document.getElementById("status");
     const stopsLayer = L.layerGroup().addTo(map);
     const shapesLayer = L.layerGroup().addTo(map);
@@ -71,6 +71,17 @@
         lines.push(`<strong>${key}</strong>: ${value}`);
       }
       return lines.join("<br>");
+    }
+
+    function markerColorFromRoute(vehicle) {
+      const rawColor = String(vehicle.route_color || "").trim();
+      if (/^[0-9a-fA-F]{6}$/.test(rawColor)) {
+        return `#${rawColor}`;
+      }
+      if (/^#[0-9a-fA-F]{6}$/.test(rawColor)) {
+        return rawColor;
+      }
+      return "#ff3b30";
     }
 
     function fitMapToStaticLayers() {
@@ -121,14 +132,15 @@
       for (const vehicle of vehiclesData.vehicles || []) {
         const lat = Number(vehicle.latitude);
         const lon = Number(vehicle.longitude);
+        const markerColor = markerColorFromRoute(vehicle);
         if (Number.isNaN(lat) || Number.isNaN(lon)) {
           continue;
         }
 
         L.circleMarker([lat, lon], {
           radius: 8,
-          color: "#b00020",
-          fillColor: "#ff3b30",
+          color: markerColor,
+          fillColor: markerColor,
           fillOpacity: 0.95,
           weight: 2
         })

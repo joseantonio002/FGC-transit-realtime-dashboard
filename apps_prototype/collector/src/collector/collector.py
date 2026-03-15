@@ -1,8 +1,9 @@
 import time
 import requests
-from get_current_snapshot import obtain_last_snapshots, gtfs_realtime_pb2
 from load_gtfs_scheduled import load_routes_by_id, load_stop_times_by_trip, load_trips_by_id
 from scheduled_collector import scheduled_collection
+from get_current_snapshot import obtain_last_snapshots
+from gtfs_to_json import vehicles_to_json
 import json
 
 TRIP_UPDATES_FEED_URL: str = "https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/trip-updates-gtfs_realtime/files/735985017f62fd33b2fe46e31ce53829"
@@ -90,18 +91,9 @@ def main() -> None:
       print(vh.entity[0])
     else:
       print(f"Both feeds were updated correctly, processing data and sleeping {SLEEP_TIME} seconds")
-      print(vh.entity[0])
-      #print(trips.entity[0])
-      vehicle_to_process: gtfs_realtime_pb2.FeedEntity  = vh.entity[0]
-      output = {"vehicles": []}
-      output["vehicles"] = [{}]
-      output["vehicles"][0]['route_short_name'] = sh_trips[vehicle_to_process.vehicle.trip.trip_id]['route_id']
-      output["vehicles"][0]['next_stop'] = vehicle_to_process.vehicle.stop_id
-      output["vehicles"][0]['occupancy_status'] = gtfs_realtime_pb2.VehiclePosition.OccupancyStatus.Name(vehicle_to_process.vehicle.occupancy_status)
-      output["vehicles"][0]['latitude'] = vehicle_to_process.vehicle.position.latitude
-      output["vehicles"][0]['longitude'] = vehicle_to_process.vehicle.position.longitude
+      vehicles_output: dict = vehicles_to_json(vh, sh_trips, sh_routes)
       with open("../../../outputs/vehicles.json", "w", encoding="utf-8") as output_file:
-        json.dump(output, output_file, ensure_ascii=False, indent=2)
+        json.dump(vehicles_output, output_file, ensure_ascii=False, indent=2)
 
     if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:
       gtfs_scheduled_load_again = 0
