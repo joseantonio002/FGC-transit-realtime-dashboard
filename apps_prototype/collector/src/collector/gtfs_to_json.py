@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 from datetime import datetime
 from zoneinfo import ZoneInfo
+import re
 
 
 AGENCY_TIMEZONE: ZoneInfo = ZoneInfo("Europe/Madrid")
@@ -21,6 +22,8 @@ def _occupancy_status_name(vehicle: Any) -> str:
 
 def _get_stop_name(stop_id: str, sh_stops: dict[str, Any]) -> str:
   """Get the stop name for a given stop ID."""
+  # Remove a trailing number if it exists (MB2 -> MB, PE3 -> PE)
+  stop_id = re.sub(r'\d+$', '', stop_id)
   for stop in sh_stops['stops']:
     if stop['stop_id'] == stop_id:
       return stop['stop_name']
@@ -118,6 +121,16 @@ def _get_schedule_state(
   return "unknown"
 
 
+def _origin_destination(trip_id: str, sh_stops_times): 
+  trip = sh_stops_times[trip_id]
+  origin = destination = ""
+  for stop_id, info in trip.items():
+    if info['stop_sequence'] == '1':
+      origin = stop_id
+    destination = stop_id
+  return origin, destination
+
+
 def vehicles_to_json(vehicles_feed: Any, sh_trips: dict[str, dict[str, Any]], sh_routes, sh_stops, sh_stop_times, trips) -> dict[str, list[dict[str, Any]]]:
   """Convert the vehicle positions feed into the API output format."""
   output: dict[str, list[dict[str, Any]]] = {"vehicles": []}
@@ -134,6 +147,9 @@ def vehicles_to_json(vehicles_feed: Any, sh_trips: dict[str, dict[str, Any]], sh
 
     next_stop: str = _get_stop_name(vehicle_to_process.vehicle.stop_id, sh_stops)
     schedule_state: str = _get_schedule_state(trip_id, trips, sh_stop_times)
+    origin, destination = _origin_destination(trip_id, sh_stop_times)
+    origin = _get_stop_name(origin, sh_stops)
+    destination = _get_stop_name(destination, sh_stops)
 
     vehicle_output: dict[str, Any] = {
       "route_short_name": route_short_name,
@@ -143,6 +159,8 @@ def vehicles_to_json(vehicles_feed: Any, sh_trips: dict[str, dict[str, Any]], sh
       "longitude": vehicle_to_process.vehicle.position.longitude,
       "route_color": route_color,
       "schedule_state": schedule_state,
+      "origin": origin,
+      "destination": destination,
     }
 
     output["vehicles"].append(vehicle_output)
