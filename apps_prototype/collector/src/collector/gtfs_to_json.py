@@ -223,6 +223,9 @@ def arrival_times_to_json(
 
       arrival_time_minutes: int = int((predicted_arrival_epoch - trips_timestamp) / 60)
 
+      if arrival_time_minutes < 0:
+        continue
+
       if base_stop_id not in output:
         output[base_stop_id] = {}
 
