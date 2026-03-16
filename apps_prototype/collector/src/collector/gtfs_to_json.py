@@ -164,5 +164,72 @@ def vehicles_to_json(vehicles_feed: Any, sh_trips: dict[str, dict[str, Any]], sh
     }
 
     output["vehicles"].append(vehicle_output)
+  return output
+
+def _split_stop_id_platform(stop_id: str) -> tuple[str, str | None]:
+  """Split stop_id into base stop id and platform suffix number."""
+  match: re.Match[str] | None = re.search(r"(\d+)$", stop_id)
+  if match is None:
+    return stop_id, None
+
+  platform: str = match.group(1)
+  base_stop_id: str = stop_id[: -len(platform)]
+  return base_stop_id, platform
+
+
+def arrival_times_to_json(
+  vehicles_feed: Any,
+  trips: Any,
+  sh_trips: dict[str, dict[str, Any]],
+) -> dict[str, dict[str, dict[str, Any]]]:
+  """Build predicted arrivals grouped by stop and trip from GTFS-RT feeds."""
+  output: dict[str, dict[str, dict[str, Any]]] = {}
+  trips_timestamp: int = int(trips.header.timestamp)
+
+  trip_updates_by_trip_id: dict[str, Any] = {}
+  for trip_entity in trips.entity:
+    if not trip_entity.HasField("trip_update"):
+      continue
+    trip_update: Any = trip_entity.trip_update
+    trip_updates_by_trip_id[str(trip_update.trip.trip_id)] = trip_update
+
+  for vehicle_to_process in vehicles_feed.entity:
+    trip_id: str = str(vehicle_to_process.vehicle.trip.trip_id)
+    if trip_id == "":
+      continue
+
+    if trip_id not in trip_updates_by_trip_id:
+      continue
+
+    route_short_name: str | None = None
+    if trip_id in sh_trips:
+      route_short_name = sh_trips[trip_id].get("route_id")
+
+    trip_update = trip_updates_by_trip_id[trip_id]
+    for stop_time_update in trip_update.stop_time_update:
+      stop_id_raw: str = str(stop_time_update.stop_id)
+      base_stop_id: str
+      platform: str | None
+      base_stop_id, platform = _split_stop_id_platform(stop_id_raw)
+
+      predicted_arrival_epoch: int | None = None
+      if stop_time_update.arrival.HasField("time"):
+        predicted_arrival_epoch = int(stop_time_update.arrival.time)
+      elif stop_time_update.arrival.HasField("delay"):
+        predicted_arrival_epoch = trips_timestamp + int(stop_time_update.arrival.delay)
+
+      if predicted_arrival_epoch is None:
+        continue
+
+      arrival_time_minutes: int = int((predicted_arrival_epoch - trips_timestamp) / 60)
+
+      if base_stop_id not in output:
+        output[base_stop_id] = {}
+
+      output[base_stop_id][trip_id] = {
+        "route_short_name": route_short_name,
+        "arrival_time_minutes": arrival_time_minutes,
+        "platform": platform,
+      }
 
   return output

@@ -1150,6 +1150,11 @@ Lets make a frontend and see if it works with github pages
 
 After experimenting, it is clear that if we compare our data with https://geotren.fgc.cat/ ours is 2-3 minutes late. Like we said in (22-23/02/2026 Lingering test).
 
+# 16/03/2026
+
+Now lets make stops data (arrival times for upcoming trips)
+
+
 
 
 # Concepts I've been learning with this project 
