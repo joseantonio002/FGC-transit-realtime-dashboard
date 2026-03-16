@@ -44,13 +44,15 @@
     const apiBaseUrl = "http://localhost:8000";
     const stopsPath = `${apiBaseUrl}/stops`;
     const shapesPath = `${apiBaseUrl}/shapes`;
-    const vehiclesPath = `${apiBaseUrl}/vehicles`;
+    const vehiclesPathCandidates = [`${apiBaseUrl}/vehicles.json`, `${apiBaseUrl}/vehicles`];
+    const arrivalTimesPathCandidates = [`${apiBaseUrl}/arrival_times.json`, `${apiBaseUrl}/arrival_times`];
     const vehiclesRefreshIntervalMs = 30000;
     const statusEl = document.getElementById("status");
     const stopsLayer = L.layerGroup().addTo(map);
     const shapesLayer = L.layerGroup().addTo(map);
     const vehiclesLayer = L.layerGroup().addTo(map);
     const staticBounds = L.latLngBounds([]);
+    const stopMarkersById = new Map();
     let mapHasFittedBounds = false;
 
     function showStatus(message) {
@@ -95,15 +97,59 @@
       for (const stop of stopsData.stops || []) {
         const lat = Number(stop.stop_lat);
         const lon = Number(stop.stop_lon);
+        const stopId = String(stop.stop_id || "");
+        const stopName = stop.stop_name || stopId || "Stop";
         if (Number.isNaN(lat) || Number.isNaN(lon)) {
           continue;
         }
 
-        L.marker([lat, lon])
+        const marker = L.marker([lat, lon])
           .addTo(stopsLayer)
-          .bindPopup(stop.stop_name || stop.stop_id || "Stop");
+          .bindPopup(stopName);
+
+        if (stopId) {
+          stopMarkersById.set(stopId, {
+            marker,
+            stopName
+          });
+        }
 
         staticBounds.extend([lat, lon]);
+      }
+    }
+
+    function stopPopupHtml(stopName, arrivalsByTrip) {
+      const lines = [`<strong>${stopName}</strong>`];
+      const arrivals = Object.values(arrivalsByTrip || {});
+
+      arrivals.sort((left, right) => {
+        const leftMinutes = Number(left.arrival_time_minutes);
+        const rightMinutes = Number(right.arrival_time_minutes);
+        if (Number.isNaN(leftMinutes) || Number.isNaN(rightMinutes)) {
+          return 0;
+        }
+        return leftMinutes - rightMinutes;
+      });
+
+      if (arrivals.length === 0) {
+        lines.push("No upcoming arrivals");
+        return lines.join("<br>");
+      }
+
+      for (const arrival of arrivals) {
+        const routeShortName = arrival.route_short_name || "-";
+        const minutes = arrival.arrival_time_minutes;
+        const platform = arrival.platform || "-";
+        lines.push(`${routeShortName} ${minutes} (min) platform ${platform}`);
+      }
+
+      return lines.join("<br>");
+    }
+
+    function updateStopsArrivalPopups(arrivalTimesData) {
+      for (const [stopId, markerInfo] of stopMarkersById.entries()) {
+        const arrivalsByTrip = arrivalTimesData[stopId] || {};
+        markerInfo.marker.setPopupContent(stopPopupHtml(markerInfo.stopName, arrivalsByTrip));
       }
     }
 
@@ -171,20 +217,32 @@
       fitMapToStaticLayers();
     }
 
-    async function refreshVehicles() {
-      const vehiclesResponse = await fetch(vehiclesPath);
-      if (!vehiclesResponse.ok) {
-        throw new Error(`Vehicles request failed with status ${vehiclesResponse.status}`);
+    async function fetchFirstOkJson(pathCandidates) {
+      for (const path of pathCandidates) {
+        const response = await fetch(path);
+        if (response.ok) {
+          return response.json();
+        }
       }
+      throw new Error(`Request failed for paths: ${pathCandidates.join(", ")}`);
+    }
 
-      const vehiclesData = await vehiclesResponse.json();
+    async function refreshRealtimeLayers() {
+      const [vehiclesData, arrivalTimesData] = await Promise.all([
+        fetchFirstOkJson(vehiclesPathCandidates),
+        fetchFirstOkJson(arrivalTimesPathCandidates)
+      ]);
+
       drawVehicles(vehiclesData);
+      if (arrivalTimesData && typeof arrivalTimesData === "object") {
+        updateStopsArrivalPopups(arrivalTimesData);
+      }
     }
 
     async function initializeMap() {
       try {
         await loadStaticLayers();
-        await refreshVehicles();
+        await refreshRealtimeLayers();
         hideStatus();
       } catch (error) {
         console.error("Error loading map data", error);
@@ -194,11 +252,11 @@
 
       setInterval(async () => {
         try {
-          await refreshVehicles();
+          await refreshRealtimeLayers();
           hideStatus();
         } catch (error) {
-          console.error("Error refreshing vehicles data", error);
-          showStatus("Error refreshing vehicles from localhost:8000.");
+          console.error("Error refreshing realtime data", error);
+          showStatus("Error refreshing vehicles/arrival_times from localhost:8000.");
         }
       }, vehiclesRefreshIntervalMs);
     }
