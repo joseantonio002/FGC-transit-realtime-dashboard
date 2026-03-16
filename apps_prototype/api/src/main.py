@@ -74,3 +74,8 @@ async def get_stops() -> Any:
 async def get_vehicles() -> Any:
   """Return JSON content from vehicles.json."""
   return _load_json_file("vehicles.json")
+
+@app.get("/arrival_times")
+async def get_vehicles() -> Any:
+  """Return JSON content from vehicles.json."""
+  return _load_json_file("arrival_times.json")
