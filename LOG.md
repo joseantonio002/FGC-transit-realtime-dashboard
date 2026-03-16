@@ -1154,7 +1154,7 @@ After experimenting, it is clear that if we compare our data with https://geotre
 
 Now lets make stops data (arrival times for upcoming trips)
 
-
+That is done, I have all the information I need, next step is calculating delays and storing them on a sqlite database
 
 
 # Concepts I've been learning with this project 

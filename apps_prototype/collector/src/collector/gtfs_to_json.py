@@ -215,8 +215,6 @@ def arrival_times_to_json(
       predicted_arrival_epoch: int | None = None
       if stop_time_update.arrival.HasField("time"):
         predicted_arrival_epoch = int(stop_time_update.arrival.time)
-      elif stop_time_update.arrival.HasField("delay"):
-        predicted_arrival_epoch = trips_timestamp + int(stop_time_update.arrival.delay)
 
       if predicted_arrival_epoch is None:
         continue
@@ -225,6 +223,9 @@ def arrival_times_to_json(
 
       if arrival_time_minutes < 0:
         continue
+
+      if arrival_time_minutes == 0:
+        arrival_time_minutes = 1
 
       if base_stop_id not in output:
         output[base_stop_id] = {}
