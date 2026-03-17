@@ -1158,7 +1158,23 @@ That is done, I have all the information I need, next step is calculating delays
 
 # 17/03/2026
 
-Checking if entities in trips feed dissapear, and then reappear, in that case we will have to store more than just the previous feed
+Checking if entities in trips feed dissapear, and then reappear, in that case we will have to store more than just the previous feed, commit "first version calculate delay"
+
+So trips can dissapear and then reapear, to avoid complicating things, the logic will be that a trip only counts as finished when: 
+1º) Is in previous feed but not in current (logic up until now)
+2º) In the feed, only the final stop remains
+
+As we know, the second case can fail because sometimes trips feed skips stops (like the example in day 22-23/02/2026 Lingering test). However, I prefer that over having duplicates in delay for the same stop, which can happen if we only do step 1º. Because trip_id and stop_id are going to be primary key in the delays table
+
+If we keep only step 1º):
+Pros: We will always have every stop delay for every trip if the trip shows up at least once in trips feed 
+Cons: possible duplicates
+
+If we add step 2º):
+Pros: No duplicates
+Cons: We may skip stops
+
+I care more about having clean data, and for my simple use case, is not necessary to store every single stop. We care about the aggregated data, not specific trips.
 
 
 

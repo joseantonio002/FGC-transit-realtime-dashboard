@@ -69,6 +69,39 @@ def _print_stop_delay(
   )
 
 
+def _is_only_last_stop_remaining(
+  trip_id: str,
+  previous_trip: dict[str, dict[str, Any]],
+  sh_stop_times: dict[str, dict[str, dict[str, str]]],
+) -> bool:
+  """Return true when previous snapshot contains only the trip final stop."""
+  if len(previous_trip) != 1:
+    return False
+
+  scheduled_trip: dict[str, dict[str, str]] | None = sh_stop_times.get(trip_id)
+  if scheduled_trip is None or len(scheduled_trip) == 0:
+    return False
+
+  max_sequence: int | None = None
+  last_stop_id: str | None = None
+  for scheduled_stop_id, scheduled_stop in scheduled_trip.items():
+    stop_sequence_raw: str = scheduled_stop.get("stop_sequence", "")
+    try:
+      sequence: int = int(stop_sequence_raw)
+    except ValueError:
+      continue
+
+    if max_sequence is None or sequence > max_sequence:
+      max_sequence = sequence
+      last_stop_id = scheduled_stop_id
+
+  if last_stop_id is None:
+    return False
+
+  remaining_stop_id: str = next(iter(previous_trip.keys()))
+  return remaining_stop_id == last_stop_id
+
+
 def calculate_delays(
   current_feed: dict[str, dict[str, dict[str, Any]]],
   previous_feed: dict[str, dict[str, dict[str, Any]]],
@@ -91,6 +124,10 @@ def calculate_delays(
   for trip_id, previous_trip in previous_feed.items():
     if trip_id in current_feed:
       continue
+
+    if not _is_only_last_stop_remaining(trip_id, previous_trip, sh_stop_times):
+      continue
+
     print(f"{trip_id} finished, delay for remaning stops")
     for stop_id, previous_stop_info in previous_trip.items():
       arrival_time_epoch_raw: Any = previous_stop_info.get("arrival_time")
