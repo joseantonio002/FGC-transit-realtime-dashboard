@@ -1158,7 +1158,7 @@ That is done, I have all the information I need, next step is calculating delays
 
 # 17/03/2026
 
-
+Checking if entities in trips feed dissapear, and then reappear, in that case we will have to store more than just the previous feed
 
 
 

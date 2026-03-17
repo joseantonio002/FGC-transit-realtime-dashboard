@@ -4,6 +4,7 @@ from load_gtfs_scheduled import load_routes_by_id, load_stop_times_by_trip, load
 from scheduled_collector import scheduled_collector, SAVE_PATH_JSON
 from get_current_snapshot import obtain_last_snapshots
 from gtfs_to_json import vehicles_to_json, arrival_times_to_json, trips_feed_to_dict
+from calculate_delays import calculate_delays
 import json
 
 TRIP_UPDATES_FEED_URL: str = "https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/trip-updates-gtfs_realtime/files/735985017f62fd33b2fe46e31ce53829"
@@ -104,6 +105,8 @@ def main() -> None:
         json.dump(stops_ouput, output_file, ensure_ascii=False, indent=2)
 
       current = trips_feed_to_dict(trips)
+      calculate_delays(current, previous_trip_feed, sh_stop_times)
+      previous_trip_feed = current
 
     if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:
       gtfs_scheduled_load_again = 0
