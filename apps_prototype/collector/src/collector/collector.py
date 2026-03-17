@@ -7,6 +7,10 @@ from gtfs_to_json import vehicles_to_json, arrival_times_to_json, trips_feed_to_
 from calculate_delays import calculate_delays
 import json
 
+import sqlitle_functions
+import sqlite3
+
+
 TRIP_UPDATES_FEED_URL: str = "https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/trip-updates-gtfs_realtime/files/735985017f62fd33b2fe46e31ce53829"
 VEHICLE_POSITIONS_FEED_URL: str = "https://dadesobertes.fgc.cat/api/explore/v2.1/catalog/datasets/vehicle-positions-gtfs_realtime/files/d286964db2d107ecdb1344bf02f7b27b"
 POLL_SECONDS: int = 10
@@ -40,6 +44,11 @@ def main() -> None:
   trips_current_ts: int = -1
   vh_current_ts: int = -1
   backoff_counter: int = 0
+
+  conn: sqlite3.Connection = sqlite3.connect("datos.db")
+  sqlitle_db: sqlite3.Cursor = conn.cursor()
+  sqlitle_functions.create_historic_table(sqlitle_db, conn)
+  
 
   scheduled_collector()
   gtfs_scheduled_load_again: int = 0

@@ -1,9 +1,5 @@
-"""Calculate and print trip stop delays from consecutive trip feeds."""
-
 from __future__ import annotations
-
 from typing import Any
-
 from gtfs_to_json import _parse_hhmmss_to_seconds, _service_midnight_epoch
 
 
@@ -39,6 +35,7 @@ def _print_stop_delay(
   """Print stop delay details for one reached stop."""
   scheduled_trip: dict[str, dict[str, str]] | None = sh_stop_times.get(trip_id)
   if scheduled_trip is None or stop_id not in scheduled_trip:
+    print("The trip is not in scheduled")
     print(
       f"trip_id={trip_id} stop={stop_id} stop_sequence=unknown "
       f"arrival_time_feed={arrival_time_epoch} scheduled_arrival_time=unknown delay=unknown"
@@ -50,6 +47,7 @@ def _print_stop_delay(
   scheduled_arrival_time: str = scheduled_stop.get("arrival_time", "") or "unknown"
 
   if scheduled_arrival_time == "unknown":
+    raise Exception("This should never happen")
     print(
       f"trip_id={trip_id} stop={stop_id} stop_sequence={stop_sequence} "
       f"arrival_time_feed={arrival_time_epoch} scheduled_arrival_time=unknown delay=unknown"
@@ -116,7 +114,6 @@ def calculate_delays(
     for stop_id, previous_stop_info in previous_trip.items():
       if stop_id in current_trip:
         continue
-
       arrival_time_epoch_raw: Any = previous_stop_info.get("arrival_time")
       arrival_time_epoch: int | None = int(arrival_time_epoch_raw) if arrival_time_epoch_raw is not None else None
       _print_stop_delay(trip_id, stop_id, arrival_time_epoch, sh_stop_times)

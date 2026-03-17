@@ -1176,6 +1176,18 @@ Cons: We may skip stops
 
 I care more about having clean data, and for my simple use case, is not necessary to store every single stop. We care about the aggregated data, not specific trips.
 
+I just realized sqlite does not have date or datetime data types. So we will have to store dates as UNIX timestamps and then in the API convert filter dates to timestamp.
+
+- trip_id TEXT
+- route_id TEXT
+- stop_id TEXT
+- stop_sequence INTEGER
+- arrival_planned INTEGER (UNIX timestamp)
+- arrival_real INTEGER (UNIX timestamp)
+- arrival_delay_total_seconds INTEGER
+- arrival_delay_formatted TEXT (MM:SS)
+- execution_timestamp INTEGER (UNIX timestamp, time of the execution)
+
 
 
 # Concepts I've been learning with this project 
