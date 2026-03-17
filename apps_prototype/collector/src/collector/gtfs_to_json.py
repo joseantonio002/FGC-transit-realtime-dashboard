@@ -177,6 +177,38 @@ def _split_stop_id_platform(stop_id: str) -> tuple[str, str | None]:
   return base_stop_id, platform
 
 
+def trips_feed_to_dict(trips_feed: Any) -> dict[str, dict[str, dict[str, int | None]]]:
+  """Convert GTFS-RT trip updates feed into trip->stop->arrival_time mapping."""
+  output: dict[str, dict[str, dict[str, int | None]]] = {}
+
+  for entity in trips_feed.entity:
+    if not entity.HasField("trip_update"):
+      continue
+
+    trip_update: Any = entity.trip_update
+    trip_id: str = str(trip_update.trip.trip_id)
+    if trip_id == "":
+      continue
+
+    if trip_id not in output:
+      output[trip_id] = {}
+
+    for stop_time_update in trip_update.stop_time_update:
+      stop_id: str = str(stop_time_update.stop_id)
+      if stop_id == "":
+        continue
+
+      arrival_time: int | None = None
+      if stop_time_update.arrival.HasField("time"):
+        arrival_time = int(stop_time_update.arrival.time)
+
+      output[trip_id][stop_id] = {
+        "arrival_time": arrival_time,
+      }
+
+  return output
+
+
 def arrival_times_to_json(
   vehicles_feed: Any,
   trips: Any,

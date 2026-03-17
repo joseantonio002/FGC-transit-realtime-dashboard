@@ -1156,6 +1156,11 @@ Now lets make stops data (arrival times for upcoming trips)
 
 That is done, I have all the information I need, next step is calculating delays and storing them on a sqlite database
 
+# 17/03/2026
+
+
+
+
 
 # Concepts I've been learning with this project 
 
