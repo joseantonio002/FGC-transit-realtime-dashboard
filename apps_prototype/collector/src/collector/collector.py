@@ -93,6 +93,10 @@ def main() -> None:
     except requests.exceptions.RequestException as request_error:
       print("Exception request")
       raise request_error
+    except Exception as e:
+      backoff_counter += 1
+      backoff(backoff_counter)
+      continue
 
     backoff_counter = 0
     gtfs_scheduled_load_again += 1
@@ -114,7 +118,7 @@ def main() -> None:
         json.dump(stops_ouput, output_file, ensure_ascii=False, indent=2)
 
       current = trips_feed_to_dict(trips)
-      calculate_delays(current, previous_trip_feed, sh_stop_times)
+      calculate_delays(current, previous_trip_feed, sh_stop_times, sh_trips, conn, sqlitle_db)
       previous_trip_feed = current
 
     if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:

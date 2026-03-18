@@ -49,7 +49,7 @@ def _parse_hhmmss_to_seconds(value: str) -> int | None:
   return (hours * 3600) + (minutes * 60) + seconds
 
 
-def _service_midnight_epoch(start_date_raw: str, fallback_epoch: int) -> int:
+def _service_midnight_epoch(start_date_raw: str, fallback_epoch: int=-1) -> int:
   """Build the service-day midnight epoch in the agency timezone."""
   try:
     if len(start_date_raw) != 8:
