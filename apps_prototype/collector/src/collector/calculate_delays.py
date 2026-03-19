@@ -26,8 +26,11 @@ def _store_stop_delay(
 ) -> None:
   """Store stop delay details for one reached stop."""
   scheduled_trip: dict[str, dict[str, str]] | None = sh_stop_times.get(trip_id)
-  if scheduled_trip is None or stop_id not in scheduled_trip:
-    logger.warning(f"{trip_id} is not in scheduled trips")
+  if scheduled_trip is None :
+    logger.warning(f"S=calculate_delays F=_store_stop_delay M={trip_id} is not in scheduled trips")
+    return
+  elif stop_id not in scheduled_trip:
+    logger.warning(f"S=calculate_delays F=_store_stop_delay M={stop_id} is not in scheduled stops for trip {trip_id}")
     return
 
   scheduled_stop: dict[str, str] = scheduled_trip[stop_id]
@@ -37,7 +40,8 @@ def _store_stop_delay(
   delay_seconds: int | None = _calculate_delay_seconds(arrival_time_epoch, scheduled_arrival_time, feed_start_service_date)
   if delay_seconds is None:
     logger.warning(
-      f"Error calculating delay for trip {trip_id}, some fields missing either in trips feed or scheduled stop times"
+      "S=calculate_delays F=_store_stop_delay "
+      f"M=Error calculating delay for trip {trip_id}, some fields missing either in trips feed or scheduled stop times"
     )
     return
   else:

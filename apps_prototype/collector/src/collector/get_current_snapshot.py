@@ -36,12 +36,16 @@ def retry_fetching(
 
   time.sleep(retry_delay_seconds)
   for i in range(0, retries_left):
-    logger.info(f"Retrying to fetch {source} after {retry_delay_seconds} seconds")
+    logger.info(
+      f"S=get_current_snapshot F=retry_fetching M=Retrying source={source} after {retry_delay_seconds} seconds"
+    )
     retries_left -= 1
     try:
       f, ts = get_current_snapshot(s, url, timeout)
     except Exception as e:
-      logger.warning(f"Error trying to retry fetch for {source}. error={e}")
+      logger.warning(
+        f"S=get_current_snapshot F=retry_fetching M=Error retrying source={source} E={e}"
+      )
       raise e
     
     if ts > lts:
@@ -85,7 +89,7 @@ def obtain_last_snapshots(
   try:
     vh_feed, vh_timestamp = get_current_snapshot(s, vehicle_positions_feed_url, timeout)
   except Exception as e:
-    logger.warning(f"Error fetching vehicles feed. error={e}")
+    logger.warning(f"S=get_current_snapshot F=obtain_last_snapshots M=Error fetching vehicles feed E={e}")
     raise e
 
   if vh_timestamp <= vh_previous_ts:
@@ -102,11 +106,13 @@ def obtain_last_snapshots(
                      "vehicles",
                     )
     except Exception as e:
-      logger.warning(f"Error retrying to fetch vehicles feed. error={e}")
+      logger.warning(
+        f"S=get_current_snapshot F=obtain_last_snapshots M=Error retrying vehicles feed E={e}"
+      )
       raise e
 
   if vh_timestamp <= vh_previous_ts:
-    logger.warning("Could not update vehicles feed")
+    logger.warning("S=get_current_snapshot F=obtain_last_snapshots M=Could not update vehicles feed")
     return None, vh_previous_ts, None, trips_previous_ts, return_status
   
   return_status = 1
@@ -114,11 +120,13 @@ def obtain_last_snapshots(
   try:
     trips_feed, trips_timestamp = get_current_snapshot(s, trip_updates_feed_url, timeout)
   except Exception as e:
-    logger.warning(f"Error fetching trips feed. error={e}")
+    logger.warning(f"S=get_current_snapshot F=obtain_last_snapshots M=Error fetching trips feed E={e}")
     raise e
 
   if n_retries == 0:
-    logger.warning("Could not update trips feed because total retry time was done")
+    logger.warning(
+      "S=get_current_snapshot F=obtain_last_snapshots M=Could not update trips feed because total retry time was done"
+    )
     return vh_feed, vh_timestamp, None, trips_previous_ts, return_status
   
   if trips_timestamp <= trips_previous_ts:
@@ -135,11 +143,13 @@ def obtain_last_snapshots(
                      "trips",
                     )
     except Exception as e:
-      logger.warning(f"Error retrying to fetch trips feed. error={e}")
+      logger.warning(
+        f"S=get_current_snapshot F=obtain_last_snapshots M=Error retrying trips feed E={e}"
+      )
       raise e
 
   if trips_timestamp <= trips_previous_ts:
-    logger.warning("Could not update trips feed")
+    logger.warning("S=get_current_snapshot F=obtain_last_snapshots M=Could not update trips feed")
     return vh_feed, vh_timestamp, None, trips_previous_ts, return_status
   
   return_status = 2

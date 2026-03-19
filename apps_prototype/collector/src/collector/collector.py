@@ -60,7 +60,7 @@ def new_session() -> requests.Session:
 def backoff(backoff_counter: int, logger: logging.Logger) -> None:
   """Sleep using exponential backoff after repeated failures."""
   logger.warning(
-    "Exponential backoff activated "
+    "S=collector F=backoff M=Exponential backoff activated "
     f"{backoff_counter} times in a row, sleeping for 2^{backoff_counter} seconds"
   )
   time.sleep(2 ** backoff_counter)
@@ -85,7 +85,6 @@ def main() -> None:
   sh_trips = load_trips_by_id()
   sh_routes = load_routes_by_id()
   sh_stop_times = load_stop_times_by_trip()
-
   previous_trip_feed = {}
 
   while True:
@@ -103,29 +102,33 @@ def main() -> None:
       )
     except requests.exceptions.HTTPError as e:
       status: int = e.response.status_code
-      logger.warning(f"HTTP error while fetching snapshots. status={status} error={e}")
+      logger.warning(
+        f"S=collector F=main M=HTTP error while fetching snapshots status={status} E={e}"
+      )
       backoff_counter += 1
       backoff(backoff_counter, logger)
       continue
     except requests.exceptions.ConnectionError as e:
-      logger.warning(f"Connection error while fetching snapshots. error={e}. Resetting session")
+      logger.warning(
+        f"S=collector F=main M=Connection error while fetching snapshots, resetting session E={e}"
+      )
       s.close()
       s = new_session()
       backoff_counter += 1
       backoff(backoff_counter, logger)
       continue
     except requests.exceptions.ReadTimeout as e:
-      logger.warning(f"Timeout while fetching snapshots. error={e}")
+      logger.warning(f"S=collector F=main M=Timeout while fetching snapshots E={e}")
       backoff_counter += 1
       backoff(backoff_counter, logger)
       continue
     except requests.exceptions.RequestException as e:
-      logger.warning(f"Request exception while fetching snapshots. error={e}")
+      logger.warning(f"S=collector F=main M=Request exception while fetching snapshots E={e}")
       backoff_counter += 1
       backoff(backoff_counter, logger)
       continue
     except Exception as e:
-      logger.warning(f"Unexpected error while fetching snapshots. error={e}")
+      logger.warning(f"S=collector F=main M=Unexpected error while fetching snapshots E={e}")
       backoff_counter += 1
       backoff(backoff_counter, logger)
       continue
@@ -134,11 +137,13 @@ def main() -> None:
     gtfs_scheduled_load_again += 1
 
     if return_status == 0:
-      logger.info("Skipping execution because vehicles was not updated")
+      logger.info("S=collector F=main M=Skipping execution because vehicles was not updated")
     elif return_status == 1:
-      logger.info("Vehicles was updated but trips not, skipping execution")
+      logger.info("S=collector F=main M=Vehicles was updated but trips not, skipping execution")
     else:
-      logger.info(f"Both feeds were updated correctly, processing data and sleeping {SLEEP_TIME} seconds")
+      logger.info(
+        f"S=collector F=main M=Both feeds were updated correctly, processing data and sleeping {SLEEP_TIME} seconds"
+      )
       try:
         vehicles_output: dict = vehicles_to_json(
           vh,
@@ -150,14 +155,14 @@ def main() -> None:
           logger,
         )
       except Exception as e:
-        logger.warning(f"Error converting vehicles feed to JSON. error={e}")
+        logger.warning(f"S=collector F=main M=Error converting vehicles feed to JSON E={e}")
         time.sleep(SLEEP_TIME)
         continue
 
       try:
         stops_ouput: dict = arrival_times_to_json(vh, trips, sh_trips)
       except Exception as e:
-        logger.warning(f"Error converting arrival times feed to JSON. error={e}")
+        logger.warning(f"S=collector F=main M=Error converting arrival times feed to JSON E={e}")
         time.sleep(SLEEP_TIME)
         continue
 
@@ -169,21 +174,21 @@ def main() -> None:
         with open(path, "w", encoding="utf-8") as output_file:
           json.dump(stops_ouput, output_file, ensure_ascii=False, indent=2)
       except Exception as e:
-        logger.warning(f"Error writing output JSON files. error={e}")
+        logger.warning(f"S=collector F=main M=Error writing output JSON files E={e}")
         time.sleep(SLEEP_TIME)
         continue
 
       try:
         current = trips_feed_to_dict(trips)
       except Exception as e:
-        logger.warning(f"Error converting trips feed to dict. error={e}")
+        logger.warning(f"S=collector F=main M=Error converting trips feed to dict E={e}")
         time.sleep(SLEEP_TIME)
         continue
 
       try:
         calculate_delays(current, previous_trip_feed, sh_stop_times, sh_trips, sqlitle_db, conn, logger)
       except Exception as e:
-        logger.warning(f"Error calculating delays from trip feeds. error={e}")
+        logger.warning(f"S=collector F=main M=Error calculating delays from trip feeds E={e}")
         time.sleep(SLEEP_TIME)
         continue
 
@@ -199,7 +204,7 @@ def main() -> None:
           sh_routes = load_routes_by_id()
           sh_stop_times = load_stop_times_by_trip()
       except Exception as e:
-        logger.warning(f"Error reloading scheduled GTFS artifacts. error={e}")
+        logger.warning(f"S=collector F=main M=Error reloading scheduled GTFS artifacts E={e}")
         time.sleep(SLEEP_TIME)
         continue
     
