@@ -74,6 +74,23 @@ def _service_midnight_epoch(start_date_raw: str, fallback_epoch: int=-1) -> int:
     )
     return int(fallback_midnight.timestamp())
 
+def _convert_hhmmss_to_epoch(scheduled_arrival_time: str, fsd, r_arrival_epoch) -> int:
+  scheduled_arrival_seconds: int | None = _parse_hhmmss_to_seconds(scheduled_arrival_time)
+  if scheduled_arrival_seconds is None:
+    return None
+
+  service_midnight_epoch: int = _service_midnight_epoch(fsd, r_arrival_epoch)
+  planned_arrival_epoch: int = service_midnight_epoch + scheduled_arrival_seconds
+  return planned_arrival_epoch
+
+
+def _calculate_delay_seconds(arrival_time_epoch: int | None, scheduled_arrival_time: str, fsd) -> int | None:
+  """Calculate realtime minus scheduled arrival in seconds."""
+  if arrival_time_epoch is None or scheduled_arrival_time is None:
+    return None
+  
+  plannned_arrival_epoch: int = _convert_hhmmss_to_epoch(scheduled_arrival_time, fsd, arrival_time_epoch)
+  return arrival_time_epoch - plannned_arrival_epoch
 
 def _get_schedule_state(
   trip_id: str,
@@ -102,21 +119,16 @@ def _get_schedule_state(
       return "unknown"
 
     scheduled_arrival_raw: str = sh_stop_times[trip_id][stop_id].get("arrival_time", "")
-    scheduled_arrival_seconds: int | None = _parse_hhmmss_to_seconds(scheduled_arrival_raw)
-    if scheduled_arrival_seconds is None:
-      return "unknown"
-
-    if not current_stop_update.arrival.HasField("time"):
-      return "unknown"
-
     realtime_arrival_epoch: int = int(current_stop_update.arrival.time)
     start_date_raw: str = str(trip_update.trip.start_date or "")
     if start_date_raw == "":
       print(f"Entity in trips with trip_id {trip_id} feed does not have trip_update.trip.start_date")
       return "unknown"
-    service_midnight_epoch: int = _service_midnight_epoch(start_date_raw, realtime_arrival_epoch)
-    planned_arrival_epoch: int = service_midnight_epoch + scheduled_arrival_seconds
-    delay_seconds: int = realtime_arrival_epoch - planned_arrival_epoch
+
+    delay_seconds: int | None = _calculate_delay_seconds(realtime_arrival_epoch, scheduled_arrival_raw, start_date_raw)
+
+    if delay_seconds is None:
+      return "unknown"
 
     if delay_seconds >= DELAY_SECONDS:
       return "late"

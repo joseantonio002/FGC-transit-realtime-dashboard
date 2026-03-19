@@ -1192,7 +1192,10 @@ I just realized sqlite does not have date or datetime data types. So we will hav
 
 Logic is done, the only thing left to do in the code is how to handle errors and some refactoring. Every time there is an error, print to log file and go to next iteration. Make a log file for each day, and every X time delete oldest logs. Also do the same for the database, to avoid infinite growth.
 
-
+1º) Refactor
+2º) Change all prints to logs
+3º) Delete old db data
+4º) API and final frontend
 
 
 

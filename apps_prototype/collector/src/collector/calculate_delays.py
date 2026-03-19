@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any
-from gtfs_to_json import _parse_hhmmss_to_seconds, _service_midnight_epoch, SERVICE_START_DATE_FIELD
+from gtfs_to_json import _calculate_delay_seconds, _convert_hhmmss_to_epoch, SERVICE_START_DATE_FIELD
 from sqlitle_functions import insert_historic_delay_row
 from datetime import datetime
 
@@ -11,25 +11,6 @@ def _format_delay(delay_seconds: int) -> str:
   minutes: int = abs_delay // 60
   seconds: int = abs_delay % 60
   return f"{sign}{minutes}m {seconds}s"
-
-def _convert_hhmmss_to_epoch(scheduled_arrival_time: str, fsd) -> int:
-  scheduled_arrival_seconds: int | None = _parse_hhmmss_to_seconds(scheduled_arrival_time)
-  if scheduled_arrival_seconds is None:
-    return None
-
-  service_midnight_epoch: int = _service_midnight_epoch(fsd)
-  planned_arrival_epoch: int = service_midnight_epoch + scheduled_arrival_seconds
-  return planned_arrival_epoch
-
-
-def _calculate_delay_seconds(arrival_time_epoch: int | None, scheduled_arrival_time: str, fsd) -> int | None:
-  """Calculate realtime minus scheduled arrival in seconds."""
-  if arrival_time_epoch is None:
-    return None
-  
-  plannned_arrival_epoch: int = _convert_hhmmss_to_epoch(scheduled_arrival_time, fsd)
-  return arrival_time_epoch - plannned_arrival_epoch
-
 
 def _store_stop_delay(
   trip_id: str,
@@ -53,12 +34,14 @@ def _store_stop_delay(
 
   delay_seconds: int | None = _calculate_delay_seconds(arrival_time_epoch, scheduled_arrival_time, feed_start_service_date)
   if delay_seconds is None:
-    delay_formatted: str = "unknown"
+    #delay_formatted: str = "unknown"
+    print(f"Error calculating delay for trip {trip_id}, could not calculate delay, some fields missing")
+    return
   else:
     delay_formatted = _format_delay(delay_seconds)
 
   route_id = sh_trips[trip_id].get("route_id", "") or "unknown"
-  arrival_planned = _convert_hhmmss_to_epoch(scheduled_arrival_time, feed_start_service_date)
+  arrival_planned = _convert_hhmmss_to_epoch(scheduled_arrival_time, feed_start_service_date, arrival_time_epoch)
 
   execution_datetime = datetime.now()
 
