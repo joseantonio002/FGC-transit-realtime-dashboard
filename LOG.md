@@ -1190,6 +1190,7 @@ I just realized sqlite does not have date or datetime data types. So we will hav
 
 
 
+
 # Concepts I've been learning with this project 
 
 - cosas de backend, API's, seguridad API's

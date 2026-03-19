@@ -10,6 +10,7 @@ import re
 
 AGENCY_TIMEZONE: ZoneInfo = ZoneInfo("Europe/Madrid")
 DELAY_SECONDS: int = 300
+SERVICE_START_DATE_FIELD: str = 'feed_start_date'
 
 def _occupancy_status_name(vehicle: Any) -> str:
   """Resolve a readable occupancy status name from a vehicle message."""
@@ -110,6 +111,9 @@ def _get_schedule_state(
 
     realtime_arrival_epoch: int = int(current_stop_update.arrival.time)
     start_date_raw: str = str(trip_update.trip.start_date or "")
+    if start_date_raw == "":
+      print(f"Entity in trips with trip_id {trip_id} feed does not have trip_update.trip.start_date")
+      return "unknown"
     service_midnight_epoch: int = _service_midnight_epoch(start_date_raw, realtime_arrival_epoch)
     planned_arrival_epoch: int = service_midnight_epoch + scheduled_arrival_seconds
     delay_seconds: int = realtime_arrival_epoch - planned_arrival_epoch
@@ -192,6 +196,8 @@ def trips_feed_to_dict(trips_feed: Any) -> dict[str, dict[str, dict[str, int | N
 
     if trip_id not in output:
       output[trip_id] = {}
+
+    output[SERVICE_START_DATE_FIELD] = trip_update.trip.start_date
 
     for stop_time_update in trip_update.stop_time_update:
       stop_id: str = str(stop_time_update.stop_id)

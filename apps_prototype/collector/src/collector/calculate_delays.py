@@ -1,8 +1,8 @@
 from __future__ import annotations
 from typing import Any
-from gtfs_to_json import _parse_hhmmss_to_seconds, _service_midnight_epoch
+from gtfs_to_json import _parse_hhmmss_to_seconds, _service_midnight_epoch, SERVICE_START_DATE_FIELD
 from sqlitle_functions import insert_historic_delay_row
-
+from datetime import datetime
 
 def _format_delay(delay_seconds: int) -> str:
   """Format delay seconds into signed minutes and seconds string."""
@@ -12,22 +12,22 @@ def _format_delay(delay_seconds: int) -> str:
   seconds: int = abs_delay % 60
   return f"{sign}{minutes}m {seconds}s"
 
-def _convert_hhmmss_to_epoch(scheduled_arrival_time: str) -> int:
+def _convert_hhmmss_to_epoch(scheduled_arrival_time: str, fsd) -> int:
   scheduled_arrival_seconds: int | None = _parse_hhmmss_to_seconds(scheduled_arrival_time)
   if scheduled_arrival_seconds is None:
     return None
 
-  service_midnight_epoch: int = _service_midnight_epoch("")
+  service_midnight_epoch: int = _service_midnight_epoch(fsd)
   planned_arrival_epoch: int = service_midnight_epoch + scheduled_arrival_seconds
   return planned_arrival_epoch
 
 
-def _calculate_delay_seconds(arrival_time_epoch: int | None, scheduled_arrival_time: str) -> int | None:
+def _calculate_delay_seconds(arrival_time_epoch: int | None, scheduled_arrival_time: str, fsd) -> int | None:
   """Calculate realtime minus scheduled arrival in seconds."""
   if arrival_time_epoch is None:
     return None
   
-  plannned_arrival_epoch: int = _convert_hhmmss_to_epoch(scheduled_arrival_time)
+  plannned_arrival_epoch: int = _convert_hhmmss_to_epoch(scheduled_arrival_time, fsd)
   return arrival_time_epoch - plannned_arrival_epoch
 
 
@@ -37,6 +37,7 @@ def _store_stop_delay(
   arrival_time_epoch: int | None,
   sh_stop_times: dict[str, dict[str, dict[str, str]]],
   sh_trips,
+  feed_start_service_date,
   cursor,
   connection
 ) -> None:
@@ -50,14 +51,16 @@ def _store_stop_delay(
   stop_sequence: str = scheduled_stop.get("stop_sequence", "") or "unknown"
   scheduled_arrival_time: str = scheduled_stop.get("arrival_time", "") or "unknown"
 
-  delay_seconds: int | None = _calculate_delay_seconds(arrival_time_epoch, scheduled_arrival_time)
+  delay_seconds: int | None = _calculate_delay_seconds(arrival_time_epoch, scheduled_arrival_time, feed_start_service_date)
   if delay_seconds is None:
     delay_formatted: str = "unknown"
   else:
     delay_formatted = _format_delay(delay_seconds)
 
   route_id = sh_trips[trip_id].get("route_id", "") or "unknown"
-  arrival_planned = _convert_hhmmss_to_epoch(scheduled_arrival_time)
+  arrival_planned = _convert_hhmmss_to_epoch(scheduled_arrival_time, feed_start_service_date)
+
+  execution_datetime = datetime.now()
 
   row = {
     "trip_id": trip_id,
@@ -67,22 +70,11 @@ def _store_stop_delay(
     "arrival_delay_total_seconds": delay_seconds,
     "arrival_delay_formatted": delay_formatted,
     "arrival_planned": arrival_planned,
-    "arrival_real": arrival_time_epoch
+    "arrival_real": arrival_time_epoch,
+    "execution_datetime": str(execution_datetime)
   }
 
-  print(row)
-
-
-  """
-  print(
-    f"trip_id={trip_id} stop={stop_id} stop_sequence={stop_sequence} "
-    f"arrival_time_feed={arrival_time_epoch} scheduled_arrival_time={scheduled_arrival_time} "
-    f"delay={delay_formatted} "
-    f"route_id={sh_trips[trip_id].get("route_id")}"
-  )
-  """
-
-  #insert_historic_delay_row(cursor, connection, )
+  insert_historic_delay_row(cursor, connection, row)
 
 
 def _is_only_last_stop_remaining(
@@ -127,7 +119,10 @@ def calculate_delays(
   connection
 ) -> None:
   """Print delays when stops disappear from trip updates between snapshots."""
+  feed_start_service_date = current_feed[SERVICE_START_DATE_FIELD] 
   for trip_id, current_trip in current_feed.items():
+    if trip_id == SERVICE_START_DATE_FIELD:
+      continue
     previous_trip: dict[str, dict[str, Any]] | None = previous_feed.get(trip_id)
     if previous_trip is None:
       continue
@@ -137,7 +132,7 @@ def calculate_delays(
         continue
       arrival_time_epoch_raw: Any = previous_stop_info.get("arrival_time")
       arrival_time_epoch: int | None = int(arrival_time_epoch_raw) if arrival_time_epoch_raw is not None else None
-      _store_stop_delay(trip_id, stop_id, arrival_time_epoch, sh_stop_times, sh_trips, cursor, connection)
+      _store_stop_delay(trip_id, stop_id, arrival_time_epoch, sh_stop_times, sh_trips, feed_start_service_date, cursor, connection)
 
   for trip_id, previous_trip in previous_feed.items():
     if trip_id in current_feed:
@@ -150,4 +145,4 @@ def calculate_delays(
     for stop_id, previous_stop_info in previous_trip.items():
       arrival_time_epoch_raw: Any = previous_stop_info.get("arrival_time")
       arrival_time_epoch: int | None = int(arrival_time_epoch_raw) if arrival_time_epoch_raw is not None else None
-      _store_stop_delay(trip_id, stop_id, arrival_time_epoch, sh_stop_times, sh_trips, cursor, connection)
+      _store_stop_delay(trip_id, stop_id, arrival_time_epoch, sh_stop_times, sh_trips, feed_start_service_date, cursor, connection)

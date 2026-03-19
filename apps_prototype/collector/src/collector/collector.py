@@ -118,7 +118,7 @@ def main() -> None:
         json.dump(stops_ouput, output_file, ensure_ascii=False, indent=2)
 
       current = trips_feed_to_dict(trips)
-      calculate_delays(current, previous_trip_feed, sh_stop_times, sh_trips, conn, sqlitle_db)
+      calculate_delays(current, previous_trip_feed, sh_stop_times, sh_trips, sqlitle_db, conn)
       previous_trip_feed = current
 
     if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:

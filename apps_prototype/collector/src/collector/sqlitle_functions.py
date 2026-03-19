@@ -10,13 +10,18 @@ HISTORIC_DELAY_COLUMNS: tuple[str, ...] = (
   "arrival_real",
   "arrival_delay_total_seconds",
   "arrival_delay_formatted",
-  "execution_timestamp",
+  "execution_datetime"
 )
 
 
 
 def create_historic_table(cursor: sqlite3.Cursor, connection: sqlite3.Connection) -> None:
   """Create historic_delays table if it does not exist."""
+
+  #cursor.execute("""
+  #   DROP TABLE IF EXISTS historic_delays            
+  #""")
+
   cursor.execute("""
     CREATE TABLE IF NOT EXISTS historic_delays (
       trip_id TEXT NOT NULL,
@@ -27,7 +32,7 @@ def create_historic_table(cursor: sqlite3.Cursor, connection: sqlite3.Connection
       arrival_real INTEGER NOT NULL,
       arrival_delay_total_seconds INTEGER NOT NULL,
       arrival_delay_formatted TEXT NOT NULL,
-      execution_timestamp INTEGER NOT NULL
+      execution_datetime TEXT NOT NULL
     )
   """)
 
@@ -55,7 +60,7 @@ def insert_historic_delay_row(
       arrival_real,
       arrival_delay_total_seconds,
       arrival_delay_formatted,
-      execution_timestamp
+      execution_datetime
     )
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     """,
@@ -68,7 +73,7 @@ def insert_historic_delay_row(
       row["arrival_real"],
       row["arrival_delay_total_seconds"],
       row["arrival_delay_formatted"],
-      row["execution_timestamp"],
+      row["execution_datetime"],
     ),
   )
 
