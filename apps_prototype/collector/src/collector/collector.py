@@ -6,6 +6,9 @@ from get_current_snapshot import obtain_last_snapshots
 from gtfs_to_json import vehicles_to_json, arrival_times_to_json, trips_feed_to_dict
 from calculate_delays import calculate_delays
 import json
+import logging
+from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
 import sqlitle_functions
 import sqlite3
@@ -22,6 +25,31 @@ SLEEP_TIME: int = 100
 
 COUNT_LOAD_GTFS_SCHEDULED_AGAIN: int = 200
 
+DATABASE_PATH = "datos.db"
+LOG_PATH: Path = Path(__file__).resolve().parent / "collector.log"
+
+
+def _build_logger() -> logging.Logger:
+  """Create and configure the collector rotating file logger."""
+  logger: logging.Logger = logging.getLogger("collector")
+  if logger.handlers:
+    return logger
+
+  logger.setLevel(logging.INFO)
+  handler: RotatingFileHandler = RotatingFileHandler(
+    LOG_PATH,
+    maxBytes=800_000,
+    backupCount=3,
+    encoding="utf-8",
+  )
+  formatter: logging.Formatter = logging.Formatter(
+    "%(asctime)s %(levelname)s %(message)s"
+  )
+  handler.setFormatter(formatter)
+  logger.addHandler(handler)
+  logger.propagate = False
+  return logger
+
 
 def new_session() -> requests.Session:
   """Create a new HTTP session."""
@@ -29,9 +57,9 @@ def new_session() -> requests.Session:
   return s
 
 
-def backoff(backoff_counter: int) -> None:
+def backoff(backoff_counter: int, logger: logging.Logger) -> None:
   """Sleep using exponential backoff after repeated failures."""
-  print(
+  logger.warning(
     "Exponential backoff activated "
     f"{backoff_counter} times in a row, sleeping for 2^{backoff_counter} seconds"
   )
@@ -40,16 +68,16 @@ def backoff(backoff_counter: int) -> None:
 
 def main() -> None:
   """Continuously fetch newest vehicles and trip snapshots."""
+  logger: logging.Logger = _build_logger()
   s: requests.Session = new_session()
   trips_current_ts: int = -1
   vh_current_ts: int = -1
   backoff_counter: int = 0
 
-  conn: sqlite3.Connection = sqlite3.connect("datos.db")
+  conn: sqlite3.Connection = sqlite3.connect(DATABASE_PATH)
   sqlitle_db: sqlite3.Cursor = conn.cursor()
   sqlitle_functions.create_historic_table(sqlitle_db, conn)
   
-
   scheduled_collector()
   gtfs_scheduled_load_again: int = 0
   with open(SAVE_PATH_JSON + '/stops.json', 'r') as stops:
@@ -74,62 +102,98 @@ def main() -> None:
       )
     except requests.exceptions.HTTPError as e:
       status: int = e.response.status_code
-      print(f"HTTP Error fetching data: {status}")
+      logger.warning(f"HTTP error while fetching snapshots. status={status} error={e}")
       backoff_counter += 1
-      backoff(backoff_counter)
+      backoff(backoff_counter, logger)
       continue
-    except requests.exceptions.ConnectionError:
-      print("Connection error, reseting connection")
+    except requests.exceptions.ConnectionError as e:
+      logger.warning(f"Connection error while fetching snapshots. error={e}. Resetting session")
       s.close()
       s = new_session()
       backoff_counter += 1
-      backoff(backoff_counter)
+      backoff(backoff_counter, logger)
       continue
-    except requests.exceptions.ReadTimeout:
-      print("Time out")
+    except requests.exceptions.ReadTimeout as e:
+      logger.warning(f"Timeout while fetching snapshots. error={e}")
       backoff_counter += 1
-      backoff(backoff_counter)
+      backoff(backoff_counter, logger)
       continue
-    except requests.exceptions.RequestException as request_error:
-      print("Exception request")
-      raise request_error
+    except requests.exceptions.RequestException as e:
+      logger.warning(f"Request exception while fetching snapshots. error={e}")
+      backoff_counter += 1
+      backoff(backoff_counter, logger)
+      continue
     except Exception as e:
+      logger.warning(f"Unexpected error while fetching snapshots. error={e}")
       backoff_counter += 1
-      backoff(backoff_counter)
+      backoff(backoff_counter, logger)
       continue
 
     backoff_counter = 0
     gtfs_scheduled_load_again += 1
 
     if return_status == 0:
-      print("Skipping execution because vehicles was not updated")
+      logger.info("Skipping execution because vehicles was not updated")
     elif return_status == 1:
-      print("Vehicles was updated but trips not")
-      print(vh.entity[0])
+      logger.info("Vehicles was updated but trips not, skipping execution")
     else:
-      print(f"Both feeds were updated correctly, processing data and sleeping {SLEEP_TIME} seconds")
-      vehicles_output: dict = vehicles_to_json(vh, sh_trips, sh_routes, sh_stops, sh_stop_times, trips)
-      stops_ouput: dict = arrival_times_to_json(vh, trips, sh_trips)
-      path: str = SAVE_PATH_JSON + "/vehicles.json"
-      with open(path, "w", encoding="utf-8") as output_file:
-        json.dump(vehicles_output, output_file, ensure_ascii=False, indent=2)
-      path = SAVE_PATH_JSON + '/arrival_times.json'
-      with open(path, "w", encoding="utf-8") as output_file:
-        json.dump(stops_ouput, output_file, ensure_ascii=False, indent=2)
+      logger.info(f"Both feeds were updated correctly, processing data and sleeping {SLEEP_TIME} seconds")
+      try:
+        vehicles_output: dict = vehicles_to_json(vh, sh_trips, sh_routes, sh_stops, sh_stop_times, trips)
+      except Exception as e:
+        logger.warning(f"Error converting vehicles feed to JSON. error={e}")
+        time.sleep(SLEEP_TIME)
+        continue
 
-      current = trips_feed_to_dict(trips)
-      calculate_delays(current, previous_trip_feed, sh_stop_times, sh_trips, sqlitle_db, conn)
+      try:
+        stops_ouput: dict = arrival_times_to_json(vh, trips, sh_trips)
+      except Exception as e:
+        logger.warning(f"Error converting arrival times feed to JSON. error={e}")
+        time.sleep(SLEEP_TIME)
+        continue
+
+      try:
+        path: str = SAVE_PATH_JSON + "/vehicles.json"
+        with open(path, "w", encoding="utf-8") as output_file:
+          json.dump(vehicles_output, output_file, ensure_ascii=False, indent=2)
+        path = SAVE_PATH_JSON + '/arrival_times.json'
+        with open(path, "w", encoding="utf-8") as output_file:
+          json.dump(stops_ouput, output_file, ensure_ascii=False, indent=2)
+      except Exception as e:
+        logger.warning(f"Error writing output JSON files. error={e}")
+        time.sleep(SLEEP_TIME)
+        continue
+
+      try:
+        current = trips_feed_to_dict(trips)
+      except Exception as e:
+        logger.warning(f"Error converting trips feed to dict. error={e}")
+        time.sleep(SLEEP_TIME)
+        continue
+
+      try:
+        calculate_delays(current, previous_trip_feed, sh_stop_times, sh_trips, sqlitle_db, conn)
+      except Exception as e:
+        logger.warning(f"Error calculating delays from trip feeds. error={e}")
+        time.sleep(SLEEP_TIME)
+        continue
+
       previous_trip_feed = current
 
-    if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:
-      gtfs_scheduled_load_again = 0
-      scheduled_collector()
-      with open(SAVE_PATH_JSON + '/stops.json', 'r') as stops:
-        sh_stops = json.load(stops)
-      sh_trips = load_trips_by_id()
-      sh_routes = load_routes_by_id()
-      sh_stop_times = load_stop_times_by_trip()
-      
+      try:
+        if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:
+          gtfs_scheduled_load_again = 0
+          scheduled_collector()
+          with open(SAVE_PATH_JSON + '/stops.json', 'r') as stops:
+            sh_stops = json.load(stops)
+          sh_trips = load_trips_by_id()
+          sh_routes = load_routes_by_id()
+          sh_stop_times = load_stop_times_by_trip()
+      except Exception as e:
+        logger.warning(f"Error reloading scheduled GTFS artifacts. error={e}")
+        time.sleep(SLEEP_TIME)
+        continue
+    
     time.sleep(SLEEP_TIME)
 
 

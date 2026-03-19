@@ -1188,6 +1188,11 @@ I just realized sqlite does not have date or datetime data types. So we will hav
 - arrival_delay_formatted TEXT (MM:SS)
 - execution_timestamp INTEGER (UNIX timestamp, time of the execution)
 
+# 19/03/2026
+
+Logic is done, the only thing left to do in the code is how to handle errors and some refactoring. Every time there is an error, print to log file and go to next iteration. Make a log file for each day, and every X time delete oldest logs. Also do the same for the database, to avoid infinite growth.
+
+
 
 
 
@@ -1202,8 +1207,9 @@ I just realized sqlite does not have date or datetime data types. So we will hav
 - Retry Backoff
 - Developing with docker
 - Monorepo, microservices architectures, microservices desing patterns
-
+- Logs, standard format, python log library. Log file for each day
 
 # Possible improvements
 
 - DevOps during development: CI/CD, Testing
+- When only vehicles is updated, add code to update positions even though the do not have trips
