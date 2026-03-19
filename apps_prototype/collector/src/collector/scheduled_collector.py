@@ -30,17 +30,7 @@ def scheduled_collector() -> None:
       path: str = SAVE_PATH_TXT + "/" + item["file"]["filename"]
       with open(path, "w", encoding="utf-8") as output_file:
         output_file.write(file_response.text)
-  except requests.exceptions.HTTPError as error:
-    print(type(error).__name__)
-    raise
-  except requests.exceptions.ConnectionError as error:
-    print(type(error).__name__)
-    raise
-  except requests.exceptions.ReadTimeout as error:
-    print(type(error).__name__)
-    raise
-  except requests.exceptions.RequestException as error:
-    print(type(error).__name__)
+  except Exception as error:
     raise
 
 

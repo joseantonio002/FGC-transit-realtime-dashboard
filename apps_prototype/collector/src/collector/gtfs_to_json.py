@@ -6,6 +6,7 @@ from typing import Any
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import re
+import logging
 
 
 AGENCY_TIMEZONE: ZoneInfo = ZoneInfo("Europe/Madrid")
@@ -74,7 +75,7 @@ def _service_midnight_epoch(start_date_raw: str, fallback_epoch: int=-1) -> int:
     )
     return int(fallback_midnight.timestamp())
 
-def _convert_hhmmss_to_epoch(scheduled_arrival_time: str, fsd, r_arrival_epoch) -> int:
+def _convert_hhmmss_to_epoch(scheduled_arrival_time: str, fsd, r_arrival_epoch) -> int | None:
   scheduled_arrival_seconds: int | None = _parse_hhmmss_to_seconds(scheduled_arrival_time)
   if scheduled_arrival_seconds is None:
     return None
@@ -86,16 +87,19 @@ def _convert_hhmmss_to_epoch(scheduled_arrival_time: str, fsd, r_arrival_epoch) 
 
 def _calculate_delay_seconds(arrival_time_epoch: int | None, scheduled_arrival_time: str, fsd) -> int | None:
   """Calculate realtime minus scheduled arrival in seconds."""
-  if arrival_time_epoch is None or scheduled_arrival_time is None:
+  if arrival_time_epoch is None:
     return None
   
-  plannned_arrival_epoch: int = _convert_hhmmss_to_epoch(scheduled_arrival_time, fsd, arrival_time_epoch)
+  plannned_arrival_epoch: int | None = _convert_hhmmss_to_epoch(scheduled_arrival_time, fsd, arrival_time_epoch)
+  if plannned_arrival_epoch is None:
+    return None
   return arrival_time_epoch - plannned_arrival_epoch
 
 def _get_schedule_state(
   trip_id: str,
   trips: Any,
   sh_stop_times: dict[str, dict[str, dict[str, str]]],
+  logger: logging.Logger | None = None,
 ) -> str:
   """Return schedule state by comparing realtime and planned arrival epochs."""
   if trip_id not in sh_stop_times:
@@ -116,13 +120,18 @@ def _get_schedule_state(
     stop_id: str = str(current_stop_update.stop_id)
 
     if stop_id not in sh_stop_times[trip_id]:
+      if logger is not None:
+        logger.warning(f"{stop_id} is not in scheduled stops")
       return "unknown"
 
     scheduled_arrival_raw: str = sh_stop_times[trip_id][stop_id].get("arrival_time", "")
     realtime_arrival_epoch: int = int(current_stop_update.arrival.time)
     start_date_raw: str = str(trip_update.trip.start_date or "")
     if start_date_raw == "":
-      print(f"Entity in trips with trip_id {trip_id} feed does not have trip_update.trip.start_date")
+      if logger is not None:
+        logger.warning(
+          f"Entity in trips with trip_id {trip_id} feed does not have trip_update.trip.start_date"
+        )
       return "unknown"
 
     delay_seconds: int | None = _calculate_delay_seconds(realtime_arrival_epoch, scheduled_arrival_raw, start_date_raw)
@@ -147,7 +156,15 @@ def _origin_destination(trip_id: str, sh_stops_times):
   return origin, destination
 
 
-def vehicles_to_json(vehicles_feed: Any, sh_trips: dict[str, dict[str, Any]], sh_routes, sh_stops, sh_stop_times, trips) -> dict[str, list[dict[str, Any]]]:
+def vehicles_to_json(
+  vehicles_feed: Any,
+  sh_trips: dict[str, dict[str, Any]],
+  sh_routes,
+  sh_stops,
+  sh_stop_times,
+  trips,
+  logger: logging.Logger | None = None,
+) -> dict[str, list[dict[str, Any]]]:
   """Convert the vehicle positions feed into the API output format."""
   output: dict[str, list[dict[str, Any]]] = {"vehicles": []}
 
@@ -162,7 +179,7 @@ def vehicles_to_json(vehicles_feed: Any, sh_trips: dict[str, dict[str, Any]], sh
         route_color = sh_routes[route_short_name].get("route_color")
 
     next_stop: str = _get_stop_name(vehicle_to_process.vehicle.stop_id, sh_stops)
-    schedule_state: str = _get_schedule_state(trip_id, trips, sh_stop_times)
+    schedule_state: str = _get_schedule_state(trip_id, trips, sh_stop_times, logger)
     origin, destination = _origin_destination(trip_id, sh_stop_times)
     origin = _get_stop_name(origin, sh_stops)
     destination = _get_stop_name(destination, sh_stops)

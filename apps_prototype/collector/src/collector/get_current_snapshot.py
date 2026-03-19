@@ -2,6 +2,7 @@ import requests
 from google.transit import gtfs_realtime_pb2
 import time
 from typing import Optional
+import logging
 
 
 def get_current_snapshot(
@@ -23,6 +24,7 @@ def retry_fetching(
   lts: int,
   timeout: int,
   retry_delay_seconds: int,
+  logger: logging.Logger,
   source: str = "",
 ) -> tuple[gtfs_realtime_pb2.FeedMessage, int, int]:
   """Retry fetching a feed until a newer timestamp appears or retries end."""
@@ -34,12 +36,12 @@ def retry_fetching(
 
   time.sleep(retry_delay_seconds)
   for i in range(0, retries_left):
-    print(f"Retrying to fetch {source} after {retry_delay_seconds} seconds...")
+    logger.info(f"Retrying to fetch {source} after {retry_delay_seconds} seconds")
     retries_left -= 1
     try:
       f, ts = get_current_snapshot(s, url, timeout)
     except Exception as e:
-      print("Error trying to retry fetch")
+      logger.warning(f"Error trying to retry fetch for {source}. error={e}")
       raise e
     
     if ts > lts:
@@ -61,6 +63,7 @@ def obtain_last_snapshots(
   timeout: int,
   number_retries: int,
   retry_delay_seconds: int,
+  logger: logging.Logger,
 ) -> tuple[
   Optional[gtfs_realtime_pb2.FeedMessage],
   int,
@@ -82,7 +85,7 @@ def obtain_last_snapshots(
   try:
     vh_feed, vh_timestamp = get_current_snapshot(s, vehicle_positions_feed_url, timeout)
   except Exception as e:
-    print("Error fetching vehicles feed")
+    logger.warning(f"Error fetching vehicles feed. error={e}")
     raise e
 
   if vh_timestamp <= vh_previous_ts:
@@ -95,14 +98,15 @@ def obtain_last_snapshots(
                      vh_previous_ts,
                      timeout,
                      retry_delay_seconds,
+                     logger,
                      "vehicles",
-                   )
+                    )
     except Exception as e:
-      print("Error retrying to fetch vehicles feed")
+      logger.warning(f"Error retrying to fetch vehicles feed. error={e}")
       raise e
 
   if vh_timestamp <= vh_previous_ts:
-    print("Could not update vehicles feed")
+    logger.warning("Could not update vehicles feed")
     return None, vh_previous_ts, None, trips_previous_ts, return_status
   
   return_status = 1
@@ -110,11 +114,11 @@ def obtain_last_snapshots(
   try:
     trips_feed, trips_timestamp = get_current_snapshot(s, trip_updates_feed_url, timeout)
   except Exception as e:
-    print("Error fetching trips feed")
+    logger.warning(f"Error fetching trips feed. error={e}")
     raise e
-  
+
   if n_retries == 0:
-    print("Could not update trips feed because total retry time was done")
+    logger.warning("Could not update trips feed because total retry time was done")
     return vh_feed, vh_timestamp, None, trips_previous_ts, return_status
   
   if trips_timestamp <= trips_previous_ts:
@@ -127,14 +131,15 @@ def obtain_last_snapshots(
                      vh_previous_ts,
                      timeout,
                      retry_delay_seconds,
+                     logger,
                      "trips",
-                   )
+                    )
     except Exception as e:
-      print("Error retrying to fetch trips feed")
+      logger.warning(f"Error retrying to fetch trips feed. error={e}")
       raise e
-    
+
   if trips_timestamp <= trips_previous_ts:
-    print("Could not update trips feed")
+    logger.warning("Could not update trips feed")
     return vh_feed, vh_timestamp, None, trips_previous_ts, return_status
   
   return_status = 2

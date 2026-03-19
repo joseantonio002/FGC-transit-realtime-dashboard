@@ -3,6 +3,7 @@ from typing import Any
 from gtfs_to_json import _calculate_delay_seconds, _convert_hhmmss_to_epoch, SERVICE_START_DATE_FIELD
 from sqlitle_functions import insert_historic_delay_row
 from datetime import datetime
+import logging
 
 def _format_delay(delay_seconds: int) -> str:
   """Format delay seconds into signed minutes and seconds string."""
@@ -20,12 +21,13 @@ def _store_stop_delay(
   sh_trips,
   feed_start_service_date,
   cursor,
-  connection
+  connection,
+  logger: logging.Logger,
 ) -> None:
   """Store stop delay details for one reached stop."""
   scheduled_trip: dict[str, dict[str, str]] | None = sh_stop_times.get(trip_id)
   if scheduled_trip is None or stop_id not in scheduled_trip:
-    print(f"The trip {trip_id} is not in scheduled")
+    logger.warning(f"{trip_id} is not in scheduled trips")
     return
 
   scheduled_stop: dict[str, str] = scheduled_trip[stop_id]
@@ -34,8 +36,9 @@ def _store_stop_delay(
 
   delay_seconds: int | None = _calculate_delay_seconds(arrival_time_epoch, scheduled_arrival_time, feed_start_service_date)
   if delay_seconds is None:
-    #delay_formatted: str = "unknown"
-    print(f"Error calculating delay for trip {trip_id}, could not calculate delay, some fields missing")
+    logger.warning(
+      f"Error calculating delay for trip {trip_id}, some fields missing either in trips feed or scheduled stop times"
+    )
     return
   else:
     delay_formatted = _format_delay(delay_seconds)
@@ -99,7 +102,8 @@ def calculate_delays(
   sh_stop_times: dict[str, dict[str, dict[str, str]]],
   sh_trips: dict[str, dict[str, Any]],
   cursor, 
-  connection
+  connection,
+  logger: logging.Logger,
 ) -> None:
   """Print delays when stops disappear from trip updates between snapshots."""
   feed_start_service_date = current_feed[SERVICE_START_DATE_FIELD] 
@@ -115,7 +119,17 @@ def calculate_delays(
         continue
       arrival_time_epoch_raw: Any = previous_stop_info.get("arrival_time")
       arrival_time_epoch: int | None = int(arrival_time_epoch_raw) if arrival_time_epoch_raw is not None else None
-      _store_stop_delay(trip_id, stop_id, arrival_time_epoch, sh_stop_times, sh_trips, feed_start_service_date, cursor, connection)
+      _store_stop_delay(
+        trip_id,
+        stop_id,
+        arrival_time_epoch,
+        sh_stop_times,
+        sh_trips,
+        feed_start_service_date,
+        cursor,
+        connection,
+        logger,
+      )
 
   for trip_id, previous_trip in previous_feed.items():
     if trip_id in current_feed:
@@ -124,8 +138,17 @@ def calculate_delays(
     if not _is_only_last_stop_remaining(trip_id, previous_trip, sh_stop_times):
       continue
 
-    print(f"{trip_id} finished, delay for remaning stops")
     for stop_id, previous_stop_info in previous_trip.items():
       arrival_time_epoch_raw: Any = previous_stop_info.get("arrival_time")
       arrival_time_epoch: int | None = int(arrival_time_epoch_raw) if arrival_time_epoch_raw is not None else None
-      _store_stop_delay(trip_id, stop_id, arrival_time_epoch, sh_stop_times, sh_trips, feed_start_service_date, cursor, connection)
+      _store_stop_delay(
+        trip_id,
+        stop_id,
+        arrival_time_epoch,
+        sh_stop_times,
+        sh_trips,
+        feed_start_service_date,
+        cursor,
+        connection,
+        logger,
+      )

@@ -99,6 +99,7 @@ def main() -> None:
         timeout=TIMEOUT,
         number_retries=NUMBER_RETRIES,
         retry_delay_seconds=RETRY_DELAY_SECONDS,
+        logger=logger,
       )
     except requests.exceptions.HTTPError as e:
       status: int = e.response.status_code
@@ -139,7 +140,15 @@ def main() -> None:
     else:
       logger.info(f"Both feeds were updated correctly, processing data and sleeping {SLEEP_TIME} seconds")
       try:
-        vehicles_output: dict = vehicles_to_json(vh, sh_trips, sh_routes, sh_stops, sh_stop_times, trips)
+        vehicles_output: dict = vehicles_to_json(
+          vh,
+          sh_trips,
+          sh_routes,
+          sh_stops,
+          sh_stop_times,
+          trips,
+          logger,
+        )
       except Exception as e:
         logger.warning(f"Error converting vehicles feed to JSON. error={e}")
         time.sleep(SLEEP_TIME)
@@ -172,7 +181,7 @@ def main() -> None:
         continue
 
       try:
-        calculate_delays(current, previous_trip_feed, sh_stop_times, sh_trips, sqlitle_db, conn)
+        calculate_delays(current, previous_trip_feed, sh_stop_times, sh_trips, sqlitle_db, conn, logger)
       except Exception as e:
         logger.warning(f"Error calculating delays from trip feeds. error={e}")
         time.sleep(SLEEP_TIME)
