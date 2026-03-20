@@ -160,7 +160,7 @@ def main() -> None:
         continue
 
       try:
-        stops_ouput: dict = arrival_times_to_json(vh, trips, sh_trips)
+        stops_ouput: dict = arrival_times_to_json(vh, trips, sh_trips, sh_routes)
       except Exception as e:
         logger.warning(f"S=collector F=main M=Error converting arrival times feed to JSON E={e}")
         time.sleep(SLEEP_TIME)

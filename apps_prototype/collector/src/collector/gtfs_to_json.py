@@ -260,6 +260,7 @@ def arrival_times_to_json(
   vehicles_feed: Any,
   trips: Any,
   sh_trips: dict[str, dict[str, Any]],
+  sh_routes: dict[str, dict[str, Any]],
 ) -> dict[str, dict[str, dict[str, Any]]]:
   """Build predicted arrivals grouped by stop and trip from GTFS-RT feeds."""
   output: dict[str, dict[str, dict[str, Any]]] = {}
@@ -281,8 +282,11 @@ def arrival_times_to_json(
       continue
 
     route_short_name: str | None = None
+    route_color: str | None = None
     if trip_id in sh_trips:
       route_short_name = sh_trips[trip_id].get("route_id")
+      if route_short_name in sh_routes:
+        route_color = sh_routes[route_short_name].get("route_color")
 
     trip_update = trip_updates_by_trip_id[trip_id]
     for stop_time_update in trip_update.stop_time_update:
@@ -313,6 +317,7 @@ def arrival_times_to_json(
         "route_short_name": route_short_name,
         "arrival_time_minutes": arrival_time_minutes,
         "platform": platform,
+        "route_color": route_color,
       }
 
   return output

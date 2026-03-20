@@ -21,6 +21,98 @@
       width: 100%;
       height: 100%;
     }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 12px;
+    }
+
+    .vehicle-popup {
+      min-width: 220px;
+      font: 13px/1.35 "Trebuchet MS", "Segoe UI", sans-serif;
+      color: #1f2937;
+    }
+
+    .vehicle-popup .title {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .vehicle-popup .line {
+      margin: 4px 0;
+    }
+
+    .vehicle-popup .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.2px;
+      margin-left: 6px;
+    }
+
+    .vehicle-popup .badge.ok {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .vehicle-popup .badge.warn {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .vehicle-popup .badge.neutral {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .stop-popup {
+      min-width: 240px;
+      font: 13px/1.35 "Trebuchet MS", "Segoe UI", sans-serif;
+      color: #1f2937;
+    }
+
+    .stop-popup .title {
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .stop-popup .empty {
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    .stop-popup .arrival-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 4px 0;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .stop-popup .arrival-row:first-of-type {
+      border-top: 0;
+    }
+
+    .stop-popup .route-chip {
+      background: #dbeafe;
+      color: #1e3a8a;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-weight: 700;
+      font-size: 11px;
+      min-width: 26px;
+      text-align: center;
+    }
+
+    .stop-popup .arrival-meta {
+      color: #111827;
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
@@ -37,7 +129,7 @@
     const map = L.map("map").setView([41.3851, 2.1734], 12);
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 13,
+      maxZoom: 18,
       attribution: "&copy; OpenStreetMap contributors"
     }).addTo(map);
 
@@ -64,15 +156,62 @@
       statusEl.style.display = "none";
     }
 
-    function vehiclePopupHtml(vehicle) {
-      const lines = [];
-      for (const [key, value] of Object.entries(vehicle)) {
-        if (key === "position") {
-          continue;
-        }
-        lines.push(`<strong>${key}</strong>: ${value}`);
+    function occupancyLabel(rawValue) {
+      const value = String(rawValue || "").trim().toUpperCase();
+      if (!value || value === "NO_DATA_AVAILABLE") {
+        return "Occupancy unknown";
       }
-      return lines.join("<br>");
+      if (value.includes("EMPTY")) {
+        return "Almost empty";
+      }
+      if (value.includes("MANY_SEATS_AVAILABLE")) {
+        return "Many seats available";
+      }
+      if (value.includes("FEW_SEATS_AVAILABLE")) {
+        return "Few seats available";
+      }
+      if (value.includes("STANDING_ROOM_ONLY")) {
+        return "Standing room only";
+      }
+      if (value.includes("CRUSHED_STANDING_ROOM_ONLY")) {
+        return "Very crowded";
+      }
+      if (value.includes("FULL")) {
+        return "Full";
+      }
+      if (value.includes("NOT_ACCEPTING_PASSENGERS")) {
+        return "Not accepting passengers";
+      }
+      return "Occupancy unknown";
+    }
+
+    function scheduleBadgeHtml(scheduleState) {
+      const value = String(scheduleState || "").toLowerCase();
+      if (value === "late") {
+        return '<span class="badge warn">Late</span>';
+      }
+      if (value === "on time") {
+        return '<span class="badge ok">On time</span>';
+      }
+      return '<span class="badge neutral">Unknown</span>';
+    }
+
+    function vehiclePopupHtml(vehicle) {
+      const route = vehicle.route_short_name || "Unknown route";
+      const nextStop = vehicle.next_stop || "Unknown stop";
+      const origin = vehicle.origin || "Unknown";
+      const destination = vehicle.destination || "Unknown";
+      const occupancy = occupancyLabel(vehicle.occupancy_status);
+      const scheduleBadge = scheduleBadgeHtml(vehicle.schedule_state);
+
+      return `
+        <div class="vehicle-popup">
+          <div class="title">Route ${route} ${scheduleBadge}</div>
+          <div class="line">Next stop: <strong>${nextStop}</strong></div>
+          <div class="line">Trip: ${origin} -> ${destination}</div>
+          <div class="line">Occupancy: ${occupancy}</div>
+        </div>
+      `;
     }
 
     function markerColorFromRoute(vehicle) {
@@ -84,6 +223,25 @@
         return rawColor;
       }
       return "#ff3b30";
+    }
+
+    function normalizeRouteColor(rawValue) {
+      const rawColor = String(rawValue || "").trim();
+      if (/^[0-9a-fA-F]{6}$/.test(rawColor)) {
+        return `#${rawColor}`;
+      }
+      if (/^#[0-9a-fA-F]{6}$/.test(rawColor)) {
+        return rawColor;
+      }
+      return null;
+    }
+
+    function routeChipStyle(routeColor) {
+      const color = normalizeRouteColor(routeColor);
+      if (!color) {
+        return "";
+      }
+      return `style="background:${color};color:#ffffff;"`;
     }
 
     function fitMapToStaticLayers() {
@@ -119,7 +277,6 @@
     }
 
     function stopPopupHtml(stopName, arrivalsByTrip) {
-      const lines = [`<strong>${stopName}</strong>`];
       const arrivals = Object.values(arrivalsByTrip || {});
 
       arrivals.sort((left, right) => {
@@ -132,18 +289,34 @@
       });
 
       if (arrivals.length === 0) {
-        lines.push("No upcoming arrivals");
-        return lines.join("<br>");
+        return `
+          <div class="stop-popup">
+            <div class="title">${stopName}</div>
+            <div class="empty">No upcoming arrivals</div>
+          </div>
+        `;
       }
 
+      const rows = [];
       for (const arrival of arrivals) {
         const routeShortName = arrival.route_short_name || "-";
         const minutes = arrival.arrival_time_minutes;
         const platform = arrival.platform || "-";
-        lines.push(`${routeShortName} ${minutes} (min) platform ${platform}`);
+        const chipStyle = routeChipStyle(arrival.route_color);
+        rows.push(`
+          <div class="arrival-row">
+            <span class="route-chip" ${chipStyle}>${routeShortName}</span>
+            <span class="arrival-meta">${minutes} (min) platform ${platform}</span>
+          </div>
+        `);
       }
 
-      return lines.join("<br>");
+      return `
+        <div class="stop-popup">
+          <div class="title">${stopName}</div>
+          ${rows.join("")}
+        </div>
+      `;
     }
 
     function updateStopsArrivalPopups(arrivalTimesData) {
@@ -191,7 +364,7 @@
           weight: 2
         })
           .addTo(vehiclesLayer)
-          .bindPopup(vehiclePopupHtml(vehicle));
+          .bindPopup(vehiclePopupHtml(vehicle), { className: "vehicle-popup-shell" });
       }
     }
 
