@@ -1207,6 +1207,13 @@ After doing some experimenting with the logs, I realized that sometimes a trips 
 
 Change it so it takes into account same stop but different platform
 
+Things left to do:
+
+1º) Quick look at the db to see if there are weird things (duplicates, missing...)
+2º) API and final frontend
+
+Everything seems fine in the database, no trips with repeated stops, barely any trips skip stops (and many of the ones that does is because scheduled data itself is wrong and skips stop_sequences). No null values. Proceed with API and final frontend
+
 
 # Concepts I've been learning with this project 
 

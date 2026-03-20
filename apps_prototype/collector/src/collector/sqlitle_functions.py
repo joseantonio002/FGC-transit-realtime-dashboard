@@ -32,7 +32,8 @@ def create_historic_table(cursor: sqlite3.Cursor, connection: sqlite3.Connection
       arrival_real INTEGER NOT NULL,
       arrival_delay_total_seconds INTEGER NOT NULL,
       arrival_delay_formatted TEXT NOT NULL,
-      execution_datetime TEXT NOT NULL
+      execution_datetime TEXT NOT NULL,
+      PRIMARY KEY (trip_id, stop_id, stop_sequence)
     )
   """)
 

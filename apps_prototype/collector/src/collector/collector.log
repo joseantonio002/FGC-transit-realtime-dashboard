@@ -1,0 +1,12 @@
+2026-03-20 17:16:17,893 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-20 17:18:01,932 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-20 17:18:07,276 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-20 17:18:07,895 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-20 17:19:52,825 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-20 17:19:58,079 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-20 17:20:03,594 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-20 17:20:11,779 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-20 17:20:17,176 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-20 17:20:22,663 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-20 17:20:22,937 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-20 17:20:22,941 WARNING S=collector F=main M=Error calculating delays from trip feeds E='feed_start_date'
