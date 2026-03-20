@@ -31,6 +31,7 @@ def _store_stop_delay(
     return
   elif stop_id not in scheduled_trip:
     logger.warning(f"S=calculate_delays F=_store_stop_delay M={stop_id} is not in scheduled stops for trip {trip_id}")
+    logger.info(f"S=calculate_delays F=_store_stop_delay M=Scheduled stops for trip {trip_id} are: {list(scheduled_trip.keys())}")
     return
 
   scheduled_stop: dict[str, str] = scheduled_trip[stop_id]

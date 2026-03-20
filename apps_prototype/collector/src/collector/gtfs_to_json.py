@@ -122,6 +122,7 @@ def _get_schedule_state(
     if stop_id not in sh_stop_times[trip_id]:
       if logger is not None:
         logger.warning(f"S=gtfs_to_json F=_get_schedule_state M={stop_id} is not in scheduled stops for trip {trip_id}")
+        logger.info(f"S=gtfs_to_json F=_get_schedule_state M=Scheduled stops for trip {trip_id} are: {list(sh_stop_times[trip_id].keys())}")
       return "unknown"
 
     scheduled_arrival_raw: str = sh_stop_times[trip_id][stop_id].get("arrival_time", "")
