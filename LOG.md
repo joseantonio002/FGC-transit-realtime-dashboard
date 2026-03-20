@@ -1197,6 +1197,15 @@ Logic is done, the only thing left to do in the code is how to handle errors and
 3º) Delete old db data
 4º) API and final frontend
 
+# 20/03/2026
+
+After doing some experimenting with the logs, I realized that sometimes a trips changes platform, and because of that my logic does not detect the stop:
+```
+2026-03-20 14:38:06,518 WARNING S=gtfs_to_json F=_get_schedule_state M=ME2 is not in scheduled stops for trip 625cdae202743c|632dc7e704
+2026-03-20 14:38:06,518 INFO S=gtfs_to_json F=_get_schedule_state M=Scheduled stops for trip 625cdae202743c|632dc7e704 are: ['ME1', 'MC2', 'MV2', 'PL2', 'SA2', 'PA2', 'QC4', 'CR2', 'VH2', 'CL2', 'CG2', 'ML2', 'BO2', 'CO2', 'AL2', 'LH2', 'SP2', 'GO2', 'EU2', 'IC2', 'MG2', 'PE4']
+```
+
+Change it so it takes into account same stop but different platform
 
 
 # Concepts I've been learning with this project 

@@ -31,6 +31,18 @@ def _get_stop_name(stop_id: str, sh_stops: dict[str, Any]) -> str:
       return stop['stop_name']
   return "Unknown Stop"
 
+def _get_stop_info_from_scheduled_trip(scheduled_trip, stop_id, logger, trip_id):
+  if stop_id not in scheduled_trip:
+    for stop in list(scheduled_trip.keys()):
+      if re.sub(r'\d+$', '', stop_id) == re.sub(r'\d+$', '', stop):
+        return scheduled_trip[stop]
+    logger.warning(f"F=_get_stop_info_from_scheduled_trip M={stop_id} is not in scheduled stops for trip {trip_id}")
+    logger.info(f"S=F=_get_stop_info_from_scheduled_trip M=Scheduled stops for trip {trip_id} are: {list(scheduled_trip.keys())}")
+    return None
+  else:
+    return scheduled_trip[stop_id]
+  
+
 
 def _parse_hhmmss_to_seconds(value: str) -> int | None:
   """Convert a HH:MM:SS GTFS scheduled time into absolute seconds."""
@@ -119,13 +131,12 @@ def _get_schedule_state(
     current_stop_update: Any = trip_update.stop_time_update[0]
     stop_id: str = str(current_stop_update.stop_id)
 
-    if stop_id not in sh_stop_times[trip_id]:
-      if logger is not None:
-        logger.warning(f"S=gtfs_to_json F=_get_schedule_state M={stop_id} is not in scheduled stops for trip {trip_id}")
-        logger.info(f"S=gtfs_to_json F=_get_schedule_state M=Scheduled stops for trip {trip_id} are: {list(sh_stop_times[trip_id].keys())}")
+    stop_info = _get_stop_info_from_scheduled_trip(sh_stop_times[trip_id], stop_id, logger, trip_id)
+
+    if stop_info is None:
       return "unknown"
 
-    scheduled_arrival_raw: str = sh_stop_times[trip_id][stop_id].get("arrival_time", "")
+    scheduled_arrival_raw: str = stop_info.get("arrival_time", "")
     realtime_arrival_epoch: int = int(current_stop_update.arrival.time)
     start_date_raw: str = str(trip_update.trip.start_date or "")
     if start_date_raw == "":

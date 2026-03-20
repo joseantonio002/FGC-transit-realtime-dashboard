@@ -1,9 +1,10 @@
 from __future__ import annotations
 from typing import Any
-from gtfs_to_json import _calculate_delay_seconds, _convert_hhmmss_to_epoch, SERVICE_START_DATE_FIELD
+from gtfs_to_json import _calculate_delay_seconds, _convert_hhmmss_to_epoch, SERVICE_START_DATE_FIELD, _get_stop_info_from_scheduled_trip
 from sqlitle_functions import insert_historic_delay_row
 from datetime import datetime
 import logging
+import re
 
 def _format_delay(delay_seconds: int) -> str:
   """Format delay seconds into signed minutes and seconds string."""
@@ -29,12 +30,10 @@ def _store_stop_delay(
   if scheduled_trip is None :
     logger.warning(f"S=calculate_delays F=_store_stop_delay M={trip_id} is not in scheduled trips")
     return
-  elif stop_id not in scheduled_trip:
-    logger.warning(f"S=calculate_delays F=_store_stop_delay M={stop_id} is not in scheduled stops for trip {trip_id}")
-    logger.info(f"S=calculate_delays F=_store_stop_delay M=Scheduled stops for trip {trip_id} are: {list(scheduled_trip.keys())}")
+  
+  scheduled_stop: dict[str, str] = _get_stop_info_from_scheduled_trip(scheduled_trip, stop_id, logger, trip_id)
+  if scheduled_stop is None:
     return
-
-  scheduled_stop: dict[str, str] = scheduled_trip[stop_id]
   stop_sequence: str = scheduled_stop.get("stop_sequence", "") or "unknown"
   scheduled_arrival_time: str = scheduled_stop.get("arrival_time", "") or "unknown"
 
@@ -52,6 +51,9 @@ def _store_stop_delay(
   arrival_planned = _convert_hhmmss_to_epoch(scheduled_arrival_time, feed_start_service_date, arrival_time_epoch)
 
   execution_datetime = datetime.now()
+
+  # Store the stop_id withouth the platform code
+  stop_id = re.sub(r'\d+$', '', stop_id)
 
   row = {
     "trip_id": trip_id,
