@@ -74,7 +74,7 @@
       color: #0f172a;
     }
 
-    .selector-button {
+    .selector-control {
       width: 100%;
       max-width: 240px;
       padding: 4px 10px;
@@ -84,7 +84,8 @@
       color: #111827;
       font: 800 22px/1 "Trebuchet MS", "Segoe UI", sans-serif;
       letter-spacing: 0.3px;
-      cursor: default;
+      cursor: pointer;
+      text-align: center;
     }
 
     .stats-card {
@@ -174,7 +175,7 @@
         font-size: 18px;
       }
 
-      .selector-button {
+      .selector-control {
         font-size: 18px;
       }
 
@@ -285,11 +286,15 @@
     <section class="filters-row">
       <article class="filter-card">
         <h2 class="filter-title">Routes showing</h2>
-        <button class="selector-button" type="button">ALL</button>
+        <select id="route-select" class="selector-control" aria-label="Routes showing">
+          <option value="ALL">ALL</option>
+        </select>
       </article>
       <article class="filter-card">
         <h2 class="filter-title">Select stop</h2>
-        <button class="selector-button" type="button">ALL</button>
+        <select id="stop-select" class="selector-control" aria-label="Select stop">
+          <option value="ALL">ALL</option>
+        </select>
       </article>
     </section>
 
@@ -337,6 +342,8 @@
     const arrivalTimesPathCandidates = [`${apiBaseUrl}/arrival_times.json`, `${apiBaseUrl}/arrival_times`];
     const vehiclesRefreshIntervalMs = 30000;
     const statusEl = document.getElementById("status");
+    const routeSelectEl = document.getElementById("route-select");
+    const stopSelectEl = document.getElementById("stop-select");
     const topRoutesListEl = document.getElementById("top-routes-list");
     const topStopsListEl = document.getElementById("top-stops-list");
     const stopsLayer = L.layerGroup().addTo(map);
@@ -344,6 +351,9 @@
     const vehiclesLayer = L.layerGroup().addTo(map);
     const staticBounds = L.latLngBounds([]);
     const stopMarkersById = new Map();
+    const stopCoordinatesById = new Map();
+    let selectedRoute = "ALL";
+    let latestVehiclesData = null;
     let mapHasFittedBounds = false;
 
     function showStatus(message) {
@@ -533,9 +543,55 @@
             marker,
             stopName
           });
+          stopCoordinatesById.set(stopId, [lat, lon]);
         }
 
         staticBounds.extend([lat, lon]);
+      }
+
+      updateStopSelectorOptions();
+    }
+
+    function updateStopSelectorOptions() {
+      const stops = Array.from(stopMarkersById.entries())
+        .map(([stopId, markerInfo]) => ({
+          stopId,
+          stopName: markerInfo.stopName || stopId
+        }))
+        .sort((left, right) => left.stopName.localeCompare(right.stopName));
+
+      const previousValue = stopSelectEl.value || "ALL";
+      stopSelectEl.innerHTML = [
+        '<option value="ALL">ALL</option>',
+        ...stops.map((stop) => `<option value="${stop.stopId}">${stop.stopName}</option>`)
+      ].join("");
+
+      if (previousValue === "ALL" || stopCoordinatesById.has(previousValue)) {
+        stopSelectEl.value = previousValue;
+      } else {
+        stopSelectEl.value = "ALL";
+      }
+    }
+
+    function updateRouteSelectorOptions(vehiclesData) {
+      const routeNames = Array.from(new Set(
+        (vehiclesData.vehicles || [])
+          .map((vehicle) => String(vehicle.route_short_name || "").trim())
+          .filter((routeName) => routeName !== "")
+      )).sort((left, right) => left.localeCompare(right));
+
+      const previousValue = routeSelectEl.value || selectedRoute || "ALL";
+      routeSelectEl.innerHTML = [
+        '<option value="ALL">ALL</option>',
+        ...routeNames.map((routeName) => `<option value="${routeName}">${routeName}</option>`)
+      ].join("");
+
+      if (previousValue === "ALL" || routeNames.includes(previousValue)) {
+        routeSelectEl.value = previousValue;
+        selectedRoute = previousValue;
+      } else {
+        routeSelectEl.value = "ALL";
+        selectedRoute = "ALL";
       }
     }
 
@@ -612,6 +668,11 @@
       vehiclesLayer.clearLayers();
 
       for (const vehicle of vehiclesData.vehicles || []) {
+        const routeName = String(vehicle.route_short_name || "").trim();
+        if (selectedRoute !== "ALL" && routeName !== selectedRoute) {
+          continue;
+        }
+
         const lat = Number(vehicle.latitude);
         const lon = Number(vehicle.longitude);
         const markerColor = markerColorFromRoute(vehicle);
@@ -669,10 +730,43 @@
         fetchFirstOkJson(arrivalTimesPathCandidates)
       ]);
 
+      latestVehiclesData = vehiclesData;
+      updateRouteSelectorOptions(vehiclesData);
       drawVehicles(vehiclesData);
       if (arrivalTimesData && typeof arrivalTimesData === "object") {
         updateStopsArrivalPopups(arrivalTimesData);
       }
+    }
+
+    function setupFilterInteractions() {
+      routeSelectEl.addEventListener("change", () => {
+        selectedRoute = routeSelectEl.value || "ALL";
+        if (latestVehiclesData !== null) {
+          drawVehicles(latestVehiclesData);
+        }
+      });
+
+      stopSelectEl.addEventListener("change", () => {
+        const selectedStopId = stopSelectEl.value || "ALL";
+        if (selectedStopId === "ALL") {
+          if (staticBounds.isValid()) {
+            map.fitBounds(staticBounds, { padding: [20, 20] });
+          }
+          return;
+        }
+
+        if (!stopCoordinatesById.has(selectedStopId)) {
+          return;
+        }
+
+        const coordinates = stopCoordinatesById.get(selectedStopId);
+        map.setView(coordinates, 14);
+
+        const markerInfo = stopMarkersById.get(selectedStopId);
+        if (markerInfo) {
+          markerInfo.marker.openPopup();
+        }
+      });
     }
 
     async function loadTopDelayPanels() {
@@ -686,6 +780,7 @@
     }
 
     async function initializeMap() {
+      setupFilterInteractions();
       try {
         await loadStaticLayers();
         await refreshRealtimeLayers();
