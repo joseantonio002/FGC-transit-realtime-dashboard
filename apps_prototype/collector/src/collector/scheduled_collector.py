@@ -5,7 +5,7 @@ from load_gtfs_scheduled import stops_to_json, shapes_to_json
 
 URL: str = "https://fgc.opendatasoft.com/api/explore/v2.1/catalog/datasets/gtfs_zip/records"
 SAVE_PATH_TXT: str = "../GTFS-Scheduled-data"
-SAVE_PATH_JSON: str = "../../../outputs"
+SAVE_PATH_VOLUME: str = "../../../outputs"
 
 def scheduled_collector() -> None:
   """Fetch scheduled GTFS files, save them to .txt and stops and shapes to json"""
@@ -19,12 +19,12 @@ def scheduled_collector() -> None:
       file_response.raise_for_status()
       if item["file"]["filename"] == "stops.txt":
         stops_json: dict[str, list[dict[str, Any]]] = stops_to_json(file_response.text)
-        path: str = SAVE_PATH_JSON + "/stops.json"
+        path: str = SAVE_PATH_VOLUME + "/stops.json"
         with open(path, "w", encoding="utf-8") as output_file:
           json.dump(stops_json, output_file, ensure_ascii=False, indent=2)
       if item["file"]["filename"] == "shapes.txt":
         shapes_json: dict[str, list[dict[str, Any]]] = shapes_to_json(file_response.text)
-        path: str = SAVE_PATH_JSON + "/shapes.json"
+        path: str = SAVE_PATH_VOLUME + "/shapes.json"
         with open(path, "w", encoding="utf-8") as output_file:
           json.dump(shapes_json, output_file, ensure_ascii=False, indent=2)
       path: str = SAVE_PATH_TXT + "/" + item["file"]["filename"]

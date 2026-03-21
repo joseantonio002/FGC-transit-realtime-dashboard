@@ -1231,6 +1231,8 @@ To make the API work:
 2º) Create endpoint
 
 
+
+
 # Concepts I've been learning with this project 
 
 - cosas de backend, API's, seguridad API's
@@ -1244,6 +1246,8 @@ To make the API work:
 - Monorepo, microservices architectures, microservices desing patterns
 - Logs, standard format, python log library. Log file for each day
 - In opencode, before doing a big change in wich I do not have expertise in (frontend) first enter plan mode and after making sure everything is clear then execute
+- In opencode, if you /undo it will delete the changes made by the prompt undone. Only way to recover is if right after /undo you do /redo
+- Be carefull with image naming when developing, dont mix images names with container names, if a container does not work, make sure it was made using the latest image version
 
 # Possible improvements
 

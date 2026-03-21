@@ -1,7 +1,7 @@
 import time
 import requests
 from load_gtfs_scheduled import load_routes_by_id, load_stop_times_by_trip, load_trips_by_id
-from scheduled_collector import scheduled_collector, SAVE_PATH_JSON
+from scheduled_collector import scheduled_collector, SAVE_PATH_VOLUME
 from get_current_snapshot import obtain_last_snapshots
 from gtfs_to_json import vehicles_to_json, arrival_times_to_json, trips_feed_to_dict
 from calculate_delays import calculate_delays
@@ -25,9 +25,8 @@ SLEEP_TIME: int = 90
 
 COUNT_LOAD_GTFS_SCHEDULED_AGAIN: int = 200
 
-DATABASE_PATH = "datos.db"
+DATABASE_PATH = SAVE_PATH_VOLUME + "/database.db"
 LOG_PATH: Path = Path(__file__).resolve().parent / "collector.log"
-
 
 def _build_logger() -> logging.Logger:
   """Create and configure the collector rotating file logger."""
@@ -80,7 +79,7 @@ def main() -> None:
   
   scheduled_collector()
   gtfs_scheduled_load_again: int = 0
-  with open(SAVE_PATH_JSON + '/stops.json', 'r') as stops:
+  with open(SAVE_PATH_VOLUME + '/stops.json', 'r') as stops:
     sh_stops = json.load(stops)
   sh_trips = load_trips_by_id()
   sh_routes = load_routes_by_id()
@@ -167,10 +166,10 @@ def main() -> None:
         continue
 
       try:
-        path: str = SAVE_PATH_JSON + "/vehicles.json"
+        path: str = SAVE_PATH_VOLUME + "/vehicles.json"
         with open(path, "w", encoding="utf-8") as output_file:
           json.dump(vehicles_output, output_file, ensure_ascii=False, indent=2)
-        path = SAVE_PATH_JSON + '/arrival_times.json'
+        path = SAVE_PATH_VOLUME + '/arrival_times.json'
         with open(path, "w", encoding="utf-8") as output_file:
           json.dump(stops_ouput, output_file, ensure_ascii=False, indent=2)
       except Exception as e:
@@ -198,7 +197,7 @@ def main() -> None:
         if gtfs_scheduled_load_again >= COUNT_LOAD_GTFS_SCHEDULED_AGAIN:
           gtfs_scheduled_load_again = 0
           scheduled_collector()
-          with open(SAVE_PATH_JSON + '/stops.json', 'r') as stops:
+          with open(SAVE_PATH_VOLUME + '/stops.json', 'r') as stops:
             sh_stops = json.load(stops)
           sh_trips = load_trips_by_id()
           sh_routes = load_routes_by_id()
