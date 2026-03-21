@@ -1214,6 +1214,22 @@ Things left to do:
 
 Everything seems fine in the database, no trips with repeated stops, barely any trips skip stops (and many of the ones that does is because scheduled data itself is wrong and skips stop_sequences). No null values. Proceed with API and final frontend
 
+What historic data I wanted to show?
+
+Top 5:
+
+route_id average_delay
+
+stop_id average_delay
+
+
+# 21/03/2026
+
+To make the API work:
+
+1º) Move database from local to volume
+2º) Create endpoint
+
 
 # Concepts I've been learning with this project 
 
@@ -1227,6 +1243,7 @@ Everything seems fine in the database, no trips with repeated stops, barely any 
 - Developing with docker
 - Monorepo, microservices architectures, microservices desing patterns
 - Logs, standard format, python log library. Log file for each day
+- In opencode, before doing a big change in wich I do not have expertise in (frontend) first enter plan mode and after making sure everything is clear then execute
 
 # Possible improvements
 

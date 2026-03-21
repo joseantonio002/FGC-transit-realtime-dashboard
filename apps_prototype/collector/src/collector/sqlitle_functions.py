@@ -18,10 +18,6 @@ HISTORIC_DELAY_COLUMNS: tuple[str, ...] = (
 def create_historic_table(cursor: sqlite3.Cursor, connection: sqlite3.Connection) -> None:
   """Create historic_delays table if it does not exist."""
 
-  #cursor.execute("""
-  #   DROP TABLE IF EXISTS historic_delays            
-  #""")
-
   cursor.execute("""
     CREATE TABLE IF NOT EXISTS historic_delays (
       trip_id TEXT NOT NULL,
