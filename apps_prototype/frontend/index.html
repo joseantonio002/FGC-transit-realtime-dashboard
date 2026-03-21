@@ -12,14 +12,175 @@
   />
 
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     html, body {
-      height: 100%;
+      min-height: 100%;
       margin: 0;
+      background: #f3f4f6;
+      color: #1f2937;
+      font: 14px/1.4 "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 18px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .map-card,
+    .filter-card,
+    .stats-card {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+    }
+
+    .map-card {
+      width: 100%;
+      padding: 8px;
     }
 
     #map {
       width: 100%;
-      height: 100%;
+      height: 450px;
+      border-radius: 10px;
+    }
+
+    .filters-row,
+    .stats-row {
+      width: 100%;
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .filter-card {
+      padding: 12px;
+      text-align: center;
+    }
+
+    .filter-title {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1;
+      color: #0f172a;
+    }
+
+    .selector-button {
+      width: 100%;
+      max-width: 240px;
+      padding: 4px 10px;
+      border: 1px solid #9ca3af;
+      border-radius: 8px;
+      background: #f9fafb;
+      color: #111827;
+      font: 800 22px/1 "Trebuchet MS", "Segoe UI", sans-serif;
+      letter-spacing: 0.3px;
+      cursor: default;
+    }
+
+    .stats-card {
+      width: 100%;
+      padding: 12px;
+    }
+
+    .stats-title {
+      margin: 0 0 10px;
+      text-align: center;
+      color: #0f172a;
+      font-size: 34px;
+      line-height: 1.05;
+    }
+
+    .stats-table {
+      border: 1px solid #9ca3af;
+      border-radius: 10px;
+      min-height: 210px;
+      overflow: hidden;
+    }
+
+    .stats-head,
+    .stats-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+    }
+
+    .stats-head {
+      background: #f3f4f6;
+      border-bottom: 1px solid #d1d5db;
+      font-weight: 700;
+      color: #111827;
+      text-transform: lowercase;
+    }
+
+    .stats-item {
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .stats-item:first-child {
+      border-top: 0;
+    }
+
+    .stats-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #111827;
+    }
+
+    .route-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #9ca3af;
+      border: 1px solid rgba(17, 24, 39, 0.25);
+      flex-shrink: 0;
+    }
+
+    .stats-delay {
+      color: #111827;
+      font-weight: 700;
+    }
+
+    .stats-empty {
+      color: #6b7280;
+      text-align: center;
+      padding: 14px;
+      font-style: italic;
+    }
+
+    @media (max-width: 900px) {
+      .filters-row,
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+
+      #map {
+        height: 395px;
+      }
+
+      .filter-title {
+        font-size: 18px;
+      }
+
+      .selector-button {
+        font-size: 18px;
+      }
+
+      .stats-title {
+        font-size: 26px;
+      }
     }
 
     .leaflet-popup-content-wrapper {
@@ -116,7 +277,41 @@
   </style>
 </head>
 <body>
-  <div id="map"></div>
+  <div class="app-shell">
+    <section class="map-card">
+      <div id="map"></div>
+    </section>
+
+    <section class="filters-row">
+      <article class="filter-card">
+        <h2 class="filter-title">Routes showing</h2>
+        <button class="selector-button" type="button">ALL</button>
+      </article>
+      <article class="filter-card">
+        <h2 class="filter-title">Select stop</h2>
+        <button class="selector-button" type="button">ALL</button>
+      </article>
+    </section>
+
+    <section class="stats-row">
+      <article class="stats-card">
+        <h2 class="stats-title">Most delayed routes</h2>
+        <div class="stats-table">
+          <div class="stats-head"><span>route id</span><span>avg delay</span></div>
+          <div id="top-routes-list" class="stats-body"></div>
+        </div>
+      </article>
+
+      <article class="stats-card">
+        <h2 class="stats-title">Stops with most delays</h2>
+        <div class="stats-table">
+          <div class="stats-head"><span>stop id</span><span>avg delay</span></div>
+          <div id="top-stops-list" class="stats-body"></div>
+        </div>
+      </article>
+    </section>
+  </div>
+
   <div id="status" style="position:fixed;top:10px;left:10px;z-index:1000;background:#fff;padding:8px 10px;border:1px solid #ccc;border-radius:6px;font:12px/1.4 sans-serif;display:none;"></div>
 
   <script
@@ -136,10 +331,14 @@
     const apiBaseUrl = "http://localhost:8000";
     const stopsPath = `${apiBaseUrl}/stops`;
     const shapesPath = `${apiBaseUrl}/shapes`;
+    const topRoutesPathCandidates = [`${apiBaseUrl}/top_routes.json`, `${apiBaseUrl}/top_routes`];
+    const topStopsPathCandidates = [`${apiBaseUrl}/top_stops.json`, `${apiBaseUrl}/top_stops`];
     const vehiclesPathCandidates = [`${apiBaseUrl}/vehicles.json`, `${apiBaseUrl}/vehicles`];
     const arrivalTimesPathCandidates = [`${apiBaseUrl}/arrival_times.json`, `${apiBaseUrl}/arrival_times`];
     const vehiclesRefreshIntervalMs = 30000;
     const statusEl = document.getElementById("status");
+    const topRoutesListEl = document.getElementById("top-routes-list");
+    const topStopsListEl = document.getElementById("top-stops-list");
     const stopsLayer = L.layerGroup().addTo(map);
     const shapesLayer = L.layerGroup().addTo(map);
     const vehiclesLayer = L.layerGroup().addTo(map);
@@ -242,6 +441,70 @@
         return "";
       }
       return `style="background:${color};color:#ffffff;"`;
+    }
+
+    function routeDotStyle(routeColor) {
+      const color = normalizeRouteColor(routeColor);
+      if (!color) {
+        return "";
+      }
+      return `style="background:${color};"`;
+    }
+
+    function formatDelay(delayValue) {
+      const totalSeconds = Number(delayValue);
+      if (Number.isNaN(totalSeconds)) {
+        return "-";
+      }
+
+      const sign = totalSeconds < 0 ? "-" : "";
+      const absolute = Math.abs(Math.round(totalSeconds));
+      const minutes = Math.floor(absolute / 60);
+      const seconds = String(absolute % 60).padStart(2, "0");
+      return `${sign}${minutes}:${seconds}`;
+    }
+
+    function renderTopRoutes(topRoutesData) {
+      const routes = Object.values(topRoutesData || {});
+      if (routes.length === 0) {
+        topRoutesListEl.innerHTML = '<div class="stats-empty">No delay data available</div>';
+        return;
+      }
+
+      topRoutesListEl.innerHTML = routes
+        .map((route) => {
+          const name = route.route_name || "Unknown route";
+          const delay = formatDelay(route.delay);
+          const dotStyle = routeDotStyle(route.route_color);
+          return `
+            <div class="stats-item">
+              <span class="stats-name"><span class="route-dot" ${dotStyle}></span>${name}</span>
+              <span class="stats-delay">${delay}</span>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    function renderTopStops(topStopsData) {
+      const stops = Object.values(topStopsData || {});
+      if (stops.length === 0) {
+        topStopsListEl.innerHTML = '<div class="stats-empty">No delay data available</div>';
+        return;
+      }
+
+      topStopsListEl.innerHTML = stops
+        .map((stop) => {
+          const name = stop.stop_name || "Unknown stop";
+          const delay = formatDelay(stop.delay);
+          return `
+            <div class="stats-item">
+              <span class="stats-name">${name}</span>
+              <span class="stats-delay">${delay}</span>
+            </div>
+          `;
+        })
+        .join("");
     }
 
     function fitMapToStaticLayers() {
@@ -412,10 +675,21 @@
       }
     }
 
+    async function loadTopDelayPanels() {
+      const [topRoutesData, topStopsData] = await Promise.all([
+        fetchFirstOkJson(topRoutesPathCandidates),
+        fetchFirstOkJson(topStopsPathCandidates)
+      ]);
+
+      renderTopRoutes(topRoutesData);
+      renderTopStops(topStopsData);
+    }
+
     async function initializeMap() {
       try {
         await loadStaticLayers();
         await refreshRealtimeLayers();
+        await loadTopDelayPanels();
         hideStatus();
       } catch (error) {
         console.error("Error loading map data", error);
