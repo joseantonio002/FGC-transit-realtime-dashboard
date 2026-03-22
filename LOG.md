@@ -1234,8 +1234,14 @@ To make the API work:
 
 I finished everything, now to the deployment, the steps are:
 
-1º) Create docker compose with all services
-2º) Deploy docker compose in vps
+1º) Make the API safe for production
+2º) Create docker compose for API and collector
+3º) Deploy docker compose in vps and frontend in github pages
+
+I tried hetzner vps, the ID authentication did not work, I tried piensa solutions but apparently is hard to then cancel the service, I tried hostinger but its too expensive. And after some thinking, do I really need to pay for a vps for this simple project when Im not going to have barely any users. 
+
+So instead of buying a vps for this, lets just leave everything production-ready but withouth actually deploying it. Record a video to show it works and for the web page load static data in a loop.
+
 
 
 # Concepts I've been learning with this project 
@@ -1259,3 +1265,4 @@ I finished everything, now to the deployment, the steps are:
 
 - DevOps during development: CI/CD, Testing
 - When only vehicles is updated, add code to update positions even though the do not have trips
+- Make API safe for production (SSL certificate, rate limiting, CORS...) and deploy in VPS

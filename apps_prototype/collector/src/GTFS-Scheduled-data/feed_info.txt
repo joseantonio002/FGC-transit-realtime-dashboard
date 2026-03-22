@@ -1,2 +1,0 @@
-feed_publisher_name,feed_publisher_url,feed_contact_url,feed_contact_email,feed_lang,default_lang,feed_version,feed_start_date,feed_end_date
-FGC,https://www.fgc.cat,https://www.fgc.cat,njimenez@fgc.cat,es,es,2026-03-16T14:35:56+01:00_not tagged,20230101,20261231

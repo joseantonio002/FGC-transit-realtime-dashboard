@@ -1,0 +1,22 @@
+{
+  "1": {
+    "stop_name": "Barcelona",
+    "delay": 120
+  },
+  "2": {
+    "stop_name": "adsafdsaf",
+    "delay": 100
+  },
+  "3": {
+    "stop_name": "Provenza",
+    "delay": 90
+  },
+  "4": {
+    "stop_name": "Pl. Espanya",
+    "delay": 88
+  },
+  "5": {
+    "stop_name": "Martorell Enll",
+    "delay": 80
+  }
+}
