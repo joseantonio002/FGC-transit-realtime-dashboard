@@ -4,8 +4,8 @@ from typing import Any
 from load_gtfs_scheduled import stops_to_json, shapes_to_json
 
 URL: str = "https://fgc.opendatasoft.com/api/explore/v2.1/catalog/datasets/gtfs_zip/records"
-SAVE_PATH_TXT: str = "../GTFS-Scheduled-data"
-SAVE_PATH_VOLUME: str = "../../../outputs"
+SAVE_PATH_TXT: str = "./GTFS-Scheduled-data"
+SAVE_PATH_VOLUME: str = "./outputs"
 
 def scheduled_collector() -> None:
   """Fetch scheduled GTFS files, save them to .txt and stops and shapes to json"""

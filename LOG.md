@@ -1260,6 +1260,7 @@ So instead of buying a vps for this, lets just leave everything production-ready
 - In opencode, if you /undo it will delete the changes made by the prompt undone. Only way to recover is if right after /undo you do /redo
 - Be carefull with image naming when developing, dont mix images names with container names, if a container does not work, make sure it was made using the latest image version
 - Be very carefull with how you handle errors in the code, have a strategy before coding
+- Log errors using StreamHandler in python to be able to docker compose logs -f collector, to access logs in a file docker compose exec collector sh or mount the file using binds
 
 # Possible improvements
 

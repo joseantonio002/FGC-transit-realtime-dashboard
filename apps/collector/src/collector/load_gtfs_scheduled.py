@@ -5,7 +5,7 @@ from typing import Any
 import io
 
 
-BASE_GTFS_SCHEDULED_PATH: Path = (Path(__file__).resolve().parent / "../GTFS-Scheduled-data").resolve()
+BASE_GTFS_SCHEDULED_PATH: Path = (Path(__file__).resolve().parent / "./GTFS-Scheduled-data").resolve()
 ROUTES_PATH: Path = BASE_GTFS_SCHEDULED_PATH / "routes.txt"
 TRIPS_PATH: Path = BASE_GTFS_SCHEDULED_PATH / "trips.txt"
 STOP_TIMES_PATH: Path = BASE_GTFS_SCHEDULED_PATH / "stop_times.txt"

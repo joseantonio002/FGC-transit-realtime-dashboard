@@ -1,0 +1,20 @@
+
+
+services:
+  collector:
+    image: collector_image:latest
+    container_name: collector
+    volumes:
+      - collector_outputs:/usr/src/collector/outputs
+
+  api:
+    image: gtfs-api:latest
+    container_name: gtfs-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - collector_outputs:/collector_outputs
+
+volumes:
+  collector_outputs:
+    driver: local
