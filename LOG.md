@@ -1230,7 +1230,12 @@ To make the API work:
 1º) Move database from local to volume
 2º) Create endpoint
 
+# 22/03/2026
 
+I finished everything, now to the deployment, the steps are:
+
+1º) Create docker compose with all services
+2º) Deploy docker compose in vps
 
 
 # Concepts I've been learning with this project 

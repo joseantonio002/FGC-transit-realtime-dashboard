@@ -134,9 +134,9 @@ def obtain_last_snapshots(
       trips_feed, trips_timestamp, n_retries = \
                    retry_fetching(
                      s,
-                     vehicle_positions_feed_url,
+                     trip_updates_feed_url,
                      n_retries,
-                     vh_previous_ts,
+                     trips_previous_ts,
                      timeout,
                      retry_delay_seconds,
                      logger,

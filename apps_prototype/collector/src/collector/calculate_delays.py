@@ -113,7 +113,11 @@ def calculate_delays(
   logger: logging.Logger,
 ) -> None:
   """Print delays when stops disappear from trip updates between snapshots."""
-  feed_start_service_date = current_feed[SERVICE_START_DATE_FIELD] 
+  try:
+    feed_start_service_date = current_feed[SERVICE_START_DATE_FIELD] 
+  except KeyError:
+    logger.warning(f"S=calculate_delays F=calculate_delays M={SERVICE_START_DATE_FIELD} is missing in current feed, cannot calculate delays {current_feed}")
+    raise KeyError(f"{SERVICE_START_DATE_FIELD} is missing in current feed")
   for trip_id, current_trip in current_feed.items():
     if trip_id == SERVICE_START_DATE_FIELD:
       continue
