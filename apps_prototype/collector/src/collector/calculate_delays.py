@@ -66,8 +66,11 @@ def _store_stop_delay(
     "arrival_real": arrival_time_epoch,
     "execution_datetime": str(execution_datetime)
   }
-
-  insert_historic_delay_row(cursor, connection, row)
+  try:
+    insert_historic_delay_row(cursor, connection, row)
+  except Exception as e:
+    logger.warning(f"S=calculate_delays F=_store_stop_delay M=Error storing delay details in database for trip {trip_id} stop {stop_id} E={e}")
+  
 
 
 def _is_only_last_stop_remaining(

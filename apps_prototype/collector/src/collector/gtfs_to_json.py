@@ -37,7 +37,7 @@ def _get_stop_info_from_scheduled_trip(scheduled_trip, stop_id, logger, trip_id)
       if re.sub(r'\d+$', '', stop_id) == re.sub(r'\d+$', '', stop):
         return scheduled_trip[stop]
     logger.warning(f"F=_get_stop_info_from_scheduled_trip M={stop_id} is not in scheduled stops for trip {trip_id}")
-    logger.info(f"S=F=_get_stop_info_from_scheduled_trip M=Scheduled stops for trip {trip_id} are: {list(scheduled_trip.keys())}")
+    logger.info(f"F=_get_stop_info_from_scheduled_trip M=Scheduled stops for trip {trip_id} are: {list(scheduled_trip.keys())}")
     return None
   else:
     return scheduled_trip[stop_id]
