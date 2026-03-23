@@ -1,20 +1,32 @@
-
-
 services:
   collector:
     image: collector_image:latest
+    build:
+      context: .
+      dockerfile: apps/collector/Dockerfile
     container_name: collector
     volumes:
       - collector_outputs:/usr/src/collector/outputs
-
   api:
-    image: gtfs-api:latest
+    image: api_image:latest
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
     container_name: gtfs-api
     ports:
       - "8000:8000"
     volumes:
       - collector_outputs:/collector_outputs
-
+  frontend:
+    image: python:3.12-slim
+    container_name: frontend
+    working_dir: /srv
+    command: ["python", "-m", "http.server", "8000", "--bind", "0.0.0.0"]
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./apps/frontend:/srv:ro
+      
 volumes:
   collector_outputs:
     driver: local

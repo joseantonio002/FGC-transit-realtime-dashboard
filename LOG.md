@@ -1263,6 +1263,7 @@ Final thing to do, add a service in the compose for the web server so docker com
 - Be carefull with image naming when developing, dont mix images names with container names, if a container does not work, make sure it was made using the latest image version
 - Be very carefull with how you handle errors in the code, have a strategy before coding
 - Log errors using StreamHandler in python to be able to docker compose logs -f collector, to access logs in a file docker compose exec collector sh or mount the file using binds
+- Docker compose, build to docker compose up --build
 
 # Possible improvements
 

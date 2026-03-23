@@ -1,5 +1,0 @@
-To make it work when it reads local data do this:
-
-python3 -m http.server 8000
-
-In project root
