@@ -1238,17 +1238,14 @@ I finished everything, now to the deployment, the steps are:
 2º) Create docker compose for API and collector
 3º) Deploy docker compose in vps and frontend in github pages
 
-I tried hetzner vps, the ID authentication did not work, I tried piensa solutions but apparently is hard to then cancel the service, I tried hostinger but its too expensive. And after some thinking, do I really need to pay for a vps for this simple project when Im not going to have barely any users. 
+I tried hetzner vps, the ID authentication did not work, I tried piensa solutions but apparently is hard to then cancel the service, I tried hostinger but its too expensive. And after some thinking, do I really need to pay for a vps for this simple project when Im not going to have barely any users. I'd rather wait to see if I need a vps for a future project and then buy it and also deploy this project. Because I've done it with docker is as simple as copying the repo and calling docker compose up --build
 
-So instead of buying a vps for this, lets just leave everything production-ready but withouth actually deploying it. Record a video to show it works and for the web page load static data in a loop.
+So instead of buying a vps for this, lets just leave everything production-ready but withouth actually deploying it. And for the github page what I did was collect 41 snapshots for vehicles and arrival dates and use that isntead of the API, so it mimicks the real behaviour and I can show the page withouth actually having to deploy anything.
 
-# 23/03/2026
-
-Final thing to do, add a service in the compose for the web server so docker compose deploys all the application
 
 # Concepts I've been learning with this project 
 
-- cosas de backend, API's, seguridad API's
+- Backend concepts, API's security (CORS, rate limiting, ssl certificate)
 - GTFS Scheduled and GTFS Realtime format and ingest ways
 - Protobuf
 - HTTP Polling, short polling, long polling
