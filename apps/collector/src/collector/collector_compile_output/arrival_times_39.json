@@ -1,0 +1,2634 @@
+{
+  "SR": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb0a": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 2,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 21,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 31,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 12,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e205": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 4,
+      "platform": "1",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 41,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 2,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 51,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 11,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|622dc2e50a": {
+      "route_short_name": "L12",
+      "arrival_time_minutes": 1,
+      "platform": "4",
+      "route_color": "b2aed3"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e102": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e20b": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 18,
+      "platform": "1",
+      "route_color": "797FBC"
+    }
+  },
+  "TT": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb0a": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 4,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 23,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 33,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 13,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e205": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 2,
+      "platform": "1",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 43,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 53,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 10,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e102": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e20b": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 17,
+      "platform": "1",
+      "route_color": "797FBC"
+    }
+  },
+  "BN": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb0a": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 6,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 25,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 35,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 15,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e205": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 45,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 55,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 8,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e102": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 2,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e20b": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 15,
+      "platform": "1",
+      "route_color": "797FBC"
+    }
+  },
+  "MN": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb0a": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 7,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 26,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 36,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 16,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e205": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 46,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 56,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 7,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e102": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 3,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e20b": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 14,
+      "platform": "1",
+      "route_color": "797FBC"
+    }
+  },
+  "SG": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb0a": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 8,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 27,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 37,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 17,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 47,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 57,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 5,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e102": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 4,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e20b": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 12,
+      "platform": "1",
+      "route_color": "797FBC"
+    }
+  },
+  "GR": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb0a": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 10,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb00": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 29,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 39,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 19,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 49,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 59,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 4,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e102": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 6,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e20b": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 11,
+      "platform": "1",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e20a": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 7,
+      "platform": "4",
+      "route_color": "B2600B"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e205": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 7,
+      "platform": "3",
+      "route_color": "B2600B"
+    }
+  },
+  "PR": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb0a": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 11,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb00": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 31,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 41,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 21,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 51,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 61,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e102": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 8,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e20b": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 8,
+      "platform": "1",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e20a": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 9,
+      "platform": "2",
+      "route_color": "B2600B"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e205": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 4,
+      "platform": "1",
+      "route_color": "B2600B"
+    }
+  },
+  "PC": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb0a": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 15,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb00": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 5,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 34,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 44,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 25,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 54,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 64,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e102": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 11,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6f2dc6e20b": {
+      "route_short_name": "L6",
+      "arrival_time_minutes": 6,
+      "platform": "2",
+      "route_color": "797FBC"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e20a": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 13,
+      "platform": "4",
+      "route_color": "B2600B"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e205": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 2,
+      "platform": "4",
+      "route_color": "B2600B"
+    }
+  },
+  "VP": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb03": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb01": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 18,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 4,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 39,
+      "platform": "1",
+      "route_color": "EF7900"
+    }
+  },
+  "EN": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb03": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb01": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 20,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 2,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 41,
+      "platform": "1",
+      "route_color": "EF7900"
+    }
+  },
+  "NA": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb03": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 3,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb01": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 22,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 43,
+      "platform": "2",
+      "route_color": "EF7900"
+    }
+  },
+  "SQ": {
+    "6c4bdae602747640fd55c10d40|682dc7eb03": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 2,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 23,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 20,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 42,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "CF": {
+    "6c4bdae602747640fd55c10d40|682dc7eb03": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 5,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 26,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 17,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 45,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "PJ": {
+    "6c4bdae602747640fd55c10d40|682dc7eb03": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 6,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 27,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 14,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 46,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "CT": {
+    "6c4bdae602747640fd55c10d40|682dc7eb03": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 9,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 30,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 13,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 49,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "NO": {
+    "6c4bdae602747640fd55c10d40|682dc7eb03": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 11,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 32,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 11,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 51,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "PN": {
+    "6c4bdae602747640fd55c10d40|682dc7eb03": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 13,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 34,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 9,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 53,
+      "platform": "2",
+      "route_color": "88BB0B"
+    }
+  },
+  "HG": {
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb01": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 3,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 19,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 24,
+      "platform": "1",
+      "route_color": "EF7900"
+    }
+  },
+  "MS": {
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb01": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 21,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 22,
+      "platform": "1",
+      "route_color": "EF7900"
+    }
+  },
+  "SC": {
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 4,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 14,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 9,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 24,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 19,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 34,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 28,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "VD": {
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 7,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 17,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 7,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 27,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 17,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 37,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 26,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "LF": {
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 9,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 19,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 4,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 29,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 14,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 39,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 23,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "LP": {
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 12,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 22,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 2,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 32,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 10,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 42,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 19,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "VL": {
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 15,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 25,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 5,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 35,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 9,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 45,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 18,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "PF": {
+    "6c4bdae602747640fd55c10d40|6a2dc7ea02": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 17,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 27,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb06": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 7,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 37,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 7,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 47,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 16,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "RB": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb01": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 5,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 15,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 26,
+      "platform": "1",
+      "route_color": "EF7900"
+    }
+  },
+  "FN": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb01": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 11,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 11,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 32,
+      "platform": "1",
+      "route_color": "EF7900"
+    }
+  },
+  "TR": {
+    "6c4bdae602747640fd55c10d40|6a2dc7eb01": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 15,
+      "platform": "1",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7ea00": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 6,
+      "platform": "2",
+      "route_color": "EF7900"
+    },
+    "6c4bdae602747640fd55c10d40|6a2dc7eb07": {
+      "route_short_name": "S1",
+      "arrival_time_minutes": 36,
+      "platform": "1",
+      "route_color": "EF7900"
+    }
+  },
+  "UN": {
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 3,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 18,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 23,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 37,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "BT": {
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 6,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 16,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 26,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 35,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "SJ": {
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 8,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 13,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 28,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 32,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "VO": {
+    "6c4bdae602747640fd55c10d40|682dc7eb04": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 11,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb01": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 12,
+      "platform": "1",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb0a": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 31,
+      "platform": "2",
+      "route_color": "88BB0B"
+    },
+    "6c4bdae602747640fd55c10d40|682dc7eb07": {
+      "route_short_name": "S2",
+      "arrival_time_minutes": 31,
+      "platform": "1",
+      "route_color": "88BB0B"
+    }
+  },
+  "TB": {
+    "6c4bdae602747640fd55c10d40|6c2dc6e20a": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 2,
+      "platform": "1",
+      "route_color": "B2600B"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e205": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 12,
+      "platform": "1",
+      "route_color": "B2600B"
+    }
+  },
+  "EP": {
+    "6c4bdae602747640fd55c10d40|6c2dc6e20a": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 3,
+      "platform": "2",
+      "route_color": "B2600B"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e205": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 11,
+      "platform": "1",
+      "route_color": "B2600B"
+    }
+  },
+  "PD": {
+    "6c4bdae602747640fd55c10d40|6c2dc6e20a": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 5,
+      "platform": "2",
+      "route_color": "B2600B"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e205": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 10,
+      "platform": "1",
+      "route_color": "B2600B"
+    }
+  },
+  "PM": {
+    "6c4bdae602747640fd55c10d40|6c2dc6e20a": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 6,
+      "platform": "2",
+      "route_color": "B2600B"
+    },
+    "6c4bdae602747640fd55c10d40|6c2dc6e205": {
+      "route_short_name": "L7",
+      "arrival_time_minutes": 8,
+      "platform": "1",
+      "route_color": "B2600B"
+    }
+  },
+  "OL": {
+    "625cdae602743e|602dc0e10b": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 24,
+      "platform": "4",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 21,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 59,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    }
+  },
+  "AE": {
+    "625cdae602743e|602dc0e10b": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 6,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 14,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 66,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    }
+  },
+  "MO": {
+    "625cdae602743e|602dc0e10b": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 10,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 10,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 70,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    }
+  },
+  "CB": {
+    "625cdae602743e|602dc0e10b": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 15,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 5,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 75,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    }
+  },
+  "SV": {
+    "625cdae602743e|602dc0e10b": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 20,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 80,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    }
+  },
+  "VI": {
+    "625cdae602743e|602dc0e10b": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 28,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 88,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    }
+  },
+  "MA": {
+    "625cdae602743e|602dc0e10b": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 30,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 90,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    }
+  },
+  "MB": {
+    "625cdae602743e|602dc0e10b": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 32,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 92,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    }
+  },
+  "GO": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 49,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 67,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 13,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 22,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 13,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 7,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 37,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "SP": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 47,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 65,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 11,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 20,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 15,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 9,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 35,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "LH": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 3,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 45,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 63,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 9,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 18,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 17,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 10,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 33,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "AL": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 5,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 43,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 61,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 7,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e70b": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 16,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 19,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 13,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 31,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "CO": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 7,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 41,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 59,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 5,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e70b": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 14,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 21,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 15,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 29,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "BO": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 10,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 38,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 56,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e70b": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 4,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 11,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 24,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 18,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 26,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "ML": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 12,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 36,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 54,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e70b": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 6,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 9,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 26,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 20,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 24,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "CG": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 14,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 7,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 22,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "CL": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 16,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 33,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 3,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 5,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 20,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "VH": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 19,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 31,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 6,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 50,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 2,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 30,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 17,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "CR": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 21,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 29,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 8,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 48,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 32,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 15,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "QC": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 23,
+      "platform": "3",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 27,
+      "platform": "4",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 1,
+      "platform": "3",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 10,
+      "platform": "3",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 46,
+      "platform": "4",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 34,
+      "platform": "3",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 14,
+      "platform": "4",
+      "route_color": "A78600"
+    }
+  },
+  "PA": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 25,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 25,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 12,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 44,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 37,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 11,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "SA": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 29,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 21,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 5,
+      "platform": "1",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 16,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 40,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 40,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 7,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "PL": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 31,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 19,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 7,
+      "platform": "1",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 18,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 38,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 42,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 6,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "MV": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 34,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 10,
+      "platform": "1",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 2,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "MC": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 37,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 14,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 13,
+      "platform": "1",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 23,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 33,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 47,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "ME": {
+    "625cdae602743e|632dc6e207": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 39,
+      "platform": "1",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 12,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 15,
+      "platform": "1",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 25,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 31,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 49,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    }
+  },
+  "CP": {
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 38,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    }
+  },
+  "BE": {
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 37,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    }
+  },
+  "SE": {
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 6,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 31,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    }
+  },
+  "EU": {
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 51,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 69,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 14,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 24,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 11,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 5,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 39,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "IC": {
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 53,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|782dc6e002": {
+      "route_short_name": "S3",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "4F868E"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 71,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 16,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 25,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 9,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 3,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 41,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "MG": {
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 55,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|782dc6e002": {
+      "route_short_name": "S3",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "4F868E"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 73,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 18,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 27,
+      "platform": "2",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 7,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 43,
+      "platform": "2",
+      "route_color": "A78600"
+    }
+  },
+  "PE": {
+    "625cdae602743e|7e2dc0e002": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 57,
+      "platform": "4",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|782dc6e002": {
+      "route_short_name": "S3",
+      "arrival_time_minutes": 4,
+      "platform": "2",
+      "route_color": "4F868E"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 75,
+      "platform": "3",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e10a": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 21,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|632dc6e102": {
+      "route_short_name": "S8",
+      "arrival_time_minutes": 30,
+      "platform": "4",
+      "route_color": "49C0DE"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 5,
+      "platform": "4",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|622dc6e603": {
+      "route_short_name": "L8",
+      "arrival_time_minutes": 1,
+      "platform": "1",
+      "route_color": "E274AA"
+    },
+    "625cdae602743e|612dc6e002": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 45,
+      "platform": "3",
+      "route_color": "A78600"
+    }
+  },
+  "AB": {
+    "625cdae602743e|612dc6e10b": {
+      "route_short_name": "S4",
+      "arrival_time_minutes": 21,
+      "platform": "1",
+      "route_color": "A78600"
+    },
+    "625cdae602743e|602dc0e002": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 25,
+      "platform": "2",
+      "route_color": "3dbfc3"
+    },
+    "625cdae602743e|602dc0e003": {
+      "route_short_name": "R5",
+      "arrival_time_minutes": 55,
+      "platform": "1",
+      "route_color": "3dbfc3"
+    }
+  },
+  "CA": {
+    "625cdae602743e|7e2dc0e105": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 1,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 58,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    }
+  },
+  "PO": {
+    "625cdae602743e|7e2dc0e105": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 4,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 63,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    }
+  },
+  "VN": {
+    "625cdae602743e|7e2dc0e105": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 9,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 68,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    }
+  },
+  "IG": {
+    "625cdae602743e|7e2dc0e105": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 12,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    },
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 71,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    }
+  },
+  "MQ": {
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 41,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    }
+  },
+  "PI": {
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 47,
+      "platform": "1",
+      "route_color": "b3b3b3"
+    }
+  },
+  "VA": {
+    "625cdae602743e|7e2dc0e10b": {
+      "route_short_name": "R6",
+      "arrival_time_minutes": 54,
+      "platform": "2",
+      "route_color": "b3b3b3"
+    }
+  }
+}

@@ -123,3 +123,281 @@
 2026-03-22 15:16:03,376 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
 2026-03-22 15:16:13,478 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
 2026-03-22 15:16:13,872 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:01:19,436 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:03:24,832 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:04:56,729 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:06:50,309 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:08:21,767 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:09:57,660 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:10:02,944 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:10:08,676 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:10:14,142 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:10:14,510 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:11:50,156 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:11:55,430 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:12:01,432 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:12:06,752 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:12:07,824 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:13:43,414 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:13:48,778 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:13:54,032 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:13:59,320 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:14:04,595 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:14:09,800 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:14:10,346 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:15:45,847 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:15:51,126 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:15:54,131 WARNING S=get_current_snapshot F=retry_fetching M=Error retrying source=vehicles E=HTTPSConnectionPool(host='dadesobertes.fgc.cat', port=443): Read timed out. (read timeout=3)
+2026-03-22 18:15:54,131 WARNING S=get_current_snapshot F=obtain_last_snapshots M=Error retrying vehicles feed E=HTTPSConnectionPool(host='dadesobertes.fgc.cat', port=443): Read timed out. (read timeout=3)
+2026-03-22 18:15:54,131 WARNING S=collector F=main M=Timeout while fetching snapshots E=HTTPSConnectionPool(host='dadesobertes.fgc.cat', port=443): Read timed out. (read timeout=3)
+2026-03-22 18:15:54,131 WARNING S=collector F=backoff M=Exponential backoff activated 1 times in a row, sleeping for 2^1 seconds
+2026-03-22 18:16:01,483 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:16:03,558 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:17:39,165 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:17:44,404 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:17:49,621 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:17:55,793 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:18:01,145 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:18:06,483 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:18:09,487 WARNING S=get_current_snapshot F=retry_fetching M=Error retrying source=vehicles E=HTTPSConnectionPool(host='dadesobertes.fgc.cat', port=443): Read timed out. (read timeout=3)
+2026-03-22 18:18:09,487 WARNING S=get_current_snapshot F=obtain_last_snapshots M=Error retrying vehicles feed E=HTTPSConnectionPool(host='dadesobertes.fgc.cat', port=443): Read timed out. (read timeout=3)
+2026-03-22 18:18:09,487 WARNING S=collector F=main M=Timeout while fetching snapshots E=HTTPSConnectionPool(host='dadesobertes.fgc.cat', port=443): Read timed out. (read timeout=3)
+2026-03-22 18:18:09,487 WARNING S=collector F=backoff M=Exponential backoff activated 1 times in a row, sleeping for 2^1 seconds
+2026-03-22 18:18:16,842 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:18:17,410 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:19:52,869 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:19:58,193 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:03,361 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:08,650 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:13,966 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:19,349 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:25,744 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:30,931 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:36,325 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:41,691 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:20:42,573 WARNING S=get_current_snapshot F=obtain_last_snapshots M=Could not update trips feed because total retry time was done
+2026-03-22 18:20:42,574 INFO S=collector F=main M=Vehicles was updated but trips not, skipping execution
+2026-03-22 18:22:14,028 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:23:49,520 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:23:54,852 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:24:00,064 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:24:05,396 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:24:06,466 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:25:42,063 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:25:47,365 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:25:52,634 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:25:57,863 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:26:05,367 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:26:10,736 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:26:11,481 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:27:46,954 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:27:52,204 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:27:57,513 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:28:02,838 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:28:08,124 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:28:09,207 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:29:44,722 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:29:50,971 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:29:56,159 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:30:01,376 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:30:06,846 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:30:12,075 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:30:17,410 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:30:22,771 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:30:29,618 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:30:34,902 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:30:36,531 WARNING S=get_current_snapshot F=obtain_last_snapshots M=Could not update trips feed because total retry time was done
+2026-03-22 18:30:36,532 INFO S=collector F=main M=Vehicles was updated but trips not, skipping execution
+2026-03-22 18:32:10,134 WARNING S=get_current_snapshot F=obtain_last_snapshots M=Error fetching trips feed E=HTTPSConnectionPool(host='dadesobertes.fgc.cat', port=443): Read timed out. (read timeout=3)
+2026-03-22 18:32:10,134 WARNING S=collector F=main M=Timeout while fetching snapshots E=HTTPSConnectionPool(host='dadesobertes.fgc.cat', port=443): Read timed out. (read timeout=3)
+2026-03-22 18:32:10,134 WARNING S=collector F=backoff M=Exponential backoff activated 1 times in a row, sleeping for 2^1 seconds
+2026-03-22 18:32:14,369 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:33:49,945 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:33:55,253 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:34:00,603 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:34:05,973 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:34:06,572 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:35:41,950 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:35:47,186 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:35:52,464 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:35:57,789 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:36:03,090 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:36:10,605 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:36:11,305 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:37:46,878 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:37:52,166 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:37:57,398 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:38:02,770 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:38:08,033 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:38:08,727 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:39:44,261 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:39:49,514 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:39:54,805 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:40:00,068 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:40:05,405 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:40:10,747 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:40:16,103 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:40:21,480 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:40:22,175 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:41:57,982 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:42:03,180 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:42:05,638 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:43:41,036 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:43:46,388 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:43:51,613 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:43:56,882 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:44:02,149 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:44:07,473 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:44:08,034 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:45:43,609 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:45:48,902 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:45:54,266 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:46:00,883 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:46:06,256 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:46:12,714 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:46:13,487 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:47:48,969 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:47:54,314 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:47:59,621 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:48:04,868 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:48:10,785 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:48:11,164 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:49:46,764 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:49:52,051 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:49:57,357 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:50:02,563 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:50:07,866 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:50:13,131 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:50:18,844 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:50:24,281 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:50:29,636 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:50:30,011 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:52:05,502 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:52:11,504 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:52:11,864 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:53:47,394 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:53:52,703 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:53:58,041 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:54:03,291 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:54:09,872 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 18:54:10,236 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:55:45,768 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:55:51,095 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:55:56,388 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:56:01,715 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:56:06,993 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:56:10,296 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:57:45,720 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:57:51,071 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:57:56,273 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:58:01,541 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:58:06,841 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:58:12,144 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:58:12,778 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 18:59:48,395 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:59:53,608 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 18:59:58,911 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:00:04,164 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:00:09,807 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:00:15,126 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:00:20,405 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:00:25,931 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:00:33,515 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 19:00:39,087 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 19:00:45,005 WARNING S=get_current_snapshot F=obtain_last_snapshots M=Could not update trips feed
+2026-03-22 19:00:45,006 INFO S=collector F=main M=Vehicles was updated but trips not, skipping execution
+2026-03-22 19:02:15,809 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:03:51,281 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:03:56,616 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:04:01,910 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:04:07,203 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:04:07,725 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:05:43,232 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:05:48,560 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:05:53,806 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:05:59,091 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:06:04,378 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:06:09,657 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:06:10,914 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:07:46,385 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:07:51,710 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:07:57,026 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:08:02,356 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:08:07,597 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:08:08,202 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:09:43,783 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:09:49,023 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:09:54,364 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:09:59,607 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:10:04,937 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:10:10,272 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:10:16,522 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:10:19,746 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:11:55,175 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:12:00,744 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:12:06,260 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:12:06,893 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:13:42,416 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:13:47,662 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:13:53,109 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:13:58,396 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:14:03,642 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:14:09,160 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:14:09,700 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:15:47,138 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:15:52,372 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:15:57,590 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:16:02,921 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:16:08,695 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 19:16:09,098 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:17:44,717 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:17:49,998 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:17:55,400 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:18:00,743 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:18:06,091 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:18:11,446 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:18:12,131 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:19:47,717 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:19:53,002 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:19:58,314 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:20:03,571 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:20:08,894 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:20:14,257 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:20:14,933 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:21:51,329 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:21:56,657 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:22:01,840 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:22:07,342 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:22:12,615 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:22:15,650 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:23:51,253 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:23:56,556 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:24:01,800 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:24:07,116 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:24:13,839 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=trips after 5 seconds
+2026-03-22 19:24:14,097 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:25:49,606 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:25:54,828 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:26:00,644 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:26:05,993 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:26:06,721 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:27:42,366 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:27:47,739 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:27:52,969 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:27:58,210 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:28:03,570 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:28:08,929 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:28:09,499 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:29:45,003 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:29:50,281 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:29:55,574 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:30:00,823 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:30:06,302 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:30:11,629 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:30:16,990 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:30:22,220 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:30:27,553 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:30:29,142 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds
+2026-03-22 19:32:04,976 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:32:10,285 INFO S=get_current_snapshot F=retry_fetching M=Retrying source=vehicles after 5 seconds
+2026-03-22 19:32:11,144 INFO S=collector F=main M=Both feeds were updated correctly, processing data and sleeping 90 seconds

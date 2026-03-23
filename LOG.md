@@ -1242,6 +1242,8 @@ I tried hetzner vps, the ID authentication did not work, I tried piensa solution
 
 So instead of buying a vps for this, lets just leave everything production-ready but withouth actually deploying it. Record a video to show it works and for the web page load static data in a loop.
 
+# 23/03/2026
+
 
 
 # Concepts I've been learning with this project 
