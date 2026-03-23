@@ -47,7 +47,7 @@ I also have to check how to get the SSL certificate for free
 
 # 10/02/2026
 
-I will probably choose hetzner and use it for other things like trying openclaw.
+I will probably choose hetzner.
 So know that I know the basics, I'm going to start the develpment in my local environment for now to get this thing going and leave the cloud for later
 
 First thing is to find some data to work with, lets explore...
@@ -1244,7 +1244,7 @@ So instead of buying a vps for this, lets just leave everything production-ready
 
 # 23/03/2026
 
-
+Final thing to do, add a service in the compose for the web server so docker compose deploys all the application
 
 # Concepts I've been learning with this project 
 
