@@ -6,6 +6,9 @@ The system is split into:
 - **collector** (`apps/collector`): polls GTFS-Realtime feeds, writes JSON snapshots + stores delays in SQLite
 - **api** (`apps/api`): serves the latest JSON snapshots + aggregated “top delays” endpoints
 - **frontend** (`apps/frontend`): static UI that calls the API
+
+![img](./image.png)
+
 ## Run locally (Docker Compose)
 Requirements: Docker + Docker Compose.
 From the repo root:
