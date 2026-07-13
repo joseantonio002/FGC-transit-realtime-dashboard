@@ -182,15 +182,11 @@ def vehicles_to_json(
 
   for vehicle_to_process in vehicles_feed.entity:
     trip_id: str = vehicle_to_process.vehicle.trip.trip_id
-    vehicle_id: str = vehicle_to_process.vehicle.vehicle.id
-    vehicle_timestamp: int = int(vehicle_to_process.vehicle.timestamp)
     route_short_name: str | None = None
     route_color: str | None = None
-    shape_id: str | None = None
 
     if trip_id in sh_trips:
       route_short_name = sh_trips[trip_id].get("route_id")
-      shape_id = sh_trips[trip_id].get("shape_id")
       if route_short_name in sh_routes:
         route_color = sh_routes[route_short_name].get("route_color")
 
@@ -201,10 +197,6 @@ def vehicles_to_json(
     destination = _get_stop_name(destination, sh_stops)
 
     vehicle_output: dict[str, Any] = {
-      "trip_id": trip_id,
-      "vehicle_id": vehicle_id,
-      "shape_id": shape_id,
-      "timestamp": vehicle_timestamp,
       "route_short_name": route_short_name,
       "next_stop": next_stop,
       "occupancy_status": _occupancy_status_name(vehicle_to_process.vehicle),

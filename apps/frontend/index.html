@@ -366,17 +366,9 @@
     const staticBounds = L.latLngBounds([]);
     const stopMarkersById = new Map();
     const stopCoordinatesById = new Map();
-    const stopCoordinatesByName = new Map();
-    const shapeTracks = [];
-    const shapeTracksById = new Map();
-    const vehicleMarkersByKey = new Map();
-    const trainAnimationSpeedMetersPerSecond = 14;
-    const trainCorrectionDurationMs = 5000;
-    const maxTrainLeadMeters = 900;
     let selectedRoute = "ALL";
     let latestVehiclesData = null;
     let mapHasFittedBounds = false;
-    let trainAnimationFrameId = null;
 
     function showStatus(message) {
       statusEl.textContent = message;
@@ -519,202 +511,6 @@
       });
     }
 
-    function buildShapeTrack(shape) {
-      const coordinates = shape.coordinates || [];
-      const cumulativeDistances = [0];
-      for (let index = 1; index < coordinates.length; index += 1) {
-        const previous = coordinates[index - 1];
-        const current = coordinates[index];
-        const segmentLength = map.distance(previous, current);
-        cumulativeDistances.push(cumulativeDistances[index - 1] + segmentLength);
-      }
-
-      return {
-        shapeId: String(shape.shape_id || ""),
-        otherIds: shape.other_ids || [],
-        coordinates,
-        cumulativeDistances,
-        totalDistance: cumulativeDistances[cumulativeDistances.length - 1] || 0
-      };
-    }
-
-    function indexShapeTrack(track) {
-      const ids = [track.shapeId, ...track.otherIds].filter((shapeId) => shapeId !== "");
-      for (const shapeId of ids) {
-        shapeTracksById.set(String(shapeId), track);
-      }
-    }
-
-    function metersPoint(lat, lon, referenceLat) {
-      const latMeters = lat * 111320;
-      const lonMeters = lon * 111320 * Math.cos(referenceLat * Math.PI / 180);
-      return { x: lonMeters, y: latMeters };
-    }
-
-    function coordinateAtShapeDistance(track, distanceMeters) {
-      if (!track || track.coordinates.length === 0) {
-        return null;
-      }
-
-      const clampedDistance = Math.max(0, Math.min(distanceMeters, track.totalDistance));
-      for (let index = 1; index < track.coordinates.length; index += 1) {
-        const previousDistance = track.cumulativeDistances[index - 1];
-        const nextDistance = track.cumulativeDistances[index];
-        if (clampedDistance > nextDistance) {
-          continue;
-        }
-
-        const segmentLength = nextDistance - previousDistance;
-        const ratio = segmentLength === 0 ? 0 : (clampedDistance - previousDistance) / segmentLength;
-        const previous = track.coordinates[index - 1];
-        const next = track.coordinates[index];
-        return [
-          previous[0] + ((next[0] - previous[0]) * ratio),
-          previous[1] + ((next[1] - previous[1]) * ratio)
-        ];
-      }
-
-      return track.coordinates[track.coordinates.length - 1];
-    }
-
-    function projectPointToShape(lat, lon, track) {
-      if (!track || track.coordinates.length < 2) {
-        return null;
-      }
-
-      const point = metersPoint(lat, lon, lat);
-      let bestProjection = null;
-      let bestDistanceSquared = Infinity;
-
-      for (let index = 1; index < track.coordinates.length; index += 1) {
-        const previous = track.coordinates[index - 1];
-        const next = track.coordinates[index];
-        const start = metersPoint(previous[0], previous[1], lat);
-        const end = metersPoint(next[0], next[1], lat);
-        const dx = end.x - start.x;
-        const dy = end.y - start.y;
-        const segmentLengthSquared = (dx * dx) + (dy * dy);
-        const ratio = segmentLengthSquared === 0
-          ? 0
-          : Math.max(0, Math.min(1, (((point.x - start.x) * dx) + ((point.y - start.y) * dy)) / segmentLengthSquared));
-        const projectedX = start.x + (dx * ratio);
-        const projectedY = start.y + (dy * ratio);
-        const distanceSquared = ((point.x - projectedX) ** 2) + ((point.y - projectedY) ** 2);
-
-        if (distanceSquared < bestDistanceSquared) {
-          const previousDistance = track.cumulativeDistances[index - 1];
-          const nextDistance = track.cumulativeDistances[index];
-          const distanceAlongShape = previousDistance + ((nextDistance - previousDistance) * ratio);
-          bestDistanceSquared = distanceSquared;
-          bestProjection = {
-            track,
-            distanceAlongShape,
-            distanceFromShape: Math.sqrt(distanceSquared),
-            coordinates: coordinateAtShapeDistance(track, distanceAlongShape)
-          };
-        }
-      }
-
-      return bestProjection;
-    }
-
-    function vehicleShapeProjection(vehicle, lat, lon) {
-      const shapeId = String(vehicle.shape_id || "").trim();
-      const directTrack = shapeId ? shapeTracksById.get(shapeId) : null;
-      if (directTrack) {
-        return projectPointToShape(lat, lon, directTrack);
-      }
-
-      let bestProjection = null;
-      let bestDirectionalProjection = null;
-      for (const track of shapeTracks) {
-        const projection = projectPointToShape(lat, lon, track);
-        if (!projection) {
-          continue;
-        }
-        if (shapeMatchesVehicleDirection(vehicle, track)) {
-          if (!bestDirectionalProjection || projection.distanceFromShape < bestDirectionalProjection.distanceFromShape) {
-            bestDirectionalProjection = projection;
-          }
-        }
-        if (!bestProjection || projection.distanceFromShape < bestProjection.distanceFromShape) {
-          bestProjection = projection;
-        }
-      }
-      return bestDirectionalProjection || bestProjection;
-    }
-
-    function shapeMatchesVehicleDirection(vehicle, track) {
-      const originCoordinates = stopCoordinatesByName.get(String(vehicle.origin || ""));
-      const destinationCoordinates = stopCoordinatesByName.get(String(vehicle.destination || ""));
-      if (!originCoordinates || !destinationCoordinates) {
-        return false;
-      }
-
-      const originProjection = projectPointToShape(originCoordinates[0], originCoordinates[1], track);
-      const destinationProjection = projectPointToShape(destinationCoordinates[0], destinationCoordinates[1], track);
-      if (!originProjection || !destinationProjection) {
-        return false;
-      }
-      return originProjection.distanceAlongShape < destinationProjection.distanceAlongShape;
-    }
-
-    function vehicleMarkerKey(vehicle, index) {
-      const vehicleId = String(vehicle.vehicle_id || "").trim();
-      if (vehicleId) {
-        return `vehicle:${vehicleId}`;
-      }
-
-      const tripId = String(vehicle.trip_id || "").trim();
-      if (tripId) {
-        return `trip:${tripId}`;
-      }
-
-      return [
-        "fallback",
-        vehicle.route_short_name || "",
-        vehicle.origin || "",
-        vehicle.destination || "",
-        index
-      ].join(":");
-    }
-
-    function updateAnimatedTrainPositions(timestampMs) {
-      for (const markerState of vehicleMarkersByKey.values()) {
-        if (!markerState.track) {
-          continue;
-        }
-
-        const elapsedSeconds = markerState.lastAnimationMs
-          ? Math.max(0, (timestampMs - markerState.lastAnimationMs) / 1000)
-          : 0;
-        markerState.lastAnimationMs = timestampMs;
-
-        if (markerState.correctionEndMs && timestampMs < markerState.correctionEndMs) {
-          const correctionRatio = (timestampMs - markerState.correctionStartMs) / (markerState.correctionEndMs - markerState.correctionStartMs);
-          markerState.currentDistance = markerState.correctionStartDistance + ((markerState.targetDistance - markerState.correctionStartDistance) * correctionRatio);
-        } else {
-          markerState.correctionEndMs = null;
-          const nextDistance = markerState.currentDistance + (trainAnimationSpeedMetersPerSecond * elapsedSeconds);
-          const maxDistance = Math.min(markerState.targetDistance + maxTrainLeadMeters, markerState.track.totalDistance);
-          markerState.currentDistance = Math.min(nextDistance, maxDistance);
-        }
-
-        const coordinates = coordinateAtShapeDistance(markerState.track, markerState.currentDistance);
-        if (coordinates) {
-          markerState.marker.setLatLng(coordinates);
-        }
-      }
-
-      trainAnimationFrameId = window.requestAnimationFrame(updateAnimatedTrainPositions);
-    }
-
-    function startTrainAnimationLoop() {
-      if (trainAnimationFrameId === null) {
-        trainAnimationFrameId = window.requestAnimationFrame(updateAnimatedTrainPositions);
-      }
-    }
-
     function formatDelay(delayValue) {
       const totalSeconds = Number(delayValue);
       if (Number.isNaN(totalSeconds)) {
@@ -801,7 +597,6 @@
             stopName
           });
           stopCoordinatesById.set(stopId, [lat, lon]);
-          stopCoordinatesByName.set(stopName, [lat, lon]);
         }
 
         staticBounds.extend([lat, lon]);
@@ -916,10 +711,6 @@
           opacity: 0.7
         }).addTo(shapesLayer);
 
-        const track = buildShapeTrack(shape);
-        shapeTracks.push(track);
-        indexShapeTrack(track);
-
         for (const point of coordinates) {
           staticBounds.extend(point);
         }
@@ -927,10 +718,9 @@
     }
 
     function drawVehicles(vehiclesData) {
-      const visibleVehicleKeys = new Set();
-      const now = performance.now();
+      vehiclesLayer.clearLayers();
 
-      for (const [index, vehicle] of (vehiclesData.vehicles || []).entries()) {
+      for (const vehicle of vehiclesData.vehicles || []) {
         const routeName = String(vehicle.route_short_name || "").trim();
         if (selectedRoute !== "ALL" && routeName !== selectedRoute) {
           continue;
@@ -943,63 +733,13 @@
           continue;
         }
 
-        const vehicleKey = vehicleMarkerKey(vehicle, index);
-        const projection = vehicleShapeProjection(vehicle, lat, lon);
-        const markerCoordinates = projection && projection.coordinates ? projection.coordinates : [lat, lon];
-        visibleVehicleKeys.add(vehicleKey);
-
-        if (!vehicleMarkersByKey.has(vehicleKey)) {
-          const marker = L.marker(markerCoordinates, {
-            icon: trainIcon(markerColor),
-            zIndexOffset: 500
-          })
-            .addTo(vehiclesLayer)
-            .bindPopup(vehiclePopupHtml(vehicle), { className: "vehicle-popup-shell" });
-
-          vehicleMarkersByKey.set(vehicleKey, {
-            marker,
-            track: projection ? projection.track : null,
-            currentDistance: projection ? projection.distanceAlongShape : 0,
-            targetDistance: projection ? projection.distanceAlongShape : 0,
-            correctionStartDistance: projection ? projection.distanceAlongShape : 0,
-            correctionStartMs: now,
-            correctionEndMs: null,
-            lastAnimationMs: now
-          });
-          continue;
-        }
-
-        const markerState = vehicleMarkersByKey.get(vehicleKey);
-        markerState.marker.setIcon(trainIcon(markerColor));
-        markerState.marker.setPopupContent(vehiclePopupHtml(vehicle));
-
-        if (!projection) {
-          markerState.track = null;
-          markerState.marker.setLatLng([lat, lon]);
-          continue;
-        }
-
-        const sameTrack = markerState.track === projection.track;
-        markerState.track = projection.track;
-        markerState.targetDistance = projection.distanceAlongShape;
-        markerState.correctionStartDistance = sameTrack ? markerState.currentDistance : projection.distanceAlongShape;
-        markerState.correctionStartMs = now;
-        markerState.correctionEndMs = sameTrack ? now + trainCorrectionDurationMs : null;
-        if (!sameTrack) {
-          markerState.currentDistance = projection.distanceAlongShape;
-          markerState.marker.setLatLng(markerCoordinates);
-        }
+        L.marker([lat, lon], {
+          icon: trainIcon(markerColor),
+          zIndexOffset: 500
+        })
+          .addTo(vehiclesLayer)
+          .bindPopup(vehiclePopupHtml(vehicle), { className: "vehicle-popup-shell" });
       }
-
-      for (const [vehicleKey, markerState] of vehicleMarkersByKey.entries()) {
-        if (visibleVehicleKeys.has(vehicleKey)) {
-          continue;
-        }
-        vehiclesLayer.removeLayer(markerState.marker);
-        vehicleMarkersByKey.delete(vehicleKey);
-      }
-
-      startTrainAnimationLoop();
     }
 
     async function loadStaticLayers() {
