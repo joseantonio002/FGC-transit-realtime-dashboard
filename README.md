@@ -1,15 +1,29 @@
 # FGC Transit Realtime Dashboard
-A small GTFS-Realtime dashboard for **FGC** (Ferrocarrils de la Generalitat de Catalunya). It shows:
-- a Leaflet map with vehicle markers + stop popups (upcoming arrivals)
-- two panels with the most delayed routes/stops (based on a SQLite history table)
-The system is split into:
-- **collector** (`apps/collector`): polls GTFS-Realtime feeds, writes JSON snapshots + stores delays in SQLite
-- **api** (`apps/api`): serves the latest JSON snapshots + aggregated “top delays” endpoints
-- **frontend** (`apps/frontend`): static UI that calls the API
 
-![img](./image.png)
+Realtime dashboard for **FGC** (Ferrocarrils de la Generalitat de Catalunya)
 
-## Run locally (Docker Compose)
+![img](./fgc.png)
+
+It shows:
+- Map with vehicles and stops
+- The status of the vehicles (occupancy, schedule status, next stop...)
+- Two panels showing the routes and stops with the highest average delay
+
+The project is meant to run a server and follows this architecture
+
+![firstv](./firstv.png)
+
+## [Dashboard](https://joseantonio002.github.io/FGC-transit-realtime-dashboard/)
+
+Since I do not own a server at the moment, a fully static demo (no backend) lives in docs/ and is what gets deployed to GitHub Pages.
+It replays a finite set of pre-recorded snapshots to mimic realtime updates.
+
+To see the project actually running go to [install](#install-and-run-locally)
+
+## [Post explaning the development](https://joseantonio002.github.io/blog/post-6/)
+
+
+## Install and run locally
 Requirements: Docker + Docker Compose.
 From the repo root:
 ```bash
@@ -20,7 +34,5 @@ Then open the dashboard at:
 (For reference, the API is at http://localhost:8000)
 To stop:
 docker compose down
-GitHub Pages demo
-A fully static demo (no backend) lives in docs/ and is what gets deployed to GitHub Pages.
-It replays a finite set of pre-recorded snapshots to mimic realtime updates.
+
 
