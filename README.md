@@ -9,7 +9,7 @@ It shows:
 - The status of the vehicles (occupancy, schedule status, next stop...)
 - Two panels showing the routes and stops with the highest average delay
 
-The project is meant to run a server and follows this architecture
+The project is meant to run in a server and follows this architecture
 
 ![firstv](./firstv.png)
 
