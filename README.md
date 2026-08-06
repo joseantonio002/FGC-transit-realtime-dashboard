@@ -20,8 +20,6 @@ It replays a finite set of pre-recorded snapshots to mimic realtime updates.
 
 To see the project actually running go to [install](#install-and-run-locally)
 
-## [Post explaning the development](https://joseantonio002.github.io/blog/post-6/)
-
 
 ## Install and run locally
 Requirements: Docker + Docker Compose.
